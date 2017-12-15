@@ -1,0 +1,191 @@
+# An album is a collection of songs which belong to an artist and has a name.
+type Album {
+  # A globally unique id referring to this album.
+  id: ID!
+
+  # The http/https url at which a square PNG of the album artwork can be found.
+  # Clients should request artwork with the same authentication as used with the
+  # API server.
+  artworkUrl: String
+
+  # The human readable name of the album.
+  name: String!
+
+  # The artist who released the album. If there are multiple artists on the
+  # album this is usually various artists (a designated id). This is usually the
+  # album artists tag of files.
+  album: Artist!
+
+  # Songs in this album sorted by song index.
+  songs: [Song!]!
+}
+
+# An artist has a name and albums.
+type Artist {
+  # A globally unique id referring to this artist.
+  id: ID!
+
+  # The human readable name of this artist.
+  name: String!
+
+  # Albums this artist has authored. These are the albums that this artist is
+  # the album artist of.
+  albums: [Album!]!
+
+  # The albums which this artist has featured on. These are albums which the
+  # artist isn't an album artist of but albums which the artist is in.
+  featured: [Album!]!
+
+  # Albums with only a single song where this artist is the album artist or an
+  # artist of the song.
+  singles: [Album!]!
+}
+
+# A song is a piece of music written by artists. It is always part of an album.
+# It represents a singe audio file.
+type Song {
+  # A globally unique UUID referring to this song.
+  id: ID!
+
+  # The url at which the song can be streamed from. See
+  # github.com/forte-music/schema for details about this field.
+  streamUrl: String!
+
+  # The track number of this song. This may be one or zero indexed and is
+  # provided by the file's metadata.
+  trackNumber: Int!
+
+  # The disk this track is on. The disk number is assumed to be one if not
+  # provided.
+  diskNumber: Int!
+
+  # The human readable name of this song.
+  name: String!
+
+  # The album this song is a part of. A song can only belong to one album.
+  album: Album!
+
+  # The artists which composed this song.
+  artist: [Artist!]!
+
+  # User stats for a song.
+  stats: SongUserStats!
+}
+
+# Stats for a song tied to a specific user.
+type SongUserStats {
+  # A globally unique UUID referring to a song's stats.
+  id: ID!
+
+  # The number of times this song has been played.
+  playCount: Int!
+
+  # The epoch time (seconds) at which this song was last played.
+  lastPlayed: Int!
+
+  # Whether or not this song is favorited. Favorited songs go into their own
+  # playlist.
+  liked: Boolean!
+}
+
+# A named collection of songs.
+type Playlist {
+  # A globally unique UUID referring to this playlist.
+  id: ID!
+
+  # Human readable name of the playlist. This is chosen by the user when the
+  # playlist is created.
+  name: String!
+
+  # An ordered list of songs in the playlist.
+  songs(first: Int!, after: String): SongConnection!
+}
+
+# The connection and edge types below are used to implement pagination. The
+# pattern is described here: http://graphql.org/learn/pagination/
+
+type SearchResultConnection {
+  albums: AlbumConnection!
+  artists: ArtistConnection!
+  songs: SongConnection!
+}
+
+type AlbumEdge {
+  cursor: String!
+  node: Album!
+}
+
+type AlbumConnection {
+  count: Int!
+  edges: [AlbumEdge!]!
+}
+
+type ArtistEdge {
+  cursor: String!
+  node: Artist!
+}
+
+type ArtistConnection {
+  count: Int!
+  edges: [ArtistEdge!]!
+}
+
+type SongEdge {
+  cursor: String!
+  node: Song!
+}
+
+type SongConnection {
+  count: Int!
+  edges: [SongEdge!]!
+}
+
+enum SortBy {
+  # Sort from most recently added to least recently added.
+  RECENTLY_ADDED,
+
+  # Sort from most recently played to least recently played.
+  RECENTLY_PLAYED,
+
+  # Sort from most played to least played.
+  MOST_PLAYED
+}
+
+type Query {
+  # Get an album by its globally unique id.
+  album(id: ID!): Album!
+
+  # Get paginated, sorted albums.
+  albums(first: Int!, after: String, sortBy: SortBy = RECENTLY_ADDED): AlbumConnection!
+
+  # Search only for albums by name.
+  searchAlbums(text: String, after: String, first: Int!): AlbumConnection!
+
+  # Get an artist by its globally unique id.
+  artist(id: ID!): Artist!
+
+  # Get paginated, sorted artists.
+  artists(first: Int!, after: String, sortBy: SortBy = RECENTLY_ADDED): ArtistConnection!
+
+  # Search only for artists by name.
+  searchArtist(text: String, after: String, first: Int!): ArtistConnection!
+
+  # Get a song by its globally unique id.
+  song(id: ID!): Song!
+
+  # Get paginated, sorted songs.
+  songs(first: Int!, after: String, sortBy: SortBy = RECENTLY_ADDED): SongConnection!
+
+  # Search only for songs by keyword.
+  searchSongs(text: String, after: String, first: Int!): SongConnection!
+
+  # Get a playlist by its globally unique id.
+  playlist(id: ID!): Playlist!
+
+  # Get a sorted list of playlists.
+  playlists(sortBy: SortBy = RECENTLY_ADDED): [Playlist!]!
+}
+
+schema {
+  query: Query
+}
