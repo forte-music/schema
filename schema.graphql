@@ -162,7 +162,7 @@ type Query {
   albums(
     limit: Int = 25,
     sortBy: SortBy = RECENTLY_ADDED,
-    reverse: Bool = false,
+    reverse: Boolean = false,
 
     # Cursor (AlbumEdge.cursor) from which to return elements from. If this
     # isn't specified, starts from the first position.
@@ -186,7 +186,7 @@ type Query {
   artists(
     limit: Int = 25,
     sortBy: SortBy = RECENTLY_ADDED,
-    reverse: Bool = false,
+    reverse: Boolean = false,
 
     # Cursor (ArtistEdge.cursor) from which to return elements from. If this
     # isn't specified, starts from the first position.
@@ -210,7 +210,7 @@ type Query {
   songs(
     limit: Int!,
     sortBy: SortBy = RECENTLY_ADDED,
-    reverse: Bool = false,
+    reverse: Boolean = false,
 
     # Cursor (SongEdge.cursor) from which to return elements from. If this isn't
     # specified, starts from the first position.
@@ -233,18 +233,18 @@ type Query {
   # Get a sorted list of playlists.
   playlists(
     sortBy: SortBy = RECENTLY_ADDED,
-    reverse: Bool = false
+    reverse: Boolean = false
   ): [Playlist!]!
 }
 
 type Mutation {
   # Increments the play count and updates the last played time in SongUserStats.
   # Always returns true.
-  playSong(songId: ID!): Bool!
+  playSong(songId: ID!): Boolean!
 
   # Toggles the like state of the specified song. Returns whether or not the
   # song is liked after the like is toggled.
-  toggleLike(songId: ID!): Bool!
+  toggleLike(songId: ID!): Boolean!
 }
 
 schema {
