@@ -162,6 +162,7 @@ type Query {
   albums(
     limit: Int = 25,
     sortBy: SortBy = RECENTLY_ADDED,
+    reverse: Bool = false,
 
     # Cursor (AlbumEdge.cursor) from which to return elements from. If this
     # isn't specified, starts from the first position.
@@ -185,6 +186,7 @@ type Query {
   artists(
     limit: Int = 25,
     sortBy: SortBy = RECENTLY_ADDED,
+    reverse: Bool = false,
 
     # Cursor (ArtistEdge.cursor) from which to return elements from. If this
     # isn't specified, starts from the first position.
@@ -208,6 +210,7 @@ type Query {
   songs(
     limit: Int!,
     sortBy: SortBy = RECENTLY_ADDED,
+    reverse: Bool = false,
 
     # Cursor (SongEdge.cursor) from which to return elements from. If this isn't
     # specified, starts from the first position.
@@ -228,7 +231,10 @@ type Query {
   playlist(id: ID!): Playlist!
 
   # Get a sorted list of playlists.
-  playlists(sortBy: SortBy = RECENTLY_ADDED): [Playlist!]!
+  playlists(
+    sortBy: SortBy = RECENTLY_ADDED,
+    reverse: Bool = false
+  ): [Playlist!]!
 }
 
 schema {
