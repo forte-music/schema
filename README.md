@@ -14,12 +14,11 @@ Album Artwork
 -------------
 
 Album artwork is exposed through the GraphQL API in the `Album.artworkUrl`
-field.
+field. The song can be retrived by making a HTTP GET request to the endpoint.
 
 ### Authentication
-The same authentication used to
-communicate with the API should be used when contacting the album artwork
-endpoint.
+The same authentication used to communicate with the API should be used when
+contacting the album artwork endpoint.
 
 ### Discovery
 Album artwork is considered from a number of places when building the music
@@ -50,7 +49,7 @@ Songs
 -----
 
 Songs (bytes representing the audio) are exposed through the `Song.streamUrl`
-field.
+field. The song can be retrived by making a HTTP GET request to the endpoint.
 
 ### Authentication
 The same authentication used to communicate with the API should be used when

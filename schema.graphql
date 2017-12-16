@@ -66,7 +66,7 @@ type Song {
   album: Album!
 
   # The artists which composed this song.
-  artist: [Artist!]!
+  artists: [Artist!]!
 
   # User stats for a song.
   stats: SongUserStats!
@@ -103,12 +103,6 @@ type Playlist {
 
 # The connection and edge types below are used to implement pagination. The
 # pattern is described here: http://graphql.org/learn/pagination/
-
-type SearchResultConnection {
-  albums: AlbumConnection!
-  artists: ArtistConnection!
-  songs: SongConnection!
-}
 
 type AlbumEdge {
   cursor: String!
