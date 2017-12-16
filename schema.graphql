@@ -98,11 +98,20 @@ type Playlist {
   name: String!
 
   # An ordered list of songs in the playlist.
-  songs(first: Int!, after: String): SongConnection!
+  songs(
+    limit: Int = 25,
+
+    # Cursor (SongEdge.cursor) from which to return elements from. If this
+    # isn't specified, starts from the first position.
+    cursor: String
+  ): SongConnection!
 }
 
 # The connection and edge types below are used to implement pagination. The
 # pattern is described here: http://graphql.org/learn/pagination/
+#
+# Cursors are opaque tokens which are bound to a query and can be used to
+# request more items for a query (arguments and field combination).
 
 type AlbumEdge {
   cursor: String!
@@ -150,28 +159,70 @@ type Query {
   album(id: ID!): Album!
 
   # Get paginated, sorted albums.
-  albums(first: Int!, after: String, sortBy: SortBy = RECENTLY_ADDED): AlbumConnection!
+  albums(
+    limit: Int = 25,
+    sortBy: SortBy = RECENTLY_ADDED,
+
+    # Cursor (AlbumEdge.cursor) from which to return elements from. If this
+    # isn't specified, starts from the first position.
+    cursor: String
+  ): AlbumConnection!
 
   # Search only for albums by name.
-  searchAlbums(text: String, after: String, first: Int!): AlbumConnection!
+  searchAlbums(
+    name: String!,
+    limit: Int = 25,
+
+    # Cursor (AlbumEdge.cursor) from which to return elements from. If this
+    # isn't specified, starts from the first position.
+    cursor: String
+  ): AlbumConnection!
 
   # Get an artist by its globally unique id.
   artist(id: ID!): Artist!
 
   # Get paginated, sorted artists.
-  artists(first: Int!, after: String, sortBy: SortBy = RECENTLY_ADDED): ArtistConnection!
+  artists(
+    limit: Int = 25,
+    sortBy: SortBy = RECENTLY_ADDED,
+
+    # Cursor (ArtistEdge.cursor) from which to return elements from. If this
+    # isn't specified, starts from the first position.
+    cursor: String
+  ): ArtistConnection!
 
   # Search only for artists by name.
-  searchArtist(text: String, after: String, first: Int!): ArtistConnection!
+  searchArtist(
+    name: String!,
+    limit: Int = 25,
+
+    # Cursor (ArtistEdge.cursor) from which to return elements from. If this
+    # isn't specified, starts from the first position.
+    cursor: String
+  ): ArtistConnection!
 
   # Get a song by its globally unique id.
   song(id: ID!): Song!
 
   # Get paginated, sorted songs.
-  songs(first: Int!, after: String, sortBy: SortBy = RECENTLY_ADDED): SongConnection!
+  songs(
+    limit: Int!,
+    sortBy: SortBy = RECENTLY_ADDED,
+
+    # Cursor (SongEdge.cursor) from which to return elements from. If this isn't
+    # specified, starts from the first position.
+    cursor: String
+  ): SongConnection!
 
   # Search only for songs by keyword.
-  searchSongs(text: String, after: String, first: Int!): SongConnection!
+  searchSongs(
+    name: String!,
+    limit: Int!,
+
+    # Cursor (SongEdge.cursor) from which to return elements from. If this isn't
+    # specified, starts from the first position.
+    cursor: String
+  ): SongConnection!
 
   # Get a playlist by its globally unique id.
   playlist(id: ID!): Playlist!
