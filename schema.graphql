@@ -237,6 +237,17 @@ type Query {
   ): [Playlist!]!
 }
 
+type Mutation {
+  # Increments the play count and updates the last played time in SongUserStats.
+  # Always returns true.
+  playSong(songId: ID!): Bool!
+
+  # Toggles the like state of the specified song. Returns whether or not the
+  # song is liked after the like is toggled.
+  toggleLike(songId: ID!): Bool!
+}
+
 schema {
   query: Query
+  mutation: Mutation
 }
