@@ -14,7 +14,7 @@ type Album {
   # The artist who released the album. If there are multiple artists on the
   # album this is usually various artists (a designated id). This is usually the
   # album artists tag of files.
-  album: Artist!
+  artist: Artist!
 
   # Songs in this album sorted by song index.
   songs: [Song!]!
