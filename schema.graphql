@@ -89,8 +89,8 @@ type SongUserStats {
   # The epoch time (seconds) at which this song was last played.
   lastPlayed: Int!
 
-  # Whether or not this song is favorited. Favorited songs go into their own
-  # playlist.
+  # Whether or not this song is liked. Liked songs go into their own playlist
+  # auto-playlist.
   liked: Boolean!
 }
 
