@@ -18,6 +18,9 @@ type Album {
 
   # Songs in this album sorted by song index.
   songs: [Song!]!
+
+  # The sum of the durations of every song in this album album in seconds.
+  duration: Int!
 }
 
 # An artist has a name and albums.
@@ -70,6 +73,9 @@ type Song {
 
   # User stats for a song.
   stats: SongUserStats!
+
+  # The duration of the file (retrivable at streamUrl) in seconds.
+  duration: Int!
 }
 
 # Stats for a song tied to a specific user.
@@ -97,6 +103,9 @@ type Playlist {
   # Human readable name of the playlist. This is chosen by the user when the
   # playlist is created.
   name: String!
+
+  # The sum of durations of every song in the playlist in seconds.
+  duration: Int!
 
   # An ordered list of songs in the playlist.
   songs(
