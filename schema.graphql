@@ -335,6 +335,21 @@ type Mutation {
     # The id of the playlist to delete.
     playlistId: ID!
   ): Boolean!
+
+  # Moves a song in a playlist from one position to another.
+  moveSongInPlaylist(
+    # The id of the playlist to modify.
+    playlistId: ID!,
+
+    # The cursor (Playlist.songs.edges.cursor) of the element to move.
+    fromSongCursor: String!,
+
+    # The position the song will be moved relative to.
+    toSongCursor: String!
+
+    # The direction relative to toSongCurosr the song will be moved to.
+    offset: Offset!
+  ): Playlist!
 }
 
 schema {
