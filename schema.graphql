@@ -112,8 +112,9 @@ type Playlist {
 # pattern is described here: http://graphql.org/learn/pagination/
 #
 # Cursors are opaque tokens which are bound to a query and can be used to
-# request more items for a query (arguments and field combination).
-
+# request more items for a query (arguments and field combination). Cursors
+# are tied to a view of the data. If new data is added continuted pagination
+# returns the old data.
 type AlbumEdge {
   cursor: String!
   node: Album!
@@ -273,7 +274,8 @@ type Mutation {
     # The name of the new playlist.
     name: String!,
 
-    # The ids of songs to add to the playlist in the order specified.
+    # The ids of songs to add to the playlist in the order specified. If an
+    # invalid id is passed, the entire request fails.
     songs: [ID!],
   ): Playlist!
 
@@ -325,7 +327,7 @@ type Mutation {
 
     # A list of cursors from Playlist.songs.edges.cursor pointing to songs to
     # remove from the playlist.
-    songs: [String!]!,
+    cursor: [String!]!,
   ): Playlist!
 
   # Permanently deletes a playlist.
