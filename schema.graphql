@@ -56,7 +56,7 @@ type Artist {
 # A song is a piece of music written by artists. It is always part of an album.
 # It represents a singe audio file.
 type Song {
-  # A globally unique UUID referring to this song.
+  # A globally unique id referring to this song.
   id: ID!
 
   # The url at which the song can be streamed from. See
@@ -89,7 +89,7 @@ type Song {
 
 # Stats for a song tied to a specific user.
 type SongUserStats {
-  # A globally unique UUID referring to a song's stats.
+  # A globally unique id referring to a song's stats.
   id: ID!
 
   # The number of times this song has been played.
@@ -106,7 +106,7 @@ type SongUserStats {
 # A named collection of songs. The same song can appear multiple times in a
 # playlist.
 type Playlist {
-  # A globally unique UUID referring to this playlist.
+  # A globally unique id referring to this playlist.
   id: ID!
 
   # Human readable name of the playlist. This is chosen by the user when the
