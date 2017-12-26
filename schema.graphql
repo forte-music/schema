@@ -150,6 +150,16 @@ type SongConnection {
   edges: [SongEdge!]!
 }
 
+type PlaylistEdge {
+  cursor: String!
+  node: Playlist!
+}
+
+type PlaylistConnection {
+  cursor: String!
+  edges: [PlaylistEdge!]!
+}
+
 enum SortBy {
   # Sort from most recently added to least recently added.
   RECENTLY_ADDED,
@@ -215,9 +225,8 @@ type Query {
 
   # Get a sorted list of playlists.
   playlists(
-    sortBy: SortBy = RECENTLY_ADDED,
-    reverse: Boolean = false
-  ): [Playlist!]!
+    input: ConnectionQuery,
+  ): PlaylistConnection!
 }
 
 enum Position {
