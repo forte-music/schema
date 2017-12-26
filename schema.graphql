@@ -21,6 +21,9 @@ type Album {
 
   # The sum of the durations of every song in this album album in seconds.
   duration: Int!
+
+  # The year the album was released.
+  releaseYear: Int!
 }
 
 # An artist has a name and albums.
@@ -32,15 +35,16 @@ type Artist {
   name: String!
 
   # Albums this artist has authored. These are the albums that this artist is
-  # the album artist of.
+  # the album artist of. The albums are sorted by release date.
   albums: [Album!]!
 
   # The albums which this artist has featured on. These are albums which the
-  # artist isn't an album artist of but albums which the artist is in.
+  # artist isn't an album artist of but albums which the artist is in. The
+  # albums are sorted by release date.
   featured: [Album!]!
 
   # Albums with only a single song where this artist is the album artist or an
-  # artist of the song.
+  # artist of the song. The albums are sorted by release date.
   singles: [Album!]!
 }
 
