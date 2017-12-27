@@ -83,7 +83,7 @@ type Song {
   # User stats for a song.
   stats: SongUserStats!
 
-  # The duration of the file (retrivable at streamUrl) in seconds.
+  # The duration of the file (retrievable at streamUrl) in seconds.
   duration: Int!
 }
 
@@ -98,7 +98,7 @@ type SongUserStats {
   # The epoch time (seconds) at which this song was last played.
   lastPlayed: Int!
 
-  # Whether or not this song is liked. Liked songs go into their own playlist
+  # Whether or not this song is liked. Liked songs go into their own
   # auto-playlist.
   liked: Boolean!
 }
