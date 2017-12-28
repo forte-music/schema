@@ -38,11 +38,6 @@ type Artist {
   # the album artist of. The albums are sorted by release date.
   albums: [Album!]!
 
-  # The albums which this artist has featured on. These are albums which the
-  # artist isn't an album artist of but albums which the artist is in. The
-  # albums are sorted by release date.
-  featured: [Album!]!
-
   # Get all songs of an artist.
   songs(
     input: ConnectionQuery
@@ -73,7 +68,7 @@ type Song {
   # The album this song is a part of. A song can only belong to one album.
   album: Album!
 
-  # The artists which composed this song.
+  # The artists which composed this song. This includes the album artist.
   artists: [Artist!]!
 
   # User stats for a song.
