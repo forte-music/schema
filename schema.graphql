@@ -43,10 +43,6 @@ type Artist {
   # albums are sorted by release date.
   featured: [Album!]!
 
-  # Albums with only a single song where this artist is the album artist or an
-  # artist of the song. The albums are sorted by release date.
-  singles: [Album!]!
-
   # Get all songs of an artist.
   songs(
     input: ConnectionQuery
