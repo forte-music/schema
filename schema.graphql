@@ -94,6 +94,16 @@ type SongUserStats {
   liked: Boolean!
 }
 
+# An item in a playlist.
+type PlaylistItem {
+  # The id of the playlist item. This is position invariant and allows for
+  # addressing items in a playlist.
+  id: ID!
+
+  # The song this item points to.
+  song: Song!
+}
+
 # A named collection of songs. The same song can appear multiple times in a
 # playlist.
 type Playlist {
@@ -107,10 +117,10 @@ type Playlist {
   # The sum of durations of every song in the playlist in seconds.
   duration: Int!
 
-  # An ordered list of songs in the playlist.
-  songs(
-    input: ConnectionQuery
-  ): SongConnection!
+  # The items in the playlist.
+  items(
+    input: ConnectionQuery,
+  ): PlaylistItemConnection!
 }
 
 # The connection and edge types below are used to implement pagination. The
@@ -156,8 +166,18 @@ type PlaylistEdge {
 }
 
 type PlaylistConnection {
-  cursor: String!
+  count: Int!
   edges: [PlaylistEdge!]!
+}
+
+type PlaylistItemEdge {
+  cursor: String!
+  node: PlaylistItem!
+}
+
+type PlaylistItemConnection {
+  count: Int!
+  edges: [PlaylistItemEdge!]!
 }
 
 enum SortBy {
@@ -278,24 +298,23 @@ type Mutation {
     name: String!,
   ): Playlist!
 
-
   # Adds songs to the end or the beginning of a playlist.
   addToPlaylistRelative(
     input: PlaylistAppendInput!,
     position: Position!,
   ): Playlist!
 
-  # Adds songs to a playlist relative to a cursor (Playlist.songs.edges.cursor).
-  # This is useful because in some cases the index isn't known and is not and is
-  # hard to compute because of its dependence on global state while cursors are
-  # local state.
+  # Adds songs to a playlist relative to an item (PlaylistItem.id). This is
+  # useful because in some cases the index isn't known and is not and is hard to
+  # compute because of its dependence on global state while ids are local state.
   addToPlaylistByCursor(
     input: PlaylistAppendInput!,
 
-    # The cursor relative to which to add songs (Playlist.songs.edges.cursor).
-    cursor: String!,
+    # The id of the item relative to which to add songs (PlaylistItem.id).
+    relativeTo: ID!
 
-    # The direction relative to the cursor where songs will be added.
+    # The direction relative to the item specified by relativeTo where songs
+    # will be added.
     offset: Offset!,
   ): Playlist!
 
@@ -315,9 +334,8 @@ type Mutation {
     # The playlist to remove items from.
     playlistId: ID!,
 
-    # A list of cursors from Playlist.songs.edges.cursor pointing to songs to
-    # remove from the playlist.
-    cursor: [String!]!,
+    # A list of ids from PlaylistItem.id for items to remove from the playlist.
+    items: [ID!]!,
   ): Playlist!
 
   # Permanently deletes a playlist.
@@ -331,13 +349,14 @@ type Mutation {
     # The id of the playlist to modify.
     playlistId: ID!,
 
-    # The cursor (Playlist.songs.edges.cursor) of the element to move.
-    fromSongCursor: String!,
+    # The id (PlaylistItem.id) of the element to move.
+    fromItem: ID!,
 
-    # The position the song will be moved relative to.
-    toSongCursor: String!
+    # The id of the item fromItem will be moved relative to.
+    relativeToItem: ID!,
 
-    # The direction relative to toSongCurosr the song will be moved to.
+    # The direction relative to relativetoItem the item pointed to by fromItem
+    # will be moved to.
     offset: Offset!
   ): Playlist!
 }
