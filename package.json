@@ -1,0 +1,27 @@
+{
+  "name": "schema",
+  "version": "1.0.0",
+  "description": "The graphql schema for communication with forte.",
+  "files": ["./schema.graphql"],
+  "repository": "git@github.com:forte-music/schema.git",
+  "author": "Martin Charles <martincharles07@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "graphql": "graphql",
+    "lint": "graphql lint",
+    "fix-style": "prettier --write schema.graphql README.md package.json",
+    "check-style": "prettier --list-different schema.graphql README.md package.json"
+  },
+  "devDependencies": {
+    "graphql-cli": "0xcaff/graphql-cli#portable",
+    "prettier": "^1.9.2"
+  },
+  "graphql-schema-linter": {
+    "rules": [
+      "defined-types-are-used",
+      "enum-values-all-caps",
+      "types-are-capitalized"
+    ]
+  }
+}
