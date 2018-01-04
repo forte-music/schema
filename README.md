@@ -1,5 +1,7 @@
 # schema
 
+[![Build Status][build-status-image]][build-status]
+
 The contract between forte's clients and backend. Interaction happens over
 [GraphQL][graphql] and HTTP.
 
@@ -70,3 +72,5 @@ adding the `transcode` query parameter with a value of the desired bitrate.
 
 [graphql]: http://graphql.org/
 [lltag]: https://github.com/bgoglin/lltag
+[build-status-image]: https://img.shields.io/circleci/project/github/forte-music/schema/master.svg
+[build-status]: https://circleci.com/gh/forte-music/schema
