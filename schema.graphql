@@ -39,9 +39,7 @@ type Artist {
   albums: [Album!]!
 
   # Get all songs of an artist.
-  songs(
-    input: ConnectionQuery
-  ): SongConnection!
+  songs(input: ConnectionQuery): SongConnection!
 }
 
 # A song is a piece of music written by artists. It is always part of an album.
@@ -118,9 +116,7 @@ type Playlist {
   duration: Int!
 
   # The items in the playlist.
-  items(
-    input: ConnectionQuery,
-  ): PlaylistItemConnection!
+  items(input: ConnectionQuery): PlaylistItemConnection!
 }
 
 # The connection and edge types below are used to implement pagination. The
@@ -182,37 +178,37 @@ type PlaylistItemConnection {
 
 enum SortBy {
   # Sort from most recently added to least recently added.
-  RECENTLY_ADDED,
+  RECENTLY_ADDED
 
   # Sort from most recently played to least recently played.
-  RECENTLY_PLAYED,
+  RECENTLY_PLAYED
 
   # Sort from most played to least played.
-  MOST_PLAYED,
+  MOST_PLAYED
 
   # Sort by title in case-insensitive alphabetic order.
-  LEXICOGRAPHICALLY,
+  LEXICOGRAPHICALLY
 }
 
 input ConnectionQuery {
   # The maximum number of results to return.
-  limit: Int = 25,
+  limit: Int = 25
 
   # The order in which the results are sorted in. By default they are sorted
   # from most recently added to least recently added, unless otherwise
   # specified.
-  sortBy: SortBy,
+  sortBy: SortBy
 
   # Returns the results sorted in reverse order.
-  reverse: Boolean = false,
+  reverse: Boolean = false
 
   # Results after this cursor (Edge.cursor) will be returned. If not specified,
   # starts from the first position.
-  cursor: String = "",
+  cursor: String = ""
 
   # Only results with titles matching this string are returned. If this is
   # specified, the default sortBy will now be from best match to worst match.
-  filter: String = "",
+  filter: String = ""
 }
 
 type Query {
@@ -220,46 +216,38 @@ type Query {
   album(id: ID!): Album!
 
   # Get paginated, filtered, sorted albums.
-  albums(
-    input: ConnectionQuery,
-  ): AlbumConnection!
+  albums(input: ConnectionQuery): AlbumConnection!
 
   # Get an artist by its globally unique id.
   artist(id: ID!): Artist!
 
   # Get paginated, filtered, sorted artists.
-  artists(
-    input: ConnectionQuery,
-  ): ArtistConnection!
+  artists(input: ConnectionQuery): ArtistConnection!
 
   # Get a song by its globally unique id.
   song(id: ID!): Song!
 
   # Get paginated, filtered, sorted songs.
-  songs(
-    input: ConnectionQuery,
-  ): SongConnection!
+  songs(input: ConnectionQuery): SongConnection!
 
   # Get a playlist by its globally unique id.
   playlist(id: ID!): Playlist!
 
   # Get a sorted list of playlists.
-  playlists(
-    input: ConnectionQuery,
-  ): PlaylistConnection!
+  playlists(input: ConnectionQuery): PlaylistConnection!
 }
 
 enum Position {
   # Elements are inserted before the beginning of the list.
-  BEGINNING,
+  BEGINNING
 
   # Elements are inserted after the end of the list.
-  END,
+  END
 }
 
 enum Offset {
-  AFTER,
-  BEFORE,
+  AFTER
+  BEFORE
 }
 
 input PlaylistAppendInput {
@@ -282,60 +270,60 @@ type Mutation {
   # Creates a new playlist. Returns the newly created playlist.
   createPlaylist(
     # The name of the new playlist.
-    name: String!,
+    name: String!
 
     # The ids of songs to add to the playlist in the order specified. If an
     # invalid id is passed, the entire request fails.
-    songs: [ID!],
+    songs: [ID!]
   ): Playlist!
 
   # Renames a playlist. Returns a playlist with the changes applied.
   updatePlaylist(
     # The id of the playlist to rename.
-    playlistId: ID!,
+    playlistId: ID!
 
     # The new name of the playlist.
-    name: String!,
+    name: String!
   ): Playlist!
 
   # Adds songs to the end or the beginning of a playlist.
   addToPlaylistRelative(
-    input: PlaylistAppendInput!,
-    position: Position!,
+    input: PlaylistAppendInput!
+    position: Position!
   ): Playlist!
 
   # Adds songs to a playlist relative to an item (PlaylistItem.id). This is
   # useful because in some cases the index isn't known and is not and is hard to
   # compute because of its dependence on global state while ids are local state.
   addToPlaylistByCursor(
-    input: PlaylistAppendInput!,
+    input: PlaylistAppendInput!
 
     # The id of the item relative to which to add songs (PlaylistItem.id).
     relativeTo: ID!
 
     # The direction relative to the item specified by relativeTo where songs
     # will be added.
-    offset: Offset!,
+    offset: Offset!
   ): Playlist!
 
   # Adds songs to a playlist relative to an index.
   addToPlaylistByIndex(
-    input: PlaylistAppendInput!,
+    input: PlaylistAppendInput!
 
     # The zero indexed offset relative to which to add songs.
-    position: Int!,
+    position: Int!
 
     # The direction relative to the offset where songs will be added.
-    offset: Offset!,
+    offset: Offset!
   ): Playlist!
 
   # Remove songs from the playlist. Returns the updated playlist.
   removeFromPlaylist(
     # The playlist to remove items from.
-    playlistId: ID!,
+    playlistId: ID!
 
     # A list of ids from PlaylistItem.id for items to remove from the playlist.
-    items: [ID!]!,
+    items: [ID!]!
   ): Playlist!
 
   # Permanently deletes a playlist.
@@ -347,13 +335,13 @@ type Mutation {
   # Moves a song in a playlist from one position to another.
   moveSongInPlaylist(
     # The id of the playlist to modify.
-    playlistId: ID!,
+    playlistId: ID!
 
     # The id (PlaylistItem.id) of the element to move.
-    fromItem: ID!,
+    fromItem: ID!
 
     # The id of the item fromItem will be moved relative to.
-    relativeToItem: ID!,
+    relativeToItem: ID!
 
     # The direction relative to relativetoItem the item pointed to by fromItem
     # will be moved to.
