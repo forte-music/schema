@@ -189,16 +189,10 @@ enum SortBy {
   # Sort from most recently added to least recently added.
   RECENTLY_ADDED
 
-  # Sort from most recently played to least recently played.
-  RECENTLY_PLAYED
-
-  # Sort from most played to least played.
-  MOST_PLAYED
-
   # Sort by title in case-insensitive alphabetic order.
   LEXICOGRAPHICALLY
 
-  # Sort by how well the filter matches the item. If this is used, filter
+  # Sort by how well the filter matches the item. If this is used,
   # SortedConnectionQuery.filter must be specified.
   RELEVANCE
 }
