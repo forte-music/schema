@@ -192,8 +192,8 @@ enum SortBy {
   # Sort by title in case-insensitive alphabetic order.
   LEXICOGRAPHICALLY
 
-  # Sort by how well the filter matches the item. If this is used,
-  # SortedConnectionQuery.filter must be specified.
+  # Sort by how well the filter matches the item. If this is used
+  # SortParams.filter must be specified.
   RELEVANCE
 }
 
@@ -206,7 +206,7 @@ input ConnectionQuery {
   cursor: String = ""
 }
 
-input SortedConnectionQuery {
+input SortParams {
   # The order in which the results are sorted.
   sortBy: SortBy!
 
@@ -223,31 +223,25 @@ type Query {
   album(id: ID!): Album!
 
   # Get paginated, filtered, sorted albums.
-  albums(input: ConnectionQuery, sort: SortedConnectionQuery): AlbumConnection!
+  albums(input: ConnectionQuery, sort: SortParams): AlbumConnection!
 
   # Get an artist by its globally unique id.
   artist(id: ID!): Artist!
 
   # Get paginated, filtered, sorted artists.
-  artists(
-    input: ConnectionQuery
-    sort: SortedConnectionQuery
-  ): ArtistConnection!
+  artists(input: ConnectionQuery, sort: SortParams): ArtistConnection!
 
   # Get a song by its globally unique id.
   song(id: ID!): Song!
 
   # Get paginated, filtered, sorted songs.
-  songs(input: ConnectionQuery, sort: SortedConnectionQuery): SongConnection!
+  songs(input: ConnectionQuery, sort: SortParams): SongConnection!
 
   # Get a playlist by its globally unique id.
   playlist(id: ID!): Playlist!
 
   # Get a sorted list of playlists.
-  playlists(
-    input: ConnectionQuery
-    sort: SortedConnectionQuery
-  ): PlaylistConnection!
+  playlists(input: ConnectionQuery, sort: SortParams): PlaylistConnection!
 }
 
 enum Position {
