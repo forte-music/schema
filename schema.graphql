@@ -24,6 +24,9 @@ type Album {
 
   # The year the album was released.
   releaseYear: Int!
+
+  # The epoch time (seconds) when this was created.
+  timeAdded: Int!
 }
 
 # An artist has a name and albums.
@@ -38,8 +41,8 @@ type Artist {
   # the album artist of. The albums are sorted by release date.
   albums: [Album!]!
 
-  # Get all songs of an artist.
-  songs(input: ConnectionQuery): SongConnection!
+  # The epoch time (seconds) when this was created.
+  timeAdded: Int!
 }
 
 # A song is a piece of music written by artists. It is always part of an album.
@@ -74,6 +77,9 @@ type Song {
 
   # The duration of the file (retrievable at streamUrl) in seconds.
   duration: Int!
+
+  # The epoch time (seconds) when this was created.
+  timeAdded: Int!
 }
 
 # Stats for a song tied to a specific user.
@@ -114,6 +120,9 @@ type Playlist {
 
   # The sum of durations of every song in the playlist in seconds.
   duration: Int!
+
+  # The epoch time (seconds) when this was created.
+  timeAdded: Int!
 
   # The items in the playlist.
   items(input: ConnectionQuery): PlaylistItemConnection!
@@ -188,23 +197,27 @@ enum SortBy {
 
   # Sort by title in case-insensitive alphabetic order.
   LEXICOGRAPHICALLY
+
+  # Sort by how well the filter matches the item. If this is used, filter
+  # SortedConnectionQuery.filter must be specified.
+  RELEVANCE
 }
 
 input ConnectionQuery {
   # The maximum number of results to return.
   limit: Int = 25
 
-  # The order in which the results are sorted in. By default they are sorted
-  # from most recently added to least recently added, unless otherwise
-  # specified.
-  sortBy: SortBy
-
-  # Returns the results sorted in reverse order.
-  reverse: Boolean = false
-
   # Results after this cursor (Edge.cursor) will be returned. If not specified,
   # starts from the first position.
   cursor: String = ""
+}
+
+input SortedConnectionQuery {
+  # The order in which the results are sorted.
+  sortBy: SortBy!
+
+  # Returns the results sorted in reverse order.
+  reverse: Boolean = false
 
   # Only results with titles matching this string are returned. If this is
   # specified, the default sortBy will now be from best match to worst match.
@@ -216,25 +229,31 @@ type Query {
   album(id: ID!): Album!
 
   # Get paginated, filtered, sorted albums.
-  albums(input: ConnectionQuery): AlbumConnection!
+  albums(input: ConnectionQuery, sort: SortedConnectionQuery): AlbumConnection!
 
   # Get an artist by its globally unique id.
   artist(id: ID!): Artist!
 
   # Get paginated, filtered, sorted artists.
-  artists(input: ConnectionQuery): ArtistConnection!
+  artists(
+    input: ConnectionQuery
+    sort: SortedConnectionQuery
+  ): ArtistConnection!
 
   # Get a song by its globally unique id.
   song(id: ID!): Song!
 
   # Get paginated, filtered, sorted songs.
-  songs(input: ConnectionQuery): SongConnection!
+  songs(input: ConnectionQuery, sort: SortedConnectionQuery): SongConnection!
 
   # Get a playlist by its globally unique id.
   playlist(id: ID!): Playlist!
 
   # Get a sorted list of playlists.
-  playlists(input: ConnectionQuery): PlaylistConnection!
+  playlists(
+    input: ConnectionQuery
+    sort: SortedConnectionQuery
+  ): PlaylistConnection!
 }
 
 enum Position {
