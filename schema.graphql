@@ -267,12 +267,11 @@ input PlaylistAppendInput {
 
 type Mutation {
   # Increments the play count and updates the last played time in SongUserStats.
-  # Always returns true.
-  playSong(songId: ID!): Boolean!
+  # Returns the songs stats.
+  playSong(songId: ID!): SongUserStats!
 
-  # Toggles the like state of the specified song. Returns whether or not the
-  # song is liked after the like is toggled.
-  toggleLike(songId: ID!): Boolean!
+  # Toggles the like state of the specified song. Returns the songs stats.
+  toggleLike(songId: ID!): SongUserStats!
 
   # Creates a new playlist. Returns the newly created playlist.
   createPlaylist(
