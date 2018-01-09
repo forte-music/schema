@@ -90,8 +90,9 @@ type SongUserStats {
   # The number of times this song has been played.
   playCount: Int!
 
-  # The epoch time (seconds) at which this song was last played.
-  lastPlayed: Int!
+  # The epoch time (seconds) at which this song was last played. If the song is
+  # never been played, this is null.
+  lastPlayed: Int
 
   # Whether or not this song is liked. Liked songs go into their own
   # auto-playlist.
