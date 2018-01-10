@@ -11,9 +11,9 @@ type Album {
   # The human readable name of the album.
   name: String!
 
-  # The artist who released the album. If there are multiple artists on the
-  # album this is usually various artists (a designated id). This is usually the
-  # album artists tag of files.
+  # The artist who released the album. If the album is a compilation and there
+  # are multiple artists on album this is usually various artists (a designated
+  # id). This is usually album artists tag of crawled files.
   artist: Artist!
 
   # Songs in this album sorted by song index.
@@ -29,7 +29,6 @@ type Album {
   timeAdded: Int!
 }
 
-# An artist has a name and albums.
 type Artist {
   # A globally unique id referring to this artist.
   id: ID!
@@ -59,7 +58,7 @@ type Song {
   # provided by the file's metadata.
   trackNumber: Int!
 
-  # The disk this track is on. The disk number is assumed to be one if not
+  # The disk this track is on. The disk number is assumed to be 1 if not
   # provided.
   diskNumber: Int!
 
@@ -69,7 +68,7 @@ type Song {
   # The album this song is a part of. A song can only belong to one album.
   album: Album!
 
-  # The artists which composed this song. This includes the album artist.
+  # The artists which composed this song. This could include the album artist.
   artists: [Artist!]!
 
   # User stats for a song.
@@ -90,11 +89,13 @@ type SongUserStats {
   # The number of times this song has been played.
   playCount: Int!
 
-  # The epoch time (seconds) at which this song was last played.
-  lastPlayed: Int!
+  # The epoch time (seconds) at which this song was last played. If the song is
+  # never been played, this is null. Updated by the playSong mutation.
+  lastPlayed: Int
 
   # Whether or not this song is liked. Liked songs go into their own
-  # auto-playlist.
+  # auto-playlist. By default this value is false. Updated by toggleLike
+  # mutation.
   liked: Boolean!
 }
 
@@ -115,7 +116,7 @@ type Playlist {
   id: ID!
 
   # Human readable name of the playlist. This is chosen by the user when the
-  # playlist is created.
+  # playlist is created (createPlaylist mutation).
   name: String!
 
   # The sum of durations of every song in the playlist in seconds.
@@ -198,12 +199,13 @@ enum SortBy {
 }
 
 input ConnectionQuery {
-  # The maximum number of results to return.
+  # The maximum number of results to return. If this is -1, all known results
+  # are returned.
   limit: Int = 25
 
   # Results after this cursor (Edge.cursor) will be returned. If not specified,
   # starts from the first position.
-  cursor: String = ""
+  cursor: String
 }
 
 input SortParams {
@@ -213,8 +215,7 @@ input SortParams {
   # Returns the results sorted in reverse order.
   reverse: Boolean = false
 
-  # Only results with titles matching this string are returned. If this is
-  # specified, the default sortBy will now be from best match to worst match.
+  # Only results with titles matching this string are returned.
   filter: String = ""
 }
 
@@ -283,7 +284,7 @@ type Mutation {
     songs: [ID!]
   ): Playlist!
 
-  # Renames a playlist. Returns a playlist with the changes applied.
+  # Renames a playlist. Returns the modified playlist.
   updatePlaylist(
     # The id of the playlist to rename.
     playlistId: ID!
@@ -299,8 +300,8 @@ type Mutation {
   ): Playlist!
 
   # Adds songs to a playlist relative to an item (PlaylistItem.id). This is
-  # useful because in some cases the index isn't known and is not and is hard to
-  # compute because of its dependence on global state while ids are local state.
+  # useful because in some cases the index isn't known and is hard to compute
+  # because of its dependence on global state while ids are local state.
   addToPlaylistByCursor(
     input: PlaylistAppendInput!
 
