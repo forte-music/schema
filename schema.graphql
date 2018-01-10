@@ -199,12 +199,13 @@ enum SortBy {
 }
 
 input ConnectionQuery {
-  # The maximum number of results to return.
+  # The maximum number of results to return. If this is -1, all known results
+  # are returned.
   limit: Int = 25
 
   # Results after this cursor (Edge.cursor) will be returned. If not specified,
   # starts from the first position.
-  cursor: String = ""
+  cursor: String
 }
 
 input SortParams {
