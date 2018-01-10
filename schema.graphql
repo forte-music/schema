@@ -267,11 +267,20 @@ input PlaylistAppendInput {
 }
 
 type Mutation {
-  # Increments the play count and updates the last played time in SongUserStats.
-  # Returns the songs stats.
-  playSong(songId: ID!): SongUserStats!
+  # Increments play counts and updates the last played time in SongUserStats.
+  # Returns the song's stats. The artistId, albumId and playlistId fields are
+  # used to keep track of which context a song is played in. Specifing more than
+  # one of artistId, albumId or playlistId is an error.
+  playSong(
+    # The id of the song to record a play for.
+    songId: ID!
 
-  # Toggles the like state of the specified song. Returns the songs stats.
+    artistId: ID
+    albumId: ID
+    playlistId: ID
+  ): SongUserStats!
+
+  # Toggles the like state of the specified song. Returns the song's stats.
   toggleLike(songId: ID!): SongUserStats!
 
   # Creates a new playlist. Returns the newly created playlist.
