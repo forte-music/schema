@@ -56,9 +56,14 @@ workflows:
   test:
     jobs:
       - test
-      - deploy:
+      - hold:
+          type: approval
           requires:
-            - test
+           - test
           filters:
             branches:
               only: master
+
+      - deploy:
+          requires:
+            - hold
