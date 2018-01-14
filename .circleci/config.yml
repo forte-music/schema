@@ -30,9 +30,35 @@ jobs:
           name: Check Style
           command: yarn check-style
 
+  deploy:
+    docker:
+      - image: node:9.3.0
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependencies-
+
+      - run:
+          name: Setup the Environment for Publishing
+          command: printf "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
+
+      - run:
+          name: Publish Package to NPM
+          command: npm publish --access=public
+
 workflows:
   version: 2
   test:
     jobs:
       - test
-
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
