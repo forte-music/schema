@@ -1,20 +1,25 @@
 {
-  "name": "schema",
-  "version": "1.0.0",
+  "name": "@forte-music/schema",
+  "version": "0.0.5",
   "description": "The graphql schema for communication with forte.",
-  "files": ["./schema.graphql"],
+  "main": "schema.json",
+  "tag": "dev",
+  "files": ["schema.graphql", "schema.json"],
   "repository": "git@github.com:forte-music/schema.git",
   "author": "Martin Charles <martincharles07@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "graphql": "graphql",
     "lint": "graphql lint",
+    "prepare": "yarn generate-schema",
+    "generate-schema":
+      "apollo-codegen introspect-schema schema.graphql --output schema.json",
     "fix-style": "prettier --write schema.graphql README.md package.json",
     "check-style":
       "prettier --list-different schema.graphql README.md package.json"
   },
   "devDependencies": {
+    "apollo-codegen": "^0.18.3",
     "graphql-cli": "0xcaff/graphql-cli#portable",
     "prettier": "^1.9.2"
   },
