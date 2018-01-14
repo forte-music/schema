@@ -1,6 +1,6 @@
 {
   "name": "@forte-music/schema",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "The graphql schema for communication with forte.",
   "main": "schema.json",
   "tag": "dev",
