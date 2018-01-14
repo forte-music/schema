@@ -11,7 +11,6 @@
   "scripts": {
     "graphql": "graphql",
     "lint": "graphql lint",
-    "prepare": "yarn generate-schema",
     "generate-schema":
       "apollo-codegen introspect-schema schema.graphql --output schema.json",
     "fix-style": "prettier --write schema.graphql README.md package.json",
