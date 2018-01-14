@@ -44,6 +44,10 @@ jobs:
             - dependencies-
 
       - run:
+          name: Generate Schema JSON
+          command: yarn generate-schema
+
+      - run:
           name: Setup the Environment for Publishing
           command: printf "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
 
