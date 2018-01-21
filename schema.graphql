@@ -69,6 +69,8 @@ type Song {
   album: Album!
 
   # The artists which composed this song. This could include the album artist.
+  # The order of the artists is determined by the sync engine. It usually has
+  # the album artist first with featuring artists following.
   artists: [Artist!]!
 
   # User stats for a song.
