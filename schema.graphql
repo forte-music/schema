@@ -25,7 +25,7 @@ type Album {
   # The year the album was released.
   releaseYear: Int!
 
-  # The epoch time (seconds) when this was created.
+  # The UTC epoch time (seconds) when this was created.
   timeAdded: Int!
 }
 
@@ -40,7 +40,7 @@ type Artist {
   # the album artist of. The albums are sorted by release date.
   albums: [Album!]!
 
-  # The epoch time (seconds) when this was created.
+  # The UTC epoch time (seconds) when this was created.
   timeAdded: Int!
 }
 
@@ -79,7 +79,7 @@ type Song {
   # The duration of the file (retrievable at streamUrl) in seconds.
   duration: Int!
 
-  # The epoch time (seconds) when this was created.
+  # The UTC epoch time (seconds) when this was created.
   timeAdded: Int!
 }
 
@@ -91,8 +91,8 @@ type SongUserStats {
   # The number of times this song has been played.
   playCount: Int!
 
-  # The epoch time (seconds) at which this song was last played. If the song is
-  # never been played, this is null. Updated by the playSong mutation.
+  # The UTC epoch time (seconds) at which this song was last played. If the song
+  # is never been played, this is null. Updated by the playSong mutation.
   lastPlayed: Int
 
   # Whether or not this song is liked. Liked songs go into their own
@@ -124,7 +124,7 @@ type Playlist {
   # The sum of durations of every song in the playlist in seconds.
   duration: Int!
 
-  # The epoch time (seconds) when this was created.
+  # The UTC epoch time (seconds) when this was created.
   timeAdded: Int!
 
   # The items in the playlist.
