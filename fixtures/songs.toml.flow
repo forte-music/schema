@@ -1,0 +1,15 @@
+// @flow
+export type SongSource = {
+  id: string,
+  streamUrl: string,
+  name: string,
+  duration: number,
+
+  trackNumber?: number,
+  diskNumber?: number,
+  artistIds?: string[],
+  albumId: string,
+  statsId: string,
+}
+
+declare export var songs: SongSource[];

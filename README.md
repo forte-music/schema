@@ -3,7 +3,8 @@
 [![Build Status][build-status-image]][build-status]
 
 The contract between forte's clients and backend. Interaction happens over
-[GraphQL][graphql] and HTTP.
+[GraphQL][graphql] and HTTP. Includes fixtures used for testing core and a
+mock resolver.
 
 ## Authentication
 

@@ -1,0 +1,8 @@
+// @flow
+export type PlaylistSource = {
+  id: string,
+  name: string,
+  songIds: string[],
+}
+
+declare export var playlists: PlaylistSource[];

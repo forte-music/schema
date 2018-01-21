@@ -1,0 +1,11 @@
+// @flow
+export type AlbumSource = {
+  id: string,
+  name: string,
+  artworkUrl: string,
+  artistId: string,
+  songIds: string[],
+  releaseYear: number,
+}
+
+declare export var albums: AlbumSource[];

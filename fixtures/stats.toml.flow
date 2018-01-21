@@ -1,0 +1,9 @@
+// @flow
+export type SongUserStats = {
+  id: string,
+  playCount: number,
+  lastPlayed?: number,
+  liked: boolean,
+}
+
+declare export var stats: SongUserStats[];
