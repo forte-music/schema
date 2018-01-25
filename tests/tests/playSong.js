@@ -32,8 +32,10 @@ it('should update the time a song was last played at', async () => {
     variables,
   );
 
-  expect(mutationStats.id).toEqual(queryStats.id);
-  expect(mutationStats.playCount).toEqual(queryStats.playCount + 1);
+  expect(mutationStats).toMatchObject({
+    id: queryStats.id,
+    playCount: queryStats.playCount + 1,
+  });
   expect(mutationStats.lastPlayed).toBeGreaterThan(queryStats.lastPlayed);
 });
 

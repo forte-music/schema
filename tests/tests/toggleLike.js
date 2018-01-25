@@ -3,7 +3,7 @@ import client from '../client';
 it('should toggle the liked status of a song', async () => {
   const variables = { songId: 'song:1:1' };
 
-  const { song: { stats: { id: queryId, liked } } } = await client.request(
+  const { song: { stats: queryStats } } = await client.request(
     `
       query($songId: ID!) {
         song(id: $songId) {
@@ -19,10 +19,8 @@ it('should toggle the liked status of a song', async () => {
     variables
   );
 
-  const expected = !liked;
-
   const {
-    toggleLike: { id: mutationId, liked: actual },
+    toggleLike: mutationStats
   } = await client.request(
     `
       mutation($songId: ID!) {
@@ -35,6 +33,8 @@ it('should toggle the liked status of a song', async () => {
     variables
   );
 
-  expect(actual).toBe(expected);
-  expect(queryId).toBe(mutationId);
+  expect(mutationStats).toMatchObject({
+    ...queryStats,
+    liked: !queryStats.liked,
+  });
 });

@@ -15,7 +15,9 @@ it('should calculate the duration for an album', async () => {
     variables,
   );
 
-  expect(album.id).toEqual(variables.albumId);
-  expect(album.duration).toEqual(74 * 60 + 22);
+  expect(album).toMatchObject({
+    id: variables.albumId,
+    duration: 74 * 60 + 22,
+  });
 });
 

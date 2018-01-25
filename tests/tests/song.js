@@ -39,5 +39,6 @@ it('should get all items when limit is -1', async () => {
     `
   );
 
+  expect(songs.count).toBeTruthy();
   expect(songs.count).toEqual(songs.edges.length);
 });
