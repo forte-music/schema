@@ -29,8 +29,9 @@
     "babel-jest": "^22.1.0",
     "graphql": "^0.12.3",
     "graphql-request": "^1.4.1",
+    "graphql-tag": "^2.6.1",
     "jest": "^22.1.4",
-    "jest-raw-loader": "^1.0.1"
+    "jest-transform-graphql": "^2.1.0"
   },
   "graphql-schema-linter": {
     "rules": [
