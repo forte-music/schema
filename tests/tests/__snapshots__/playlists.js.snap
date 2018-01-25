@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should resolve a query for data stemming from a playlist 1`] = `
+Object {
+  "playlist": Object {
+    "duration": 481,
+    "id": "playlist:1",
+    "items": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "id": "playlist:1:0",
+            "song": Object {
+              "album": Object {
+                "artworkUrl": "http://is4.mzstatic.com/image/thumb/Music5/v4/08/da/96/08da9619-3f9b-7c95-60d1-6c18cfdd4dbd/source/600x600bb.jpg",
+                "duration": 211,
+                "id": "album:2",
+                "name": "I'm That (Remix)",
+                "releaseYear": 2015,
+              },
+              "artists": Array [
+                Object {
+                  "id": "artist:2",
+                  "name": "R. City",
+                },
+                Object {
+                  "id": "artist:22",
+                  "name": "Azealia Banks",
+                },
+                Object {
+                  "id": "artist:21",
+                  "name": "Beenie Man",
+                },
+              ],
+              "diskNumber": 1,
+              "id": "song:2:1",
+              "name": "I'm That (Remix)",
+              "stats": Object {
+                "id": "stats:2:1",
+                "lastPlayed": 0,
+                "liked": false,
+                "playCount": 0,
+              },
+              "streamUrl": "/music/01 - I'm That... (Remix) [feat. Beenie Man & Azealia Banks].m4a",
+              "trackNumber": 1,
+            },
+          },
+        },
+        Object {
+          "node": Object {
+            "id": "playlist:1:1",
+            "song": Object {
+              "album": Object {
+                "artworkUrl": "https://upload.wikimedia.org/wikipedia/en/3/3f/AceHood_Bugatti.jpg",
+                "duration": 270,
+                "id": "album:3",
+                "name": "Bugatti",
+                "releaseYear": 2013,
+              },
+              "artists": Array [
+                Object {
+                  "id": "artist:24",
+                  "name": "Future",
+                },
+                Object {
+                  "id": "artist:3",
+                  "name": "Ace Hood",
+                },
+                Object {
+                  "id": "artist:23",
+                  "name": "Rick Ross",
+                },
+              ],
+              "diskNumber": 1,
+              "id": "song:3:1",
+              "name": "Bugatti",
+              "stats": Object {
+                "id": "stats:3:1",
+                "lastPlayed": 0,
+                "liked": false,
+                "playCount": 0,
+              },
+              "streamUrl": "/music/01 - Bugatti (feat. Future & Rick Ross).flac",
+              "trackNumber": 1,
+            },
+          },
+        },
+      ],
+    },
+    "name": "Quick Jam Session",
+  },
+}
+`;

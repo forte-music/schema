@@ -1,10 +1,13 @@
 const jest = require('jest');
 const path = require('path');
 
-const [ runtimePath, scriptPath, apiLocation, ...args ] = process.argv;
+const [runtimePath, scriptPath, apiLocation, ...args] = process.argv;
 
 if (!apiLocation) {
-  throw new TypeError('Please specify the API_URL environment variable.');
+  throw new TypeError(
+    'Please specify the api url of the endpoint to test as the first ' +
+      'argument to this script.'
+  );
 }
 
 process.env.API_URL = apiLocation;

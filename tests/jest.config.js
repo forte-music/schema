@@ -5,7 +5,7 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '\\.js$': 'babel-jest',
-    '\\.(gql|graphql)$': 'jest-transform-graphql',
+    '\\.(gql|graphql)$': 'jest-raw-loader',
   },
   testMatch: ['<rootDir>/tests/*.js'],
 };
