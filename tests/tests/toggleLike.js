@@ -19,9 +19,7 @@ it('should toggle the liked status of a song', async () => {
     variables
   );
 
-  const {
-    toggleLike: mutationStats
-  } = await client.request(
+  const { toggleLike: mutationStats } = await client.request(
     `
       mutation($songId: ID!) {
         toggleLike(songId: $songId) {

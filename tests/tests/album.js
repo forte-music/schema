@@ -12,7 +12,7 @@ it('should calculate the duration for an album', async () => {
         }
       }
     `,
-    variables,
+    variables
   );
 
   expect(album).toMatchObject({
@@ -20,4 +20,3 @@ it('should calculate the duration for an album', async () => {
     duration: 74 * 60 + 22,
   });
 });
-

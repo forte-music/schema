@@ -11,8 +11,8 @@
     "lint": "graphql lint",
     "generate-schema":
       "apollo-codegen introspect-schema schema.graphql --output schema.json",
-    "fix-style": "prettier --write **/*.{js,json,graphql,md}",
-    "check-style": "prettier --list-different **/*.{js,json,graphql,md}"
+    "fix-style": "prettier --write '**/*.{js,json,graphql,md}'",
+    "check-style": "prettier --list-different '**/*.{js,json,graphql,md}'"
   },
   "bin": {
     "forte-test-api": "./tests/cli.js"

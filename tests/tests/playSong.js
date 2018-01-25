@@ -16,7 +16,7 @@ it('should update the time a song was last played at', async () => {
         }
       }
     `,
-    variables,
+    variables
   );
 
   const { playSong: mutationStats } = await client.request(
@@ -29,7 +29,7 @@ it('should update the time a song was last played at', async () => {
         }
       }
     `,
-    variables,
+    variables
   );
 
   expect(mutationStats).toMatchObject({
@@ -38,4 +38,3 @@ it('should update the time a song was last played at', async () => {
   });
   expect(mutationStats.lastPlayed).toBeGreaterThan(queryStats.lastPlayed);
 });
-
