@@ -3,6 +3,7 @@
 exports[`should resolve a query for data stemming from a playlist 1`] = `
 Object {
   "playlist": Object {
+    "description": "",
     "duration": 481,
     "id": "playlist:1",
     "items": Object {
