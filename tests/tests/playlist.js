@@ -7,7 +7,7 @@ import SongFields from './fragments/SongFields.graphql';
 
 import client from '../client';
 
-it('should resolve a query for data stemming from a playlist', async () => {
+it('should get a playlist by id', async () => {
   const variables = { playlistId: 'playlist:1' };
 
   const query = gql`

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should resolve a query for data stemming from a playlist 1`] = `
+exports[`should get a playlist by id 1`] = `
 Object {
   "playlist": Object {
     "duration": 481,
