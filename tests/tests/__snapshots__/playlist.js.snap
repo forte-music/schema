@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should resolve a query for data stemming from a playlist 1`] = `
+Object {
+  "playlist": Object {
+    "duration": 481,
+    "id": "playlist:1",
+    "items": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "id": "playlist:1:0",
+            "song": Object {
+              "diskNumber": 1,
+              "id": "song:2:1",
+              "name": "I'm That (Remix)",
+              "streamUrl": "/music/01 - I'm That... (Remix) [feat. Beenie Man & Azealia Banks].m4a",
+              "trackNumber": 1,
+            },
+          },
+        },
+        Object {
+          "node": Object {
+            "id": "playlist:1:1",
+            "song": Object {
+              "diskNumber": 1,
+              "id": "song:3:1",
+              "name": "Bugatti",
+              "streamUrl": "/music/01 - Bugatti (feat. Future & Rick Ross).flac",
+              "trackNumber": 1,
+            },
+          },
+        },
+      ],
+    },
+    "name": "Quick Jam Session",
+  },
+}
+`;
