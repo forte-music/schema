@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should get a song by id 1`] = `
+Object {
+  "song": Object {
+    "album": Object {
+      "artworkUrl": "http://is4.mzstatic.com/image/thumb/Music5/v4/08/da/96/08da9619-3f9b-7c95-60d1-6c18cfdd4dbd/source/600x600bb.jpg",
+      "duration": 211,
+      "id": "album:2",
+      "name": "I'm That (Remix)",
+      "releaseYear": 2015,
+    },
+    "artists": Array [
+      Object {
+        "id": "artist:2",
+        "name": "R. City",
+      },
+      Object {
+        "id": "artist:22",
+        "name": "Azealia Banks",
+      },
+      Object {
+        "id": "artist:21",
+        "name": "Beenie Man",
+      },
+    ],
+    "diskNumber": 1,
+    "id": "song:2:1",
+    "name": "I'm That (Remix)",
+    "stats": Object {
+      "id": "stats:2:1",
+      "lastPlayed": 0,
+      "liked": false,
+      "playCount": 0,
+    },
+    "streamUrl": "/music/01 - I'm That... (Remix) [feat. Beenie Man & Azealia Banks].m4a",
+    "trackNumber": 1,
+  },
+}
+`;

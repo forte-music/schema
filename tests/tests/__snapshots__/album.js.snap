@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should get information about an album by id 1`] = `
+exports[`should get an album by id 1`] = `
 Object {
   "artist": Object {
     "id": "artist:4",

@@ -1,25 +1,43 @@
+import gql from 'graphql-tag';
+import { print } from 'graphql/language/printer';
+
+import SongFields from './fragments/SongFields.graphql';
+import AlbumFields from './fragments/AlbumFields.graphql';
+import ArtistFields from './fragments/ArtistFields.graphql';
+import StatsFields from './fragments/StatsFields.graphql';
+
 import client from '../client';
 
-it('should get the artists of a song', async () => {
-  const variables = { songId: 'song:2:1' };
-  const { song } = await client.request(
-    `
-      query($songId: ID!) {
-        song(id: $songId) {
-          id
-          name
+const variables = { songId: 'song:2:1' };
+it('should get a song by id', async () => {
+  const query = gql`
+    query($songId: ID!) {
+      song(id: $songId) {
+        ...SongFields
 
-          artists {
-            id
-            name
-          }
+        album {
+          ...AlbumFields
+        }
+
+        artists {
+          ...ArtistFields
+        }
+
+        stats {
+          ...StatsFields
         }
       }
-    `,
-    variables
-  );
+    }
 
-  expect(song.artists.length).toBeGreaterThan(0);
+    ${SongFields}
+    ${AlbumFields}
+    ${ArtistFields}
+    ${StatsFields}
+  `;
+
+  const data = await client.request(print(query), variables);
+
+  expect(data).toMatchSnapshot();
 });
 
 it('should get all items when limit is -1', async () => {

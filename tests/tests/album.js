@@ -8,7 +8,7 @@ import SongFields from './fragments/SongFields.graphql';
 import client from '../client';
 
 const variables = { albumId: 'album:4' };
-it('should get information about an album by id', async () => {
+it('should get an album by id', async () => {
   const query = gql`
     query($albumId: ID!) {
       album(id: $albumId) {
