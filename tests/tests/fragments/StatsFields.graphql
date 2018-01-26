@@ -1,0 +1,6 @@
+fragment StatsFields on SongUserStats {
+  id
+  playCount
+  lastPlayed
+  liked
+}

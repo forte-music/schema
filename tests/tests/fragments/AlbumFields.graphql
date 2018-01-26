@@ -1,0 +1,7 @@
+fragment AlbumFields on Album {
+  id
+  artworkUrl
+  name
+  duration
+  releaseYear
+}

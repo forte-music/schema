@@ -1,6 +1,6 @@
 {
   "name": "@forte-music/schema",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "The graphql schema for communication with forte.",
   "main": "schema.json",
   "files": ["schema.graphql", "schema.json", "fixtures/", "tests/"],
@@ -11,18 +11,27 @@
     "lint": "graphql lint",
     "generate-schema":
       "apollo-codegen introspect-schema schema.graphql --output schema.json",
-    "fix-style": "prettier --write **/*.{js,json,graphql,md}",
-    "check-style": "prettier --list-different **/*.{js,json,graphql,md}"
+    "fix-style": "prettier --write '**/*.{js,json,graphql,md}'",
+    "check-style": "prettier --list-different '**/*.{js,json,graphql,md}'"
+  },
+  "bin": {
+    "forte-test-api": "./tests/cli.js"
   },
   "devDependencies": {
-    "apollo-client": "^2.2.0",
     "apollo-codegen": "^0.18.3",
     "graphql-cli": "^2.12.4",
     "prettier": "^1.10.2"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.38",
+    "@babel/preset-env": "^7.0.0-beta.38",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^22.1.0",
     "graphql": "^0.12.3",
-    "graphql-tag": "^2.6.1"
+    "graphql-request": "^1.4.1",
+    "graphql-tag": "^2.6.1",
+    "jest": "^22.1.4",
+    "jest-transform-graphql": "^2.1.0"
   },
   "graphql-schema-linter": {
     "rules": [

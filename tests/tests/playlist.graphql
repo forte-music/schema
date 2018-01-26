@@ -1,3 +1,10 @@
+#import "./fragments/PlaylistFields.graphql"
+#import "./fragments/PlaylistItemFields.graphql"
+#import "./fragments/SongFields.graphql"
+#import "./fragments/AlbumFields.graphql"
+#import "./fragments/ArtistFields.graphql"
+#import "./fragments/StatsFields.graphql"
+
 # A query which queries for all information about the first 10 items in a
 # playlist. Links go along the following path:
 #
@@ -30,42 +37,4 @@ query TestPlaylist {
       }
     }
   }
-}
-
-fragment PlaylistFields on Playlist {
-  id
-  name
-  duration
-}
-
-fragment PlaylistItemFields on PlaylistItem {
-  id
-}
-
-fragment SongFields on Song {
-  id
-  streamUrl
-  trackNumber
-  diskNumber
-  name
-}
-
-fragment AlbumFields on Album {
-  id
-  artworkUrl
-  name
-  duration
-  releaseYear
-}
-
-fragment ArtistFields on Artist {
-  id
-  name
-}
-
-fragment StatsFields on SongUserStats {
-  id
-  playCount
-  lastPlayed
-  liked
 }
