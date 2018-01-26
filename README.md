@@ -3,8 +3,8 @@
 [![Build Status][build-status-image]][build-status]
 
 The contract between forte's clients and backend. Interaction happens over
-[GraphQL][graphql] and HTTP. Includes fixtures used for testing core and a
-mock resolver.
+[GraphQL][graphql] and HTTP. Includes [fixtures] and [tools for testing
+resolvers][tests].
 
 ## Authentication
 
@@ -75,3 +75,5 @@ adding the `transcode` query parameter with a value of the desired bitrate.
 [lltag]: https://github.com/bgoglin/lltag
 [build-status-image]: https://img.shields.io/circleci/project/github/forte-music/schema/master.svg
 [build-status]: https://circleci.com/gh/forte-music/schema
+[fixtures]: ./fixtures
+[tests]: ./tests
