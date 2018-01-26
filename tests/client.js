@@ -1,4 +1,3 @@
-import 'isomorphic-fetch';
 import { GraphQLClient } from 'graphql-request';
 
 const client = new GraphQLClient(API_URL);
