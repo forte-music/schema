@@ -16,12 +16,12 @@ Object {
         "name": "R. City",
       },
       Object {
-        "id": "artist:22",
-        "name": "Azealia Banks",
-      },
-      Object {
         "id": "artist:21",
         "name": "Beenie Man",
+      },
+      Object {
+        "id": "artist:22",
+        "name": "Azealia Banks",
       },
     ],
     "diskNumber": 1,
