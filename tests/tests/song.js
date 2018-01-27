@@ -4,7 +4,8 @@ import { print } from 'graphql/language/printer';
 import SongFields from './fragments/SongFields.graphql';
 import AlbumFields from './fragments/AlbumFields.graphql';
 import ArtistFields from './fragments/ArtistFields.graphql';
-import StatsFields from './fragments/StatsFields.graphql';
+import UserStatsFields from './fragments/UserStatsFields.graphql';
+import SongUserStatsFields from './fragments/SongUserStatsFields.graphql';
 
 import client from '../client';
 
@@ -24,7 +25,11 @@ it('should get a song by id', async () => {
         }
 
         stats {
-          ...StatsFields
+          ...SongUserStatsFields
+
+          stats {
+            ...UserStatsFields
+          }
         }
       }
     }
@@ -32,7 +37,8 @@ it('should get a song by id', async () => {
     ${SongFields}
     ${AlbumFields}
     ${ArtistFields}
-    ${StatsFields}
+    ${UserStatsFields}
+    ${SongUserStatsFields}
   `;
 
   const data = await client.request(print(query), variables);

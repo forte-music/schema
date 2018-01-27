@@ -1,0 +1,4 @@
+fragment SongUserStatsFields on SongUserStats {
+  id
+  liked
+}
