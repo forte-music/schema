@@ -171,6 +171,12 @@ type Playlist {
 # pattern is described here http://graphql.org/learn/pagination/ and defined
 # here https://facebook.github.io/relay/graphql/connections.htm
 #
+# The `first` parameter of queries which return a connection is used to specify
+# the amount of items to get.
+#
+# The `after` parameter of queries which return a connection is used to specify
+# the cursor after which to get items from.
+#
 # Cursors are opaque tokens which are bound to a query and can be used to
 # request more items for a query (arguments and field combination). Cursors
 # are tied to a view of the data. If new data is added continuted pagination
