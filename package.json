@@ -7,8 +7,13 @@
   "repository": "git@github.com:forte-music/schema.git",
   "author": "Martin Charles <martincharles07@gmail.com>",
   "license": "MIT",
+  "config": {
+    "files": "**/*.{js,json,graphql,md}"
+  },
   "scripts": {
-    "lint": "graphql lint",
+    "lint": "yarn lint-graphql && yarn eslint",
+    "eslint": "eslint . --ext .js --ext .graphql",
+    "lint-graphql": "graphql lint",
     "generate-schema":
       "apollo-codegen introspect-schema schema.graphql --output schema.json",
     "fix-style": "prettier --write '**/*.{js,json,graphql,md}'",
@@ -19,6 +24,9 @@
   },
   "devDependencies": {
     "apollo-codegen": "^0.18.3",
+    "eslint": "^4.16.0",
+    "eslint-plugin-graphql": "^1.5.0",
+    "eslint-plugin-jest": "^21.7.0",
     "graphql-cli": "^2.12.4",
     "prettier": "^1.10.2"
   },
@@ -39,6 +47,38 @@
       "enum-values-all-caps",
       "types-are-capitalized"
     ]
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest/globals": true
+    },
+    "globals": {
+      "API_URL": false
+    },
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2017,
+      "ecmaFeatures": {
+        "experimentalObjectRestSpread": true
+      }
+    },
+    "rules": {
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/valid-expect": "error",
+      "graphql/template-strings": [
+        "warn",
+        {
+          "env": "literal",
+          "tagName": "gql"
+        }
+      ]
+    },
+    "plugins": ["graphql", "jest"]
   },
   "prettier": {
     "singleQuote": true,

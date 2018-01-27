@@ -3,7 +3,7 @@
 const jest = require('jest');
 const path = require('path');
 
-const [runtimePath, scriptPath, apiLocation, ...args] = process.argv;
+const [apiLocation, ...args] = process.argv.slice(2);
 
 if (!apiLocation) {
   throw new TypeError(
