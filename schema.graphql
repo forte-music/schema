@@ -25,6 +25,9 @@ type Album {
   # The year the album was released.
   releaseYear: Int!
 
+  # Stats for album's playback.
+  stats: UserStats!
+
   # The UTC epoch time (seconds) when this was created.
   timeAdded: Int!
 }
@@ -39,6 +42,9 @@ type Artist {
   # Albums this artist has authored. These are the albums that this artist is
   # the album artist of. The albums are sorted by release date.
   albums: [Album!]!
+
+  # Stats for artist playback.
+  stats: UserStats!
 
   # The UTC epoch time (seconds) when this was created.
   timeAdded: Int!
@@ -83,22 +89,43 @@ type Song {
   timeAdded: Int!
 }
 
+# Playback stats for an item in the library for a specific user. Updated through
+# calls to Mutation.playSong.
+type UserStats {
+  # A globally unique id.
+  id: ID!
+
+  # The number of times this item has been played.
+  playCount: Int!
+
+  # The UTC epoch time (seconds) at which this item was last played. If the item
+  # has never been played, this is null.
+  lastPlayed: Int
+}
+
 # Stats for a song tied to a specific user.
 type SongUserStats {
   # A globally unique id referring to a song's stats.
   id: ID!
 
-  # The number of times this song has been played.
-  playCount: Int!
-
-  # The UTC epoch time (seconds) at which this song was last played. If the song
-  # is never been played, this is null. Updated by the playSong mutation.
-  lastPlayed: Int
-
   # Whether or not this song is liked. Liked songs go into their own
   # auto-playlist. By default this value is false. Updated by toggleLike
   # mutation.
   liked: Boolean!
+
+  # Play count information.
+  stats: UserStats!
+}
+
+# A collection of stats. Returned in response to playSong. If a descriptor
+# (albumId, artistId, playlistId) was specified, the stats linked to the
+# specified descriptor is non null.
+type StatsCollection {
+  albumStats: UserStats
+  artistStats: UserStats
+  playlistStats: UserStats
+
+  songStats: SongUserStats!
 }
 
 # An item in a playlist.
@@ -124,11 +151,13 @@ type Playlist {
   # The sum of durations of every song in the playlist in seconds.
   duration: Int!
 
-  # The UTC epoch time (seconds) when this was created.
-  timeAdded: Int!
-
   # The items in the playlist.
   items(input: ConnectionQuery): PlaylistItemConnection!
+
+  stats: UserStats!
+
+  # The UTC epoch time (seconds) when this was created.
+  timeAdded: Int!
 }
 
 # The connection and edge types below are used to implement pagination. The
@@ -194,6 +223,12 @@ enum SortBy {
 
   # Sort by title in case-insensitive alphabetic order.
   LEXICOGRAPHICALLY
+
+  # Sort from most recently played to least recently played.
+  RECENTLY_PLAYED
+
+  # Sort from most played to least played.
+  MOST_PLAYED
 
   # Sort by how well the filter matches the item. If this is used
   # SortParams.filter must be specified.
@@ -280,7 +315,7 @@ type Mutation {
     artistId: ID
     albumId: ID
     playlistId: ID
-  ): SongUserStats!
+  ): StatsCollection!
 
   # Toggles the like state of the specified song. Returns the song's stats.
   toggleLike(songId: ID!): SongUserStats!
