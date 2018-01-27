@@ -155,7 +155,11 @@ type Playlist {
   duration: Int!
 
   # The items in the playlist.
-  items(input: ConnectionQuery): PlaylistItemConnection!
+  items(
+    first: Int = 25
+    after: String
+    sort: SortParams
+  ): PlaylistItemConnection!
 
   stats: UserStats!
 
@@ -164,20 +168,32 @@ type Playlist {
 }
 
 # The connection and edge types below are used to implement pagination. The
-# pattern is described here: http://graphql.org/learn/pagination/
+# pattern is described here http://graphql.org/learn/pagination/ and defined
+# here https://facebook.github.io/relay/graphql/connections.htm
+#
+# The `first` parameter of queries which return a connection is used to specify
+# the amount of items to get.
+#
+# The `after` parameter of queries which return a connection is used to specify
+# the cursor after which to get items from.
 #
 # Cursors are opaque tokens which are bound to a query and can be used to
 # request more items for a query (arguments and field combination). Cursors
 # are tied to a view of the data. If new data is added continuted pagination
 # returns the old data.
+type PageInfo {
+  count: Int!
+  hasNextPage: Boolean!
+}
+
 type AlbumEdge {
   cursor: String!
   node: Album!
 }
 
 type AlbumConnection {
-  count: Int!
   edges: [AlbumEdge!]!
+  pageInfo: PageInfo!
 }
 
 type ArtistEdge {
@@ -186,8 +202,8 @@ type ArtistEdge {
 }
 
 type ArtistConnection {
-  count: Int!
   edges: [ArtistEdge!]!
+  pageInfo: PageInfo!
 }
 
 type SongEdge {
@@ -196,8 +212,8 @@ type SongEdge {
 }
 
 type SongConnection {
-  count: Int!
   edges: [SongEdge!]!
+  pageInfo: PageInfo!
 }
 
 type PlaylistEdge {
@@ -206,8 +222,8 @@ type PlaylistEdge {
 }
 
 type PlaylistConnection {
-  count: Int!
   edges: [PlaylistEdge!]!
+  pageInfo: PageInfo!
 }
 
 type PlaylistItemEdge {
@@ -216,8 +232,8 @@ type PlaylistItemEdge {
 }
 
 type PlaylistItemConnection {
-  count: Int!
   edges: [PlaylistItemEdge!]!
+  pageInfo: PageInfo!
 }
 
 enum SortBy {
@@ -238,16 +254,6 @@ enum SortBy {
   RELEVANCE
 }
 
-input ConnectionQuery {
-  # The maximum number of results to return. If this is -1, all known results
-  # are returned.
-  limit: Int = 25
-
-  # Results after this cursor (Edge.cursor) will be returned. If not specified,
-  # starts from the first position.
-  cursor: String
-}
-
 input SortParams {
   # The order in which the results are sorted.
   sortBy: SortBy!
@@ -264,25 +270,29 @@ type Query {
   album(id: ID!): Album!
 
   # Get paginated, filtered, sorted albums.
-  albums(input: ConnectionQuery, sort: SortParams): AlbumConnection!
+  albums(first: Int = 25, after: String, sort: SortParams): AlbumConnection!
 
   # Get an artist by its globally unique id.
   artist(id: ID!): Artist!
 
   # Get paginated, filtered, sorted artists.
-  artists(input: ConnectionQuery, sort: SortParams): ArtistConnection!
+  artists(first: Int = 25, after: String, sort: SortParams): ArtistConnection!
 
   # Get a song by its globally unique id.
   song(id: ID!): Song!
 
   # Get paginated, filtered, sorted songs.
-  songs(input: ConnectionQuery, sort: SortParams): SongConnection!
+  songs(first: Int = 25, after: String, sort: SortParams): SongConnection!
 
   # Get a playlist by its globally unique id.
   playlist(id: ID!): Playlist!
 
   # Get a sorted list of playlists.
-  playlists(input: ConnectionQuery, sort: SortParams): PlaylistConnection!
+  playlists(
+    first: Int = 25
+    after: String
+    sort: SortParams
+  ): PlaylistConnection!
 }
 
 enum Position {
