@@ -41,6 +41,7 @@ it('should get a playlist by id', async () => {
 it('should create a new playlist', async () => {
   const variables = {
     name: 'Test Created Playlist',
+    description: 'This is a test playlist created for testing reasons.',
     songs: ['song:4:6', 'song:4:16', 'song:4:19'],
   };
 
@@ -66,6 +67,7 @@ it('should create a new playlist', async () => {
 
   expect(createPlaylist).toMatchObject({
     name: variables.name,
+    description: variables.description,
     items: {
       edges: variables.songs.map(id => ({ node: { id } })),
     },
