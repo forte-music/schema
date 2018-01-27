@@ -3,6 +3,7 @@
 exports[`should get a playlist by id 1`] = `
 Object {
   "playlist": Object {
+    "description": "",
     "duration": 481,
     "id": "playlist:1",
     "items": Object {

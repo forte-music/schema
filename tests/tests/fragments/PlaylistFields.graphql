@@ -2,4 +2,5 @@ fragment PlaylistFields on Playlist {
   id
   name
   duration
+  description
 }
