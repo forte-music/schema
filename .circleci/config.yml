@@ -34,6 +34,14 @@ jobs:
           name: Check Style
           command: yarn check-style
 
+      - run:
+          name: Compile Fixtures
+          command: yarn compile-fixtures
+
+      - run:
+          name: Generate Schema
+          command: yarn generate-schema
+
   deploy:
     docker:
       - image: node:9.3.0
@@ -48,8 +56,8 @@ jobs:
             - dependencies-
 
       - run:
-          name: Generate Schema JSON
-          command: yarn generate-schema
+          name: Build Stuff
+          command: yarn build
 
       - run:
           name: Setup the Environment for Publishing
