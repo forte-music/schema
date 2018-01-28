@@ -50,8 +50,11 @@ it('should get all items when limit is -1', async () => {
   const { songs } = await client.request(
     `
       query {
-        songs(input: { limit: -1 }) {
-          count
+        songs(first: -1) {
+          pageInfo {
+            hasNextPage
+            count
+          }
           edges {
             cursor
             node {
@@ -63,6 +66,6 @@ it('should get all items when limit is -1', async () => {
     `
   );
 
-  expect(songs.count).toBeTruthy();
-  expect(songs.count).toEqual(songs.edges.length);
+  expect(songs.pageInfo.count).toBeTruthy();
+  expect(songs.pageInfo.count).toEqual(songs.edges.length);
 });

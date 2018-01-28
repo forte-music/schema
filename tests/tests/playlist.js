@@ -15,7 +15,7 @@ it('should get a playlist by id', async () => {
       playlist(id: $playlistId) {
         ...PlaylistFields
 
-        items(input: { limit: 10 }) {
+        items(first: 10) {
           edges {
             node {
               ...PlaylistItemFields
