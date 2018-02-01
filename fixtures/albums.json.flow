@@ -1,4 +1,6 @@
 // @flow
+import type { UserStats } from './stats';
+
 export type AlbumSource = {
   id: string,
   name: string,
@@ -6,6 +8,7 @@ export type AlbumSource = {
   artistId: string,
   songIds: string[],
   releaseYear: number,
+  stats?: UserStats,
 }
 
 declare export var albums: AlbumSource[];

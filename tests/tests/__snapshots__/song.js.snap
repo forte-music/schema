@@ -28,11 +28,11 @@ Object {
     "id": "song:2:1",
     "name": "I'm That (Remix)",
     "stats": Object {
-      "id": "stats:2:1:song",
+      "id": "song:2:1:stats:song",
       "liked": false,
       "stats": Object {
-        "id": "stats:2:1",
-        "lastPlayed": 0,
+        "id": "song:2:1:stats",
+        "lastPlayed": null,
         "playCount": 0,
       },
     },

@@ -1,8 +1,12 @@
 // @flow
+import type { UserStats } from './stats';
+
 export type PlaylistSource = {
   id: string,
   name: string,
+  description?: string,
   songIds: string[],
+  stats?: UserStats,
 }
 
 declare export var playlists: PlaylistSource[];
