@@ -9,6 +9,7 @@ const testConnection = (connectionName, getConnection) => {
       }
 
       expect(connection.pageInfo.count).toBeTruthy();
+      expect(connection.pageInfo.hasNextPage).toBe(false);
       expect(connection.edges).toHaveLength(connection.pageInfo.count);
     });
 
@@ -16,6 +17,9 @@ const testConnection = (connectionName, getConnection) => {
       const limit = 2;
       const connection = await getConnection({ first: limit });
 
+      expect(connection.pageInfo.hasNextPage).toBe(
+        connection.edges.length < connection.pageInfo.count - 1
+      );
       expect(connection.edges).toHaveLength(limit);
     });
 
@@ -44,7 +48,10 @@ const testConnection = (connectionName, getConnection) => {
         id,
       }));
 
+      // TODO: Check Page Info
       expect(actualNodes).toMatch(expectedNodes);
+
+      // TODO: Use these tests
     });
   });
 };
