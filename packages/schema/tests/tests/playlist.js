@@ -47,10 +47,7 @@ it('should create a new playlist', async () => {
 
   const mutation = gql`
     mutation($name: String!, $description: String!, $songs: [ID!]!) {
-      createPlaylist(
-        input: { name: $name, description: $description }
-        songs: $songs
-      ) {
+      createPlaylist(name: $name, description: $description, songs: $songs) {
         ...PlaylistFields
 
         items(first: -1) {

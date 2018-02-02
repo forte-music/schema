@@ -316,14 +316,6 @@ input PlaylistAppendInput {
   songs: [ID!]!
 }
 
-input PlaylistInput {
-  # The name of the new playlist.
-  name: String!
-
-  # The playlist description. (Playlist.description).
-  description: String
-}
-
 type Mutation {
   # Increments play counts and updates the last played time in SongUserStats.
   # Returns the song's stats. The artistId, albumId and playlistId fields are
@@ -343,7 +335,11 @@ type Mutation {
 
   # Creates a new playlist. Returns the newly created playlist.
   createPlaylist(
-    input: PlaylistInput!
+    # The name of the new playlist.
+    name: String!
+
+    # The playlist description. (Playlist.description).
+    description: String
 
     # The ids of songs to add to the playlist in the order specified. If an
     # invalid id is passed, the entire request fails.
@@ -355,7 +351,8 @@ type Mutation {
     # The id of the playlist to rename.
     playlistId: ID!
 
-    input: PlaylistInput!
+    name: String
+    description: String
   ): Playlist!
 
   # Adds songs to the end or the beginning of a playlist.
