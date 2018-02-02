@@ -1,11 +1,11 @@
 {
   "name": "@forte-music/mock",
   "description": "A mock resolver for testing forte.",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "MIT",
   "main": "resolvers.js",
   "dependencies": {
-    "@forte-music/schema": "^0.0.13"
+    "@forte-music/schema": "^0.0.14"
   },
   "peerDependencies": {
     "graphql": "^0.12.3"
@@ -27,7 +27,12 @@
     "mock-server": "NODE_ENV=test babel-node server.js"
   },
   "babel": {
-    "presets": ["babel-preset-flow", "babel-preset-env"],
-    "plugins": ["babel-plugin-transform-object-rest-spread"]
+    "presets": [
+      "babel-preset-flow",
+      "babel-preset-env"
+    ],
+    "plugins": [
+      "babel-plugin-transform-object-rest-spread"
+    ]
   }
 }

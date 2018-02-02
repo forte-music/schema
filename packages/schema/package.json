@@ -1,9 +1,14 @@
 {
   "name": "@forte-music/schema",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "The graphql schema for communication with forte.",
   "main": "schema.json",
-  "files": ["schema.graphql", "schema.json", "fixtures/", "tests/"],
+  "files": [
+    "schema.graphql",
+    "schema.json",
+    "fixtures/",
+    "tests/"
+  ],
   "repository": "git@github.com:forte-music/schema.git",
   "author": "Martin Charles <martincharles07@gmail.com>",
   "license": "MIT",
@@ -11,8 +16,7 @@
     "lint": "graphql lint",
     "build": "yarn generate-schema && yarn compile-fixtures",
     "compile-fixtures": "node build.js",
-    "generate-schema":
-      "apollo-codegen introspect-schema schema.graphql --output schema.json"
+    "generate-schema": "apollo-codegen introspect-schema schema.graphql --output schema.json"
   },
   "bin": {
     "forte-test-api": "./tests/cli.js"
