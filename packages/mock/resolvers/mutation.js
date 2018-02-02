@@ -110,11 +110,40 @@ const createPlaylist = (
   return playlist;
 };
 
+export type UpdatePlaylistArgs = {
+  playlistId: string,
+  name?: string,
+  description?: string,
+};
+
+const updatePlaylist = (
+  _: void,
+  { playlistId, name, description }: UpdatePlaylistArgs
+) => {
+  if (!name && !description) {
+    throw new TypeError(
+      'Invalid arguments. One of name or description must be provided'
+    );
+  }
+
+  const playlist = mustGet(playlists, playlistId);
+  if (name) {
+    playlist.name = name;
+  }
+
+  if (description) {
+    playlist.description = description;
+  }
+
+  return playlist;
+};
+
 const mutation = {
   Mutation: {
     toggleLike: transformStats(old => ({ ...old, liked: !old.liked })),
     playSong,
     createPlaylist,
+    updatePlaylist,
   },
 };
 

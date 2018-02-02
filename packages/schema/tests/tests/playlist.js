@@ -38,6 +38,45 @@ it('should get a playlist by id', async () => {
   expect(resp).toMatchSnapshot();
 });
 
+const PlaylistFragment = gql`
+  fragment PlaylistFragment on Playlist {
+    ...PlaylistFields
+
+    items(first: -1) {
+      edges {
+        node {
+          song {
+            id
+          }
+        }
+      }
+    }
+  }
+
+  ${PlaylistFields}
+`;
+
+const expectMatchesPlaylist = async (playlistId, expectedPlaylist) => {
+  const query = gql`
+    query($playlistId: ID!) {
+      playlist(id: $playlistId) {
+        ...PlaylistFragment
+      }
+    }
+
+    ${PlaylistFragment}
+  `;
+
+  const { playlist: queriedPlaylist } = await client.request(print(query), {
+    playlistId,
+  });
+
+  expect(queriedPlaylist).toMatchObject({
+    id: playlistId,
+    ...expectedPlaylist,
+  });
+};
+
 it('should create a new playlist', async () => {
   const variables = {
     name: 'Test Created Playlist',
@@ -48,21 +87,11 @@ it('should create a new playlist', async () => {
   const mutation = gql`
     mutation($name: String!, $description: String!, $songs: [ID!]!) {
       createPlaylist(name: $name, description: $description, songs: $songs) {
-        ...PlaylistFields
-
-        items(first: -1) {
-          edges {
-            node {
-              song {
-                id
-              }
-            }
-          }
-        }
+        ...PlaylistFragment
       }
     }
 
-    ${PlaylistFields}
+    ${PlaylistFragment}
   `;
 
   const { createPlaylist } = await client.request(print(mutation), variables);
@@ -76,33 +105,57 @@ it('should create a new playlist', async () => {
   };
 
   expect(createPlaylist).toMatchObject(expectedPlaylist);
+  await expectMatchesPlaylist(createPlaylist.id, expectedPlaylist);
+});
+
+it('should update an existing playlist', async () => {
+  const variables = { playlistId: 'playlist:4' };
 
   const query = gql`
     query($playlistId: ID!) {
       playlist(id: $playlistId) {
-        ...PlaylistFields
-
-        items(first: -1) {
-          edges {
-            node {
-              song {
-                id
-              }
-            }
-          }
-        }
+        ...PlaylistFragment
       }
     }
 
-    ${PlaylistFields}
+    ${PlaylistFragment}
   `;
 
-  const { playlist: queriedPlaylist } = await client.request(print(query), {
-    playlistId: createPlaylist.id,
-  });
+  const { playlist } = await client.request(print(query), variables);
 
-  expect(queriedPlaylist).toMatchObject({
-    id: createPlaylist.id,
-    ...expectedPlaylist,
-  });
+  const mutation = gql`
+    mutation($playlistId: ID!, $name: String, $description: String) {
+      updatePlaylist(
+        playlistId: $playlistId
+        name: $name
+        description: $description
+      ) {
+        ...PlaylistFragment
+      }
+    }
+
+    ${PlaylistFragment}
+  `;
+
+  const mutationVariables = {
+    ...variables,
+    name: 'An Updated Playlist',
+    description: 'A playlists which has been updated by the tests.',
+  };
+
+  const { updatePlaylist } = await client.request(
+    print(mutation),
+    mutationVariables
+  );
+
+  const expectedPlaylist = {
+    id: variables.playlistId,
+    name: mutationVariables.name,
+    description: mutationVariables.description,
+    items: playlist.items,
+  };
+
+  expect(updatePlaylist).toMatchObject(expectedPlaylist);
+
+  await expectMatchesPlaylist(expectedPlaylist.id, expectedPlaylist);
 });

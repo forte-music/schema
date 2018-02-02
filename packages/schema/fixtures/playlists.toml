@@ -387,3 +387,9 @@ songIds = [
   'song:1:1', 'song:2:1', 'song:3:1',
   'song:1:1', 'song:2:1', 'song:3:1',
 ]
+
+[[playlists]]
+id = 'playlist:4'
+name = 'Playlist for Updating'
+description = 'A playlist for testing updating.'
+songIds = ['song:1:1', 'song:4:1', 'song:4:3']
