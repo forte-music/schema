@@ -8,7 +8,6 @@ import type {
   StatsCollection,
   UserStats,
 } from '../models';
-import type { PlaylistInput, PlaySongArgs } from './types';
 import type { PlaylistSource } from '@forte-music/schema/fixtures/playlists';
 
 import { albums, artists, playlists, songs } from '../models';
@@ -33,6 +32,13 @@ const updateStats = (old: UserStats): UserStats => ({
   playCount: old.playCount + 1,
   lastPlayed: now(),
 });
+
+export type PlaySongArgs = {
+  songId: string,
+  artistId?: string,
+  albumId?: string,
+  playlistId?: string,
+};
 
 const playSong = (
   _: void,
@@ -81,12 +87,15 @@ const playSong = (
   };
 };
 
+type CreatePlaylistArgs = {
+  name: string,
+  description?: string,
+  songs: string[],
+};
+
 const createPlaylist = (
   _: void,
-  {
-    input: { name, description },
-    songs: songIds,
-  }: { input: PlaylistInput, songs: string[] }
+  { name, description, songs: songIds }: CreatePlaylistArgs
 ): Playlist => {
   const playlistSource: PlaylistSource = {
     id: `playlist:${randomInt()}`,

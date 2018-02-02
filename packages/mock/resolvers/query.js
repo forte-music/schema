@@ -1,9 +1,13 @@
 // @flow
 import type { Connection, Playlist, PlaylistItem } from '../models';
-import type { ConnectionArgs } from './types';
 
 import { albums, artists, playlists, songs } from '../models';
 import { mustGet } from '../utils';
+
+type ConnectionArgs = {
+  after?: string,
+  first?: number,
+};
 
 const itemResolver = <T>(map: Map<string, T>) => (
   _: void,
