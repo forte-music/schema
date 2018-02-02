@@ -1,5 +1,8 @@
 {
   "name": "@forte-music/mock",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A mock resolver for testing forte.",
   "version": "0.0.14",
   "license": "MIT",
