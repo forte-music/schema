@@ -1,7 +1,7 @@
 // @flow
 import { albums } from '@forte-music/schema/fixtures/albums';
 import type { AlbumSource } from '@forte-music/schema/fixtures/albums';
-import { arrayPropertyDescriptor, makeMap, propertyDescriptor } from './utils';
+import { arrayPropertyDescriptor, makeMap, propertyDescriptor } from '../utils';
 import { songs, artists } from '.';
 import type { Song, Artist, UserStats } from '.';
 import { withUserStats } from './stats';

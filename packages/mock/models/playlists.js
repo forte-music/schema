@@ -1,7 +1,7 @@
 // @flow
 import { playlists } from '@forte-music/schema/fixtures/playlists';
 import type { PlaylistSource } from '@forte-music/schema/fixtures/playlists';
-import { makeMap, mustGetKeys } from './utils';
+import { makeMap, mustGetKeys } from '../utils';
 import { songs as songMap } from '.';
 import type { Song, UserStats } from '.';
 import { withUserStats } from './stats';

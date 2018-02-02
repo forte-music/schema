@@ -49,3 +49,5 @@ export const makeMap = <T: Identifiable>(list: T[]): Map<string, T> =>
     map.set(identifiable.id, identifiable);
     return map;
   }, new Map());
+
+export const now = () => Math.floor(Date.now() / 1000);

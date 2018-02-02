@@ -3,6 +3,8 @@
   "description": "A mock resolver for testing forte.",
   "version": "0.0.13",
   "license": "MIT",
+  "files": ["models/"],
+  "main": "./resolvers.js",
   "dependencies": {
     "@forte-music/schema": "^0.0.13",
     "flow-bin": "^0.64.0"

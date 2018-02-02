@@ -9,10 +9,9 @@ import type {
   SongUserStats,
   StatsCollection,
   UserStats,
-} from '.';
-import { albums, artists, playlists, songs } from '.';
-import { mustGet } from './utils';
-import { now } from './time';
+} from './models';
+import { albums, artists, playlists, songs } from './models';
+import { mustGet, now } from './utils';
 
 type ConnectionArgs = {
   after?: string,
