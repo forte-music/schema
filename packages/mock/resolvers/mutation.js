@@ -2,67 +2,18 @@
 import type {
   Album,
   Artist,
-  Connection,
   Playlist,
-  PlaylistItem,
   Song,
   SongUserStats,
   StatsCollection,
   UserStats,
-} from './models';
+} from '../models';
+import type { PlaylistInput, PlaySongArgs } from './types';
 import type { PlaylistSource } from '@forte-music/schema/fixtures/playlists';
-import { albums, artists, playlists, songs } from './models';
-import { addToMap, mustGet, now, randomInt } from './utils';
-import { connectPlaylist } from './models/playlists';
 
-type ConnectionArgs = {
-  after?: string,
-  first?: number,
-};
-
-type PlaySongArgs = {
-  songId: string,
-  artistId?: string,
-  albumId?: string,
-  playlistId?: string,
-};
-
-const itemResolver = <T>(map: Map<string, T>) => (
-  _: void,
-  { id }: { id: string }
-): T => mustGet(map, id);
-
-const connectionResolver = <T>(map: Map<string, T>) => (
-  _: void,
-  args: ConnectionArgs
-): Connection<T> =>
-  handleConnection(
-    Array.from(map.keys()).sort(),
-    (key: string): T => mustGet(map, key),
-    args
-  );
-
-const handleConnection = <InputType, NodeType>(
-  keys: InputType[],
-  getNode: (key: InputType) => NodeType,
-  { first = 25, after }: ConnectionArgs
-): Connection<NodeType> => {
-  const lowerBound = after ? parseInt(after, 10) + 1 : 0;
-  const upperBound = first === -1 ? keys.length : lowerBound + first;
-
-  const acceptedKeys = keys.slice(lowerBound, upperBound);
-
-  return {
-    pageInfo: {
-      count: keys.length,
-      hasNextPage: upperBound <= keys.length,
-    },
-    edges: acceptedKeys.map((key, index) => ({
-      cursor: (index + lowerBound).toString(),
-      node: getNode(key),
-    })),
-  };
-};
+import { albums, artists, playlists, songs } from '../models';
+import { addToMap, mustGet, now, randomInt } from '../utils';
+import { connectPlaylist } from '../models/playlists';
 
 const withSong = <T>(inner: Song => T) => (
   _: void,
@@ -83,27 +34,7 @@ const updateStats = (old: UserStats): UserStats => ({
   lastPlayed: now(),
 });
 
-type PlaylistInput = {
-  name: string,
-  description?: string,
-};
-
-// Resolvers for mock backend.
-const resolvers = {
-  Query: {
-    album: itemResolver(albums),
-    albums: connectionResolver(albums),
-
-    artist: itemResolver(artists),
-    artists: connectionResolver(artists),
-
-    song: itemResolver(songs),
-    songs: connectionResolver(songs),
-
-    playlist: itemResolver(playlists),
-    playlists: connectionResolver(playlists),
-  },
-
+const mutation = {
   Mutation: {
     toggleLike: transformStats(old => ({ ...old, liked: !old.liked })),
 
@@ -163,7 +94,6 @@ const resolvers = {
         songs: songIds,
       }: { input: PlaylistInput, songs: string[] }
     ): Playlist => {
-      console.log(songIds);
       const playlistSource: PlaylistSource = {
         id: `playlist:${randomInt()}`,
         name,
@@ -177,13 +107,6 @@ const resolvers = {
       return playlist;
     },
   },
-
-  Playlist: {
-    items: (
-      { items }: Playlist,
-      args: ConnectionArgs
-    ): Connection<PlaylistItem> => handleConnection(items, item => item, args),
-  },
 };
 
-export default resolvers;
+export default mutation;
