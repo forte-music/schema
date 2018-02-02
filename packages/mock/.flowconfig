@@ -1,0 +1,16 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+module.file_ext=.js
+module.file_ext=.json
+
+suppress_comment= \\(.\\|\n\\)*\\$ExpectError
+
+
+[strict]
