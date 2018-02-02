@@ -13,6 +13,7 @@
   "author": "Martin Charles <martincharles07@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "prepack": "yarn build",
     "lint": "graphql lint",
     "build": "yarn generate-schema && yarn compile-fixtures",
     "compile-fixtures": "node build.js",
