@@ -1,2 +1,8 @@
 packages/schema/fixtures/*.json
+packages/schema/package.json
 packages/schema/schema.json
+
+packages/mock/schema.json
+package.json
+
+lerna.json
