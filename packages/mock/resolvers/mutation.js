@@ -34,78 +34,78 @@ const updateStats = (old: UserStats): UserStats => ({
   lastPlayed: now(),
 });
 
+const playSong = (
+  _: void,
+  { songId, artistId, albumId, playlistId }: PlaySongArgs
+): StatsCollection => {
+  const validDescriptors = [artistId, albumId, playlistId].filter(
+    descriptor => !!descriptor
+  );
+
+  if (validDescriptors.length > 1) {
+    throw new TypeError(
+      'Multiple valid descriptors were passed: ' +
+        validDescriptors.join() +
+        '. Only one should be passed.'
+    );
+  }
+
+  const song: Song = mustGet(songs, songId);
+  song.stats.stats = updateStats(song.stats.stats);
+
+  const album: Album | void = albumId ? mustGet(albums, albumId) : undefined;
+  const artist: Artist | void = artistId
+    ? mustGet(artists, artistId)
+    : undefined;
+  const playlist: Playlist | void = playlistId
+    ? mustGet(playlists, playlistId)
+    : undefined;
+
+  if (album) {
+    album.stats = updateStats(album.stats);
+  }
+
+  if (artist) {
+    artist.stats = updateStats(artist.stats);
+  }
+
+  if (playlist) {
+    playlist.stats = updateStats(playlist.stats);
+  }
+
+  return {
+    songStats: song.stats,
+    albumStats: album && album.stats,
+    artistStats: artist && artist.stats,
+    playlistStats: playlist && playlist.stats,
+  };
+};
+
+const createPlaylist = (
+  _: void,
+  {
+    input: { name, description },
+    songs: songIds,
+  }: { input: PlaylistInput, songs: string[] }
+): Playlist => {
+  const playlistSource: PlaylistSource = {
+    id: `playlist:${randomInt()}`,
+    name,
+    description,
+    songIds,
+  };
+
+  const playlist = connectPlaylist(playlistSource);
+  addToMap(playlists, playlist);
+
+  return playlist;
+};
+
 const mutation = {
   Mutation: {
     toggleLike: transformStats(old => ({ ...old, liked: !old.liked })),
-
-    playSong: (
-      _: void,
-      { songId, artistId, albumId, playlistId }: PlaySongArgs
-    ): StatsCollection => {
-      const validDescriptors = [artistId, albumId, playlistId].filter(
-        descriptor => !!descriptor
-      );
-
-      if (validDescriptors.length > 1) {
-        throw new TypeError(
-          'Multiple valid descriptors were passed: ' +
-            validDescriptors.join() +
-            '. Only one should be passed.'
-        );
-      }
-
-      const song: Song = mustGet(songs, songId);
-      song.stats.stats = updateStats(song.stats.stats);
-
-      const album: Album | void = albumId
-        ? mustGet(albums, albumId)
-        : undefined;
-      const artist: Artist | void = artistId
-        ? mustGet(artists, artistId)
-        : undefined;
-      const playlist: Playlist | void = playlistId
-        ? mustGet(playlists, playlistId)
-        : undefined;
-
-      if (album) {
-        album.stats = updateStats(album.stats);
-      }
-
-      if (artist) {
-        artist.stats = updateStats(artist.stats);
-      }
-
-      if (playlist) {
-        playlist.stats = updateStats(playlist.stats);
-      }
-
-      return {
-        songStats: song.stats,
-        albumStats: album && album.stats,
-        artistStats: artist && artist.stats,
-        playlistStats: playlist && playlist.stats,
-      };
-    },
-
-    createPlaylist: (
-      _: void,
-      {
-        input: { name, description },
-        songs: songIds,
-      }: { input: PlaylistInput, songs: string[] }
-    ): Playlist => {
-      const playlistSource: PlaylistSource = {
-        id: `playlist:${randomInt()}`,
-        name,
-        description,
-        songIds,
-      };
-
-      const playlist = connectPlaylist(playlistSource);
-      addToMap(playlists, playlist);
-
-      return playlist;
-    },
+    playSong,
+    createPlaylist,
   },
 };
 
