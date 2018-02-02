@@ -1,0 +1,4 @@
+fixtures/*.json
+schema.json
+.npmrc
+.idea

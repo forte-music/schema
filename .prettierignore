@@ -1,2 +1,2 @@
-fixtures/*.json
-schema.json
+packages/schema/fixtures/*.json
+packages/schema/schema.json

@@ -8,6 +8,8 @@ aliases:
   - &save-cache
     paths:
       - node_modules
+      - packages/mock/node_modules
+      - packages/schema/node_modules
     key: dependencies-{{ checksum "package.json" }}
 
 version: 2
@@ -24,62 +26,30 @@ jobs:
           name: Install Deps
           command: yarn install
 
-      - save_cache: *save-cache
-
       - run:
-          name: Lint
-          command: yarn lint
+          name: Link Lerna
+          command: yarn lerna bootstrap
+
+      - save_cache: *save-cache
 
       - run:
           name: Check Style
           command: yarn check-style
 
       - run:
-          name: Compile Fixtures
-          command: yarn compile-fixtures
+          name: Lint
+          command: yarn lerna run lint
 
       - run:
-          name: Generate Schema
-          command: yarn generate-schema
-
-  deploy:
-    docker:
-      - image: node:9.3.0
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - dependencies-
+          name: Build
+          command: yarn lerna run build
 
       - run:
-          name: Build Stuff
-          command: yarn build
-
-      - run:
-          name: Setup the Environment for Publishing
-          command: printf "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ./.npmrc
-
-      - run:
-          name: Publish Package to NPM
-          command: npm publish --access=public
+          name: Test
+          command: yarn lerna run test
 
 workflows:
   version: 2
   test:
     jobs:
       - test
-      - hold:
-          type: approval
-          requires:
-           - test
-          filters:
-            branches:
-              only: master
-
-      - deploy:
-          requires:
-            - hold

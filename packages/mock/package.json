@@ -1,0 +1,6 @@
+{
+  "name": "@forte-music/mock",
+  "description": "A mock resolver for testing forte.",
+  "version": "0.0.13",
+  "license": "MIT"
+}
