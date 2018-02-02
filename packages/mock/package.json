@@ -27,7 +27,7 @@
   },
   "scripts": {
     "lint": "flow check",
-    "mock-server": "NODE_ENV=test babel-node server.js"
+    "mock-server": "babel-node server.js"
   },
   "babel": {
     "presets": [

@@ -48,10 +48,42 @@ jobs:
           name: Test
           command: yarn lerna run test
 
-# TODO: Add Mock Resolver Test
+  integration:
+    docker:
+      - image: node:9.3.0
+
+    steps:
+      - checkout
+      - restore_cache: *restore-cache
+
+      - run:
+          name: Install Deps
+          command: yarn install
+
+      - run:
+          name: Link Lerna
+          command: yarn lerna bootstrap
+
+      - save_cache: *save-cache
+
+      - run:
+          name: Build
+          command: yarn lerna run build
+
+      - run:
+          name: Mock Server
+          background: true
+          working_directory: ./packages/mock
+          command: yarn mock-server
+
+      - run:
+          name: Integration Tests
+          working_directory: ./packages/schema
+          command: node tests/cli.js http://localhost:4000/graphql
 
 workflows:
   version: 2
   test:
     jobs:
       - test
+      - integration
