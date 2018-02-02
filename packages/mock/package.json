@@ -5,20 +5,20 @@
   "license": "MIT",
   "main": "resolvers.js",
   "dependencies": {
-    "@forte-music/schema": "^0.0.13",
-    "flow-bin": "^0.64.0"
+    "@forte-music/schema": "^0.0.13"
   },
   "peerDependencies": {
     "graphql": "^0.12.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.39",
-    "@babel/node": "^7.0.0-beta.39",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.39",
-    "@babel/preset-env": "^7.0.0-beta.39",
-    "@babel/preset-flow": "^7.0.0-beta.39",
     "apollo-server-express": "^1.3.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-env": "^2.4.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
     "express": "^4.16.2",
+    "flow-bin": "^0.64.0",
     "graphql": "^0.12.3",
     "graphql-tools": "^2.19.0"
   },
@@ -27,7 +27,7 @@
     "mock-server": "NODE_ENV=test babel-node server.js"
   },
   "babel": {
-    "presets": ["@babel/preset-flow", "@babel/preset-env"],
-    "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+    "presets": ["babel-preset-flow", "babel-preset-env"],
+    "plugins": ["babel-plugin-transform-object-rest-spread"]
   }
 }
