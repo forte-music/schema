@@ -37,12 +37,12 @@ jobs:
           command: yarn check-style
 
       - run:
-          name: Lint
-          command: yarn lerna run lint
-
-      - run:
           name: Build
           command: yarn lerna run build
+
+      - run:
+          name: Lint
+          command: yarn lerna run lint
 
       - run:
           name: Test
