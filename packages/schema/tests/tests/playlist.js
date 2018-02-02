@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 
+import { testConnection } from '../connection';
 import PlaylistFields from './fragments/PlaylistFields.graphql';
 import PlaylistItemFields from './fragments/PlaylistItemFields.graphql';
 import SongFields from './fragments/SongFields.graphql';
@@ -158,4 +159,35 @@ it('should update an existing playlist', async () => {
   expect(updatePlaylist).toMatchObject(expectedPlaylist);
 
   await expectMatchesPlaylist(expectedPlaylist.id, expectedPlaylist);
+});
+
+testConnection('playlist', async ({ first, after }) => {
+  const query = gql`
+    query($playlistId: ID!, $first: Int, $after: String) {
+      playlist(id: $playlistId) {
+        items(first: $first, after: $after) {
+          pageInfo {
+            count
+            hasNextPage
+          }
+
+          edges {
+            cursor
+
+            node {
+              id
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const { playlist: { items } } = await client.request(print(query), {
+    playlistId: 'playlist:3',
+    first,
+    after,
+  });
+
+  return items;
 });

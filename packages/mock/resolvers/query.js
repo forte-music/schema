@@ -37,7 +37,7 @@ const handleConnection = <InputType, NodeType>(
   return {
     pageInfo: {
       count: keys.length,
-      hasNextPage: upperBound <= keys.length,
+      hasNextPage: upperBound < keys.length,
     },
     edges: acceptedKeys.map((key, index) => ({
       cursor: (index + lowerBound).toString(),
