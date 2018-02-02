@@ -56,7 +56,9 @@ it('should create a new playlist', async () => {
         items(first: -1) {
           edges {
             node {
-              id
+              song {
+                id
+              }
             }
           }
         }
@@ -68,11 +70,42 @@ it('should create a new playlist', async () => {
 
   const { createPlaylist } = await client.request(print(mutation), variables);
 
-  expect(createPlaylist).toMatchObject({
+  const expectedPlaylist = {
     name: variables.name,
     description: variables.description,
     items: {
-      edges: variables.songs.map(id => ({ node: { id } })),
+      edges: variables.songs.map(id => ({ node: { song: { id } } })),
     },
+  };
+
+  expect(createPlaylist).toMatchObject(expectedPlaylist);
+
+  const query = gql`
+    query($playlistId: ID!) {
+      playlist(id: $playlistId) {
+        ...PlaylistFields
+
+        items(first: -1) {
+          edges {
+            node {
+              song {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+
+    ${PlaylistFields}
+  `;
+
+  const { playlist: queriedPlaylist } = await client.request(print(query), {
+    playlistId: createPlaylist.id,
+  });
+
+  expect(queriedPlaylist).toMatchObject({
+    id: createPlaylist.id,
+    ...expectedPlaylist,
   });
 });

@@ -10,8 +10,10 @@ import type {
   StatsCollection,
   UserStats,
 } from './models';
+import type { PlaylistSource } from '@forte-music/schema/fixtures/playlists';
 import { albums, artists, playlists, songs } from './models';
-import { mustGet, now } from './utils';
+import { addToMap, mustGet, now, randomInt } from './utils';
+import { connectPlaylist } from './models/playlists';
 
 type ConnectionArgs = {
   after?: string,
@@ -81,6 +83,11 @@ const updateStats = (old: UserStats): UserStats => ({
   lastPlayed: now(),
 });
 
+type PlaylistInput = {
+  name: string,
+  description?: string,
+};
+
 // Resolvers for mock backend.
 const resolvers = {
   Query: {
@@ -147,6 +154,27 @@ const resolvers = {
         artistStats: artist && artist.stats,
         playlistStats: playlist && playlist.stats,
       };
+    },
+
+    createPlaylist: (
+      _: void,
+      {
+        input: { name, description },
+        songs: songIds,
+      }: { input: PlaylistInput, songs: string[] }
+    ): Playlist => {
+      console.log(songIds);
+      const playlistSource: PlaylistSource = {
+        id: `playlist:${randomInt()}`,
+        name,
+        description,
+        songIds,
+      };
+
+      const playlist = connectPlaylist(playlistSource);
+      addToMap(playlists, playlist);
+
+      return playlist;
     },
   },
 

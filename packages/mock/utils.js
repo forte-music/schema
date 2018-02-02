@@ -46,8 +46,15 @@ export const propertyDescriptorWithSet = <T>(
 
 export const makeMap = <T: Identifiable>(list: T[]): Map<string, T> =>
   list.reduce((map, identifiable: T) => {
-    map.set(identifiable.id, identifiable);
+    addToMap(map, identifiable);
     return map;
   }, new Map());
 
+export const addToMap = <T: Identifiable>(map: Map<string, T>, item: T) => {
+  map.set(item.id, item);
+};
+
 export const now = () => Math.floor(Date.now() / 1000);
+
+export const randomInt = (): number =>
+  Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);

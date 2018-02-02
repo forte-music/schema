@@ -21,7 +21,7 @@ export type Playlist = {|
   duration: number,
 |};
 
-const connectPlaylist = (playlist: PlaylistSource): Playlist =>
+export const connectPlaylist = (playlist: PlaylistSource): Playlist =>
   // $ExpectError
   (Object.defineProperties(
     {
