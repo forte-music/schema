@@ -15,7 +15,6 @@ export type Edge<T> = {
   node: T,
 };
 
-// TODO: Figure Out How To Move This Type
 export type Connection<T> = {
   edges: Edge<T>[],
   pageInfo: PageInfo,

@@ -38,7 +38,7 @@ export const connectPlaylist = (playlist: PlaylistSource): Playlist =>
           const songs: Song[] = mustGetKeys(songMap, playlist.songIds);
           return songs.map((song, index) => ({
             id: `${playlist.id}:${index}`,
-            song: song,
+            song,
           }));
         },
       },
