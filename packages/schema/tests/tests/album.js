@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 
+import { testConnection } from '../connection';
 import AlbumFields from './fragments/AlbumFields.graphql';
 import ArtistFields from './fragments/ArtistFields.graphql';
 import SongFields from './fragments/SongFields.graphql';
@@ -51,4 +52,32 @@ it('should calculate the duration for an album', async () => {
     id: variables.albumId,
     duration: 74 * 60 + 22,
   });
+});
+
+testConnection('albums', async ({ first, after }) => {
+  const query = gql`
+    query($first: Int, $after: String) {
+      albums(first: $first, after: $after) {
+        pageInfo {
+          count
+          hasNextPage
+        }
+
+        edges {
+          cursor
+
+          node {
+            id
+          }
+        }
+      }
+    }
+  `;
+
+  const { albums } = await client.request(print(query), {
+    first,
+    after,
+  });
+
+  return albums;
 });

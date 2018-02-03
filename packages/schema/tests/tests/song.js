@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 
+import { testConnection } from '../connection';
 import SongFields from './fragments/SongFields.graphql';
 import AlbumFields from './fragments/AlbumFields.graphql';
 import ArtistFields from './fragments/ArtistFields.graphql';
@@ -68,4 +69,32 @@ it('should get all items when limit is -1', async () => {
 
   expect(songs.pageInfo.count).toBeTruthy();
   expect(songs.pageInfo.count).toEqual(songs.edges.length);
+});
+
+testConnection('songs', async ({ first, after }) => {
+  const query = gql`
+    query($first: Int, $after: String) {
+      songs(first: $first, after: $after) {
+        pageInfo {
+          count
+          hasNextPage
+        }
+
+        edges {
+          cursor
+
+          node {
+            id
+          }
+        }
+      }
+    }
+  `;
+
+  const { songs } = await client.request(print(query), {
+    first,
+    after,
+  });
+
+  return songs;
 });

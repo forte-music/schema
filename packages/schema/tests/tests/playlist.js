@@ -191,3 +191,31 @@ testConnection('playlist', async ({ first, after }) => {
 
   return items;
 });
+
+testConnection('playlists', async ({ first, after }) => {
+  const query = gql`
+    query($first: Int, $after: String) {
+      playlists(first: $first, after: $after) {
+        pageInfo {
+          count
+          hasNextPage
+        }
+
+        edges {
+          cursor
+
+          node {
+            id
+          }
+        }
+      }
+    }
+  `;
+
+  const { playlists } = await client.request(print(query), {
+    first,
+    after,
+  });
+
+  return playlists;
+});
