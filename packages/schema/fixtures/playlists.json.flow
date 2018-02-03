@@ -5,6 +5,8 @@ export type PlaylistSource = {
   id: string,
   name: string,
   description?: string,
+  timeAdded?: number,
+
   songIds: string[],
   stats?: UserStats,
 }

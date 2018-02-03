@@ -11,6 +11,7 @@ export type Album = {|
   name: string,
   artworkUrl: string,
   releaseYear: number,
+  timeAdded: number,
 
   artist: Artist,
   songs: Song[],
@@ -28,6 +29,7 @@ const connectAlbum = (album: AlbumSource): Album =>
       name: album.name,
       artworkUrl: album.artworkUrl,
       releaseYear: album.releaseYear,
+      timeAdded: album.timeAdded || 0,
       stats: withUserStats(album),
     },
     {

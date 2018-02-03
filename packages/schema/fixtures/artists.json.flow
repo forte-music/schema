@@ -4,6 +4,7 @@ import type { UserStats } from './stats';
 export type ArtistSource = {
   id: string,
   name: string,
+  timeAdded?: number,
   albumIds: string[],
   stats?: UserStats,
 }

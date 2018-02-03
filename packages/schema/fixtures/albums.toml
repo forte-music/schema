@@ -190,7 +190,7 @@ releaseYear = 2016
 
 [[albums]]
 id = 'album:24'
-name =' Joytime'
+name = 'Joytime'
 artistId = 'artist:31'
 songIds = []
 artworkUrl = 'https://upload.wikimedia.org/wikipedia/en/9/91/Joytime_Album_Cover_Art.jpg'

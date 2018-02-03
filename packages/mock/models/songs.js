@@ -6,18 +6,19 @@ import { albums, artists } from '.';
 import type { SongUserStats, Album, Artist } from '.';
 import { statsId, defaultUserStats } from './stats';
 
-export type Song = {
+export type Song = {|
   id: string,
   streamUrl: string,
   name: string,
   duration: number,
   trackNumber: number,
   diskNumber: number,
+  timeAdded: number,
 
   artists: Artist[],
   album: Album,
   stats: SongUserStats,
-};
+|};
 
 const connectSong = (source: SongSource): Song =>
   // $ExpectError
@@ -30,6 +31,8 @@ const connectSong = (source: SongSource): Song =>
 
       trackNumber: source.trackNumber || 1,
       diskNumber: source.diskNumber || 1,
+      timeAdded: source.timeAdded || 0,
+
       stats: songStats(source),
     },
     {

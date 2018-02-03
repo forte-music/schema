@@ -6,15 +6,16 @@ import { songs as songMap } from '.';
 import type { Song, UserStats } from '.';
 import { withUserStats } from './stats';
 
-export type PlaylistItem = {
+export type PlaylistItem = {|
   id: string,
   song: Song,
-};
+|};
 
 export type Playlist = {|
   id: string,
   name: string,
   description: string,
+  timeAdded: number,
 
   stats: UserStats,
   items: PlaylistItem[],
@@ -28,6 +29,7 @@ export const connectPlaylist = (playlist: PlaylistSource): Playlist =>
       id: playlist.id,
       name: playlist.name,
       description: playlist.description || '',
+      timeAdded: playlist.timeAdded || 0,
       stats: withUserStats(playlist),
     },
     {

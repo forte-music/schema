@@ -9,6 +9,7 @@ import { withUserStats } from './stats';
 export type Artist = {|
   id: string,
   name: string,
+  timeAdded: number,
 
   albums: Album[],
   stats: UserStats,
@@ -20,6 +21,7 @@ const connectArtist = (artist: ArtistSource): Artist =>
     {
       id: artist.id,
       name: artist.name,
+      timeAdded: artist.timeAdded || 0,
       stats: withUserStats(artist),
     },
     { albums: arrayPropertyDescriptor(() => albums, artist.albumIds) }
