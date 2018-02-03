@@ -25,11 +25,11 @@ it('should get a song by id', async () => {
         }
 
         stats {
-          ...SongUserStatsFields
+          ...UserStatsFields
+        }
 
-          stats {
-            ...UserStatsFields
-          }
+        songStats {
+          ...SongUserStatsFields
         }
       }
     }

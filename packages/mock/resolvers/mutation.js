@@ -20,15 +20,13 @@ const withSong = <T>(inner: Song => T) => (
 ): T => inner(mustGet(songs, songId));
 
 const transformStats = (transform: (old: SongUserStats) => SongUserStats) =>
-  withSong((song: Song): SongUserStats => {
-    const { stats } = song;
-    const newStats = transform(stats);
-    song.stats = newStats;
-    return newStats;
+  withSong((song: Song): Song => {
+    song.songStats = transform(song.songStats);
+    return song;
   });
 
 const updateStats = (old: UserStats): UserStats => ({
-  ...old,
+  id: old.id,
   playCount: old.playCount + 1,
   lastPlayed: now(),
 });
@@ -57,7 +55,7 @@ const playSong = (
   }
 
   const song: Song = mustGet(songs, songId);
-  song.stats.stats = updateStats(song.stats.stats);
+  song.stats = updateStats(song.stats);
 
   const album: Album | void = albumId ? mustGet(albums, albumId) : undefined;
   const artist: Artist | void = artistId
@@ -80,7 +78,7 @@ const playSong = (
   }
 
   return {
-    songStats: song.stats,
+    song,
     albumStats: album && album.stats,
     artistStats: artist && artist.stats,
     playlistStats: playlist && playlist.stats,
@@ -140,7 +138,7 @@ const updatePlaylist = (
 
 const mutation = {
   Mutation: {
-    toggleLike: transformStats(old => ({ ...old, liked: !old.liked })),
+    toggleLike: transformStats(old => ({ id: old.id, liked: !old.liked })),
     playSong,
     createPlaylist,
     updatePlaylist,

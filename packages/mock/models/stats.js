@@ -1,39 +1,36 @@
 // @flow
 import type { UserStats as UserStatsSource } from '@forte-music/schema/fixtures/stats';
+import type { Song } from './songs';
 
-export type { UserStatsSource };
-
-export type UserStats = {
+export type UserStats = {|
   id: string,
   playCount: number,
   lastPlayed?: number,
-};
+|};
 
-export type SongUserStats = {
+export type SongUserStats = {|
   id: string,
   liked: boolean,
-  stats: UserStats,
-};
+|};
 
-export type StatsCollection = {
+export type StatsCollection = {|
+  song: Song,
+
   albumStats?: UserStats,
   artistStats?: UserStats,
-  playlistsStats?: UserStats,
-  songStats: SongUserStats,
-};
-
-export const defaultUserStats: UserStatsSource = {
-  playCount: 0,
-};
+  playlistStats?: UserStats,
+|};
 
 export const statsId = (parentId: string) => `${parentId}:stats`;
 
-export const withUserStats = (
-  { id, stats: maybeStats }: { id: string, stats?: UserStatsSource },
-  additionalProps: Object = {}
-): UserStats => ({
+export const withUserStats = ({
+  id,
+  stats: { playCount = 0, lastPlayed } = {},
+}: {
+  id: string,
+  +stats?: UserStatsSource,
+}): UserStats => ({
   id: statsId(id),
-  ...defaultUserStats,
-  ...maybeStats,
-  ...additionalProps,
+  playCount: playCount,
+  lastPlayed: lastPlayed,
 });

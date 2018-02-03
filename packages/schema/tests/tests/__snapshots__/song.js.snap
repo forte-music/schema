@@ -27,14 +27,14 @@ Object {
     "diskNumber": 1,
     "id": "song:2:1",
     "name": "I'm That (Remix)",
-    "stats": Object {
+    "songStats": Object {
       "id": "song:2:1:stats:song",
       "liked": false,
-      "stats": Object {
-        "id": "song:2:1:stats",
-        "lastPlayed": null,
-        "playCount": 0,
-      },
+    },
+    "stats": Object {
+      "id": "song:2:1:stats",
+      "lastPlayed": null,
+      "playCount": 0,
     },
     "streamUrl": "/music/01 - I'm That... (Remix) [feat. Beenie Man & Azealia Banks].m4a",
     "trackNumber": 1,

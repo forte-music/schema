@@ -2,7 +2,6 @@ import gql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 
 import client from '../client';
-import { ClientError } from 'graphql-request';
 
 import UserStatsFields from './fragments/UserStatsFields.graphql';
 import SongUserStatsField from './fragments/SongUserStatsFields.graphql';
@@ -17,6 +16,16 @@ const mutation = print(gql`
       albumId: $albumId
       playlistId: $playlistId
     ) {
+      song {
+        songStats {
+          ...SongUserStatsFields
+        }
+
+        stats {
+          ...UserStatsFields
+        }
+      }
+
       albumStats {
         ...UserStatsFields
       }
@@ -27,13 +36,6 @@ const mutation = print(gql`
 
       playlistStats {
         ...UserStatsFields
-      }
-
-      songStats {
-        ...SongUserStatsFields
-        stats {
-          ...UserStatsFields
-        }
       }
     }
   }
@@ -62,9 +64,7 @@ it('should update song play count', async () => {
     query($songId: ID!) {
       song(id: $songId) {
         stats {
-          stats {
-            ...UserStatsFields
-          }
+          ...UserStatsFields
         }
       }
     }
@@ -72,14 +72,15 @@ it('should update song play count', async () => {
     ${UserStatsFields}
   `;
 
-  const { song: { stats: { stats: queryStats } } } = await client.request(
+  const { song: { stats: queryStats } } = await client.request(
     print(query),
     variables
   );
 
-  const {
-    playSong: { songStats: { stats: mutationStats } },
-  } = await client.request(mutation, variables);
+  const { playSong: { song: { stats: mutationStats } } } = await client.request(
+    mutation,
+    variables
+  );
 
   expectPlayCountUpdated(queryStats, mutationStats);
 });

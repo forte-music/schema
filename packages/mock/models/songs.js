@@ -1,10 +1,11 @@
 // @flow
-import { songs } from '@forte-music/schema/fixtures/songs';
+import type { SongUserStats, Album, Artist, UserStats } from '.';
 import type { SongSource } from '@forte-music/schema/fixtures/songs';
+
+import { songs } from '@forte-music/schema/fixtures/songs';
 import { arrayPropertyDescriptor, makeMap, propertyDescriptor } from '../utils';
 import { albums, artists } from '.';
-import type { SongUserStats, Album, Artist } from '.';
-import { statsId, defaultUserStats } from './stats';
+import { statsId, withUserStats } from './stats';
 
 export type Song = {|
   id: string,
@@ -17,7 +18,8 @@ export type Song = {|
 
   artists: Artist[],
   album: Album,
-  stats: SongUserStats,
+  stats: UserStats,
+  songStats: SongUserStats,
 |};
 
 const connectSong = (source: SongSource): Song =>
@@ -33,7 +35,8 @@ const connectSong = (source: SongSource): Song =>
       diskNumber: source.diskNumber || 1,
       timeAdded: source.timeAdded || 0,
 
-      stats: songStats(source),
+      stats: withUserStats(source),
+      songStats: songStats(source),
     },
     {
       artists: arrayPropertyDescriptor(() => artists, source.artistIds || []),
@@ -43,15 +46,10 @@ const connectSong = (source: SongSource): Song =>
 
 const songStats = ({
   id,
-  stats: { liked = false, ...remainingStats } = {},
+  stats: { liked = false } = {},
 }: SongSource): SongUserStats => ({
   id: songStatsId(id),
   liked: liked,
-  stats: {
-    id: statsId(id),
-    ...defaultUserStats,
-    ...remainingStats,
-  },
 });
 
 const songStatsId = (id: string): string => `${statsId(id)}:song`;

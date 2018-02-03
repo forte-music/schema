@@ -80,7 +80,10 @@ type Song {
   artists: [Artist!]!
 
   # User stats for a song.
-  stats: SongUserStats!
+  stats: UserStats!
+
+  # User stats specifically for a song.
+  songStats: SongUserStats!
 
   # The duration of the file (retrievable at streamUrl) in seconds.
   duration: Int!
@@ -112,20 +115,17 @@ type SongUserStats {
   # auto-playlist. By default this value is false. Updated by toggleLike
   # mutation.
   liked: Boolean!
-
-  # Play count information.
-  stats: UserStats!
 }
 
 # A collection of stats. Returned in response to playSong. If a descriptor
 # (albumId, artistId, playlistId) was specified, the stats linked to the
 # specified descriptor is non null.
 type StatsCollection {
+  song: Song!
+
   albumStats: UserStats
   artistStats: UserStats
   playlistStats: UserStats
-
-  songStats: SongUserStats!
 }
 
 # An item in a playlist.
@@ -330,8 +330,8 @@ type Mutation {
     playlistId: ID
   ): StatsCollection!
 
-  # Toggles the like state of the specified song. Returns the song's stats.
-  toggleLike(songId: ID!): SongUserStats!
+  # Toggles the like state of the specified song.
+  toggleLike(songId: ID!): Song!
 
   # Creates a new playlist. Returns the newly created playlist.
   createPlaylist(

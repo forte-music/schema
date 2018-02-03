@@ -1,33 +1,38 @@
+import gql from 'graphql-tag';
+import { print } from 'graphql/language/printer';
+
 import client from '../client';
 
 it('should toggle the liked status of a song', async () => {
   const variables = { songId: 'song:1:1' };
 
-  const { song: { stats: queryStats } } = await client.request(
-    `
+  const { song: { songStats: queryStats } } = await client.request(
+    print(gql`
       query($songId: ID!) {
         song(id: $songId) {
           id
 
-          stats {
+          songStats {
             id
             liked
           }
         }
       }
-    `,
+    `),
     variables
   );
 
-  const { toggleLike: mutationStats } = await client.request(
-    `
+  const { toggleLike: { songStats: mutationStats } } = await client.request(
+    print(gql`
       mutation($songId: ID!) {
         toggleLike(songId: $songId) {
-          id
-          liked
+          songStats {
+            id
+            liked
+          }
         }
       }
-    `,
+    `),
     variables
   );
 
