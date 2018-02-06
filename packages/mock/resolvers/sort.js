@@ -40,7 +40,7 @@ const compare = (a: any, b: any): number => {
     return -1;
   }
 
-  throw new TypeError('Invariant');
+  throw new TypeError(`Invariant a: ${a}, b: ${b}`);
 };
 
 // Returns how closely the record matches the query string.
@@ -134,7 +134,7 @@ export const listItemsResolver = <T>(
 
     case 'RECENTLY_PLAYED':
       sorter = (a: Sortable, b: Sortable) =>
-        reverseCompare(a.stats.lastPlayed, b.stats.lastPlayed);
+        reverseCompare(a.stats.lastPlayed || 0, b.stats.lastPlayed || 0);
       break;
 
     case 'MOST_PLAYED':
