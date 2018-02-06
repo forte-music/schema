@@ -161,6 +161,30 @@ it('should update an existing playlist', async () => {
   await expectMatchesPlaylist(expectedPlaylist.id, expectedPlaylist);
 });
 
+it('should delete a playlist', async () => {
+  const vars = { playlistId: 'playlist:5' };
+
+  const mutation = gql`
+    mutation($playlistId: ID!) {
+      deletePlaylist(playlistId: $playlistId)
+    }
+  `;
+
+  const { deletePlaylist } = await client.request(print(mutation), vars);
+
+  expect(deletePlaylist).toBe(true);
+
+  const query = gql`
+    query($playlistId: ID!) {
+      playlist(id: $playlistId) {
+        id
+      }
+    }
+  `;
+
+  expect(client.request(print(query), vars)).rejects.toThrow();
+});
+
 testConnection('playlist', async ({ first, after }) => {
   const query = gql`
     query($playlistId: ID!, $first: Int, $after: String) {

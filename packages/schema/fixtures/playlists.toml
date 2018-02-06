@@ -393,3 +393,9 @@ id = 'playlist:4'
 name = 'Playlist for Updating'
 description = 'A playlist for testing updating.'
 songIds = ['song:1:1', 'song:4:1', 'song:4:3']
+
+[[playlists]]
+id = 'playlist:5'
+name = 'A Playlist for Deleting'
+description = 'A playlist for testing deletion.'
+songIds = ['song:1:1', 'song:4:1', 'song:4:3']

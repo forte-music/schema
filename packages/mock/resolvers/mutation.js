@@ -136,12 +136,19 @@ const updatePlaylist = (
   return playlist;
 };
 
+const deletePlaylist = (_: void, { playlistId }: { playlistId: string }) => {
+  playlists.delete(playlistId);
+
+  return true;
+};
+
 const mutation = {
   Mutation: {
     toggleLike: transformStats(old => ({ id: old.id, liked: !old.liked })),
     playSong,
     createPlaylist,
     updatePlaylist,
+    deletePlaylist,
   },
 };
 
