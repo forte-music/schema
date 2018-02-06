@@ -6,7 +6,7 @@
   "description": "A mock resolver for testing forte.",
   "version": "0.0.16",
   "license": "MIT",
-  "main": "resolvers.js",
+  "main": "resolvers/index.js",
   "dependencies": {
     "@forte-music/schema": "^0.0.16"
   },
