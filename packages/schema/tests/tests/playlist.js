@@ -2,9 +2,12 @@ import gql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 
 import { testConnection } from '../connection';
+import { testSort } from '../sort';
+
 import PlaylistFields from './fragments/PlaylistFields.graphql';
 import PlaylistItemFields from './fragments/PlaylistItemFields.graphql';
 import SongFields from './fragments/SongFields.graphql';
+import UserStatsFields from './fragments/UserStatsFields.graphql';
 
 import client from '../client';
 
@@ -242,4 +245,68 @@ testConnection('playlists', async ({ first, after }) => {
   });
 
   return playlists;
+});
+
+testSort('playlists', async ({ sortBy, reverse }) => {
+  const query = gql`
+    query($sortBy: SortBy!, $reverse: Boolean!) {
+      playlists(first: -1, sort: { sortBy: $sortBy, reverse: $reverse }) {
+        edges {
+          node {
+            id
+            name
+            timeAdded
+            stats {
+              ...UserStatsFields
+            }
+          }
+        }
+      }
+    }
+
+    ${UserStatsFields}
+  `;
+
+  const { playlists: { edges } } = await client.request(print(query), {
+    sortBy,
+    reverse,
+  });
+
+  return edges.map(({ node }) => node);
+});
+
+testSort('playlist items', async ({ sortBy, reverse }) => {
+  const query = gql`
+    query($playlistId: ID!, $sortBy: SortBy!, $reverse: Boolean!) {
+      playlist(id: $playlistId) {
+        items(first: -1, sort: { sortBy: $sortBy, reverse: $reverse }) {
+          edges {
+            node {
+              song {
+                id
+                name
+                timeAdded
+                stats {
+                  ...UserStatsFields
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    ${UserStatsFields}
+  `;
+
+  const { playlist: { items: { edges } } } = await client.request(
+    print(query),
+    {
+      sortBy,
+      reverse,
+      playlistId: 'playlist:3',
+    }
+  );
+
+  return edges.map(({ node: { song } }) => song);
 });

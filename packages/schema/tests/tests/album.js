@@ -2,9 +2,11 @@ import gql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 
 import { testConnection } from '../connection';
+import { testSort } from '../sort';
 import AlbumFields from './fragments/AlbumFields.graphql';
 import ArtistFields from './fragments/ArtistFields.graphql';
 import SongFields from './fragments/SongFields.graphql';
+import UserStatsFields from './fragments/UserStatsFields.graphql';
 
 import client from '../client';
 
@@ -80,4 +82,32 @@ testConnection('albums', async ({ first, after }) => {
   });
 
   return albums;
+});
+
+testSort('albums', async ({ sortBy, reverse }) => {
+  const query = gql`
+    query($sortBy: SortBy!, $reverse: Boolean!) {
+      albums(first: -1, sort: { sortBy: $sortBy, reverse: $reverse }) {
+        edges {
+          node {
+            id
+            name
+            timeAdded
+            stats {
+              ...UserStatsFields
+            }
+          }
+        }
+      }
+    }
+
+    ${UserStatsFields}
+  `;
+
+  const { albums: { edges } } = await client.request(print(query), {
+    sortBy,
+    reverse,
+  });
+
+  return edges.map(({ node }) => node);
 });
