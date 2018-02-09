@@ -244,3 +244,10 @@ artistId = 'artist:34'
 songIds = []
 artworkUrl = 'https://upload.wikimedia.org/wikipedia/en/0/0d/Is-There-Anybody-Out-There-album.jpg'
 releaseYear = 2014
+
+[[albums]]
+id = 'album:30'
+name = 'An Album Without Album Artwork'
+artistId = 'artist:20'
+songIds = []
+releaseYear = 2012
