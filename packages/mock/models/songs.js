@@ -22,12 +22,12 @@ export type Song = {|
   songStats: SongUserStats,
 |};
 
-const connectSong = (source: SongSource): Song =>
+const connectSong = (source: SongSource, defaultStreamUrl: string): Song =>
   // $ExpectError
   (Object.defineProperties(
     {
       id: source.id,
-      streamUrl: source.streamUrl,
+      streamUrl: source.streamUrl || defaultStreamUrl,
       name: source.name,
       duration: source.duration,
 
@@ -54,6 +54,8 @@ const songStats = ({
 
 const songStatsId = (id: string): string => `${statsId(id)}:song`;
 
-const processedSongs: Map<string, Song> = makeMap(songs.map(connectSong));
+const processedSongs: Map<string, Song> = makeMap(
+  songs.map(source => connectSong(source, '/music/track.mp3'))
+);
 
 export default processedSongs;

@@ -1,9 +1,10 @@
+# TODO: Something With Stream URL
+
 [[songs]]
 id = 'song:1:1'
 name = 'Stole the Show'
 albumId = 'album:1'
 artistIds = ['artist:1']
-streamUrl = '/music/01 - Stole the Show (feat. Parson James).flac'
 duration = 223
 [songs.stats]
 playCount = 3
@@ -15,7 +16,6 @@ id = 'song:2:1'
 name = "I'm That (Remix)"
 albumId = 'album:2'
 artistIds = ['artist:2', 'artist:21', 'artist:22']
-streamUrl = "/music/01 - I'm That... (Remix) [feat. Beenie Man & Azealia Banks].m4a"
 duration = 211
 
 [[songs]]
@@ -23,7 +23,6 @@ id = 'song:3:1'
 name = 'Bugatti'
 albumId = 'album:3'
 artistIds = ['artist:3', 'artist:23', 'artist:24']
-streamUrl = '/music/01 - Bugatti (feat. Future & Rick Ross).flac'
 duration = 270
 
 [[songs]]
@@ -32,7 +31,6 @@ name = 'The Beautiful & Damned'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:5']
 trackNumber = 1
-streamUrl = ''
 duration = 189
 
 [[songs]]
@@ -41,7 +39,6 @@ name = 'Pray for Me'
 albumId = 'album:4'
 artistIds = ['artist:4']
 trackNumber = 2
-streamUrl = ''
 duration = 207
 
 [[songs]]
@@ -50,7 +47,6 @@ name = 'Him & I'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:6']
 trackNumber = 3
-streamUrl = ''
 duration = 268
 
 [[songs]]
@@ -59,7 +55,6 @@ name = 'But a Dream'
 albumId = 'album:4'
 artistIds = ['artist:4']
 trackNumber = 4
-streamUrl = ''
 duration = 206
 
 [[songs]]
@@ -68,7 +63,6 @@ name = 'Sober'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:7']
 trackNumber = 5
-streamUrl = ''
 duration = 203
 
 [[songs]]
@@ -77,7 +71,6 @@ name = 'Legend'
 albumId = 'album:4'
 artistIds = ['artist:4']
 trackNumber = 6
-streamUrl = ''
 duration = 205
 
 [[songs]]
@@ -86,7 +79,6 @@ name = 'No Limit'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:8', 'artist:9']
 trackNumber = 7
-streamUrl = ''
 duration = 245
 
 [[songs]]
@@ -95,7 +87,6 @@ name = 'The Plan'
 albumId = 'album:4'
 artistIds = ['artist:4']
 trackNumber = 8
-streamUrl = ''
 duration = 250
 
 [songs.stats]
@@ -109,7 +100,6 @@ name = "That's a Lot"
 albumId = 'album:4'
 artistIds = ['artist:4']
 trackNumber = 9
-streamUrl = ''
 duration = 214
 
 [[songs]]
@@ -118,7 +108,6 @@ name = 'Pick Me Up'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:10']
 trackNumber = 10
-streamUrl = ''
 duration = 227
 
 [[songs]]
@@ -127,7 +116,6 @@ name = 'Gotdamn'
 albumId = 'album:4'
 artistIds = ['artist:4']
 trackNumber = 11
-streamUrl = ''
 duration = 172
 
 [[songs]]
@@ -136,7 +124,6 @@ name = 'Leviathan'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:11']
 trackNumber = 12
-streamUrl = ''
 duration = 227
 
 [[songs]]
@@ -145,7 +132,6 @@ name = 'Crash & Burn'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:12']
 trackNumber = 13
-streamUrl = ''
 duration = 180
 
 [[songs]]
@@ -154,7 +140,6 @@ name = 'Summer in December'
 albumId = 'album:4'
 artistIds = ['artist:4']
 trackNumber = 14
-streamUrl = ''
 duration = 186
 
 [[songs]]
@@ -163,7 +148,6 @@ name = 'Charles Brown'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:13', 'artist:14']
 trackNumber = 15
-streamUrl = ''
 duration = 288
 
 [[songs]]
@@ -172,7 +156,6 @@ name = 'No Less'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:15', 'artist:16']
 trackNumber = 16
-streamUrl = ''
 duration = 250
 
 [[songs]]
@@ -181,7 +164,6 @@ name = 'Mama Always Told Me'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:17']
 trackNumber = 17
-streamUrl = ''
 duration = 191
 
 [[songs]]
@@ -190,7 +172,6 @@ name = 'Fly Away'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:18']
 trackNumber = 18
-streamUrl = ''
 duration = 211
 
 [[songs]]
@@ -199,7 +180,6 @@ name = 'Love Is Gone'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:19']
 trackNumber = 19
-streamUrl = ''
 duration = 234
 
 [[songs]]
@@ -208,5 +188,4 @@ name = 'Eazy'
 albumId = 'album:4'
 artistIds = ['artist:4', 'artist:20']
 trackNumber = 20
-streamUrl = ''
 duration = 309
