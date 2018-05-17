@@ -17,8 +17,8 @@ export const handleConnection = <InputType, NodeType>(
   const acceptedKeys = keys.slice(lowerBound, upperBound);
 
   return {
+    count: keys.length,
     pageInfo: {
-      count: keys.length,
       hasNextPage: upperBound < keys.length,
     },
     edges: acceptedKeys.map((key, index) => ({

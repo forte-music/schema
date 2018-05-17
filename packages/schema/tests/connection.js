@@ -14,9 +14,9 @@ export const testConnection = (connectionName, getConnection) => {
     it('should get all items when limit is -1', async () => {
       const connection = await handledGetConnection({ first: -1 });
 
-      expect(connection.pageInfo.count).toBeTruthy();
+      expect(connection.count).toBeTruthy();
       expect(connection.pageInfo.hasNextPage).toBe(false);
-      expect(connection.edges).toHaveLength(connection.pageInfo.count);
+      expect(connection.edges).toHaveLength(connection.count);
     });
 
     it('should get the first limit items', async () => {
@@ -24,7 +24,7 @@ export const testConnection = (connectionName, getConnection) => {
       const connection = await handledGetConnection({ first: limit });
 
       expect(connection.pageInfo.hasNextPage).toBe(
-        connection.edges.length < connection.pageInfo.count
+        connection.edges.length < connection.count
       );
       expect(connection.edges).toHaveLength(limit);
     });

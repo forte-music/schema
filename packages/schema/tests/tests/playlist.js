@@ -86,8 +86,8 @@ testConnection('playlist', async ({ first, after }) => {
     query($playlistId: ID!, $first: Int, $after: String) {
       playlist(id: $playlistId) {
         items(first: $first, after: $after) {
+          count
           pageInfo {
-            count
             hasNextPage
           }
 
@@ -116,8 +116,8 @@ testConnection('playlists', async ({ first, after }) => {
   const query = gql`
     query($first: Int, $after: String) {
       playlists(first: $first, after: $after) {
+        count
         pageInfo {
-          count
           hasNextPage
         }
 

@@ -182,7 +182,6 @@ type Playlist {
 # are tied to a view of the data. If new data is added continuted pagination
 # returns the old data.
 type PageInfo {
-  count: Int!
   hasNextPage: Boolean!
 }
 
@@ -194,6 +193,7 @@ type AlbumEdge {
 type AlbumConnection {
   edges: [AlbumEdge!]!
   pageInfo: PageInfo!
+  count: Int!
 }
 
 type ArtistEdge {
@@ -204,6 +204,7 @@ type ArtistEdge {
 type ArtistConnection {
   edges: [ArtistEdge!]!
   pageInfo: PageInfo!
+  count: Int!
 }
 
 type SongEdge {
@@ -214,6 +215,7 @@ type SongEdge {
 type SongConnection {
   edges: [SongEdge!]!
   pageInfo: PageInfo!
+  count: Int!
 }
 
 type PlaylistEdge {
@@ -224,6 +226,7 @@ type PlaylistEdge {
 type PlaylistConnection {
   edges: [PlaylistEdge!]!
   pageInfo: PageInfo!
+  count: Int!
 }
 
 type PlaylistItemEdge {
@@ -234,6 +237,7 @@ type PlaylistItemEdge {
 type PlaylistItemConnection {
   edges: [PlaylistItemEdge!]!
   pageInfo: PageInfo!
+  count: Int!
 }
 
 enum SortBy {

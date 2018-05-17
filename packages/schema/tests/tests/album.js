@@ -60,8 +60,8 @@ testConnection('albums', async ({ first, after }) => {
   const query = gql`
     query($first: Int, $after: String) {
       albums(first: $first, after: $after) {
+        count
         pageInfo {
-          count
           hasNextPage
         }
 

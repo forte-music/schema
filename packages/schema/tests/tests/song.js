@@ -53,9 +53,9 @@ it('should get all items when limit is -1', async () => {
     `
       query {
         songs(first: -1) {
+          count
           pageInfo {
             hasNextPage
-            count
           }
           edges {
             cursor
@@ -68,16 +68,16 @@ it('should get all items when limit is -1', async () => {
     `
   );
 
-  expect(songs.pageInfo.count).toBeTruthy();
-  expect(songs.pageInfo.count).toEqual(songs.edges.length);
+  expect(songs.count).toBeTruthy();
+  expect(songs.count).toEqual(songs.edges.length);
 });
 
 testConnection('songs', async ({ first, after }) => {
   const query = gql`
     query($first: Int, $after: String) {
       songs(first: $first, after: $after) {
+        count
         pageInfo {
-          count
           hasNextPage
         }
 
