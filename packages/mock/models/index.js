@@ -17,10 +17,10 @@ export type Edge<T> = {
 
 export type Connection<T> = {
   edges: Edge<T>[],
+  count: number,
   pageInfo: PageInfo,
 };
 
 type PageInfo = {
-  count: number,
   hasNextPage: boolean,
 };
