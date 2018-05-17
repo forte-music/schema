@@ -245,10 +245,6 @@ enum SortBy {
 
   # Sort from most recently played to least recently played.
   RECENTLY_PLAYED
-
-  # Sort by how well the filter matches the item. If this is used
-  # SortParams.filter must be specified.
-  RELEVANCE
 }
 
 input SortParams {
