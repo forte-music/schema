@@ -46,17 +46,15 @@ const mutation = print(gql`
 
 // Checks whether the play count has increased by one and whether the
 // lastPlayed time has been updated.
-const expectPlayCountUpdated = (queryStats, mutationStats) => {
-  expect(mutationStats).toMatchObject({
-    id: queryStats.id,
-    playCount: queryStats.playCount + 1,
+const expectPlayCountUpdated = (songQueryStats, songMutationStats) => {
+  expect(songMutationStats).toMatchObject({
+    id: songQueryStats.id,
+    playCount: songQueryStats.playCount + 1,
   });
+};
 
-  if (queryStats.lastPlayed) {
-    expect(mutationStats.lastPlayed).toBeGreaterThan(queryStats.lastPlayed);
-  } else {
-    expect(!isNaN(mutationStats.lastPlayed)).toBe(true);
-  }
+const expectPlayTimeUpdated = (queryStats, mutationStats) => {
+  expect(mutationStats.lastPlayed).toBeGreaterThan(queryStats.lastPlayed || 0);
 };
 
 it('should update song play count', async () => {
@@ -66,26 +64,30 @@ it('should update song play count', async () => {
         stats {
           ...UserStatsFields
         }
+
+        songStats {
+          ...SongUserStatsFields
+        }
       }
     }
 
     ${UserStatsFields}
+    ${SongUserStatsField}
   `;
 
-  const { song: { stats: queryStats } } = await client.request(
-    print(query),
-    variables
-  );
+  const {
+    song: { stats: queryStats, songStats: songQueryStats },
+  } = await client.request(print(query), variables);
 
-  const { playSong: { song: { stats: mutationStats } } } = await client.request(
-    mutation,
-    variables
-  );
+  const {
+    playSong: { song: { stats: mutationStats, songStats: songMutationStats } },
+  } = await client.request(mutation, variables);
 
-  expectPlayCountUpdated(queryStats, mutationStats);
+  expectPlayTimeUpdated(queryStats, mutationStats);
+  expectPlayCountUpdated(songQueryStats, songMutationStats);
 });
 
-it('should update artist play count', async () => {
+it('should update artist play time', async () => {
   const localVariables = { ...variables, artistId: 'artist:1' };
 
   const query = gql`
@@ -110,10 +112,10 @@ it('should update artist play count', async () => {
     localVariables
   );
 
-  expectPlayCountUpdated(queryStats, mutationStats);
+  expectPlayTimeUpdated(queryStats, mutationStats);
 });
 
-it('should update album play count', async () => {
+it('should update album play time', async () => {
   const localVariables = {
     ...variables,
     albumId: 'album:1',
@@ -141,10 +143,10 @@ it('should update album play count', async () => {
     localVariables
   );
 
-  expectPlayCountUpdated(queryStats, mutationStats);
+  expectPlayTimeUpdated(queryStats, mutationStats);
 });
 
-it('should update playlist play count', async () => {
+it('should update playlist play time', async () => {
   const localVariables = {
     ...variables,
     playlistId: 'playlist:2',
@@ -172,7 +174,7 @@ it('should update playlist play count', async () => {
     localVariables
   );
 
-  expectPlayCountUpdated(queryStats, mutationStats);
+  expectPlayTimeUpdated(queryStats, mutationStats);
 });
 
 it('should fail when called with artist, album and playlist descriptors', async () =>

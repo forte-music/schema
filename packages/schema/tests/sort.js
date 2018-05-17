@@ -55,9 +55,5 @@ export const testSort = (testName, querySortable) => {
     t('RECENTLY_PLAYED', (a, b) =>
       reverseSort(a.stats.lastPlayed, b.stats.lastPlayed)
     );
-
-    t('MOST_PLAYED', (a, b) =>
-      reverseSort(a.stats.playCount, b.stats.playCount)
-    );
   });
 };

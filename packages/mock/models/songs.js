@@ -46,10 +46,11 @@ const connectSong = (source: SongSource, defaultStreamUrl: string): Song =>
 
 const songStats = ({
   id,
-  stats: { liked = false } = {},
+  stats: { liked = false, playCount = 0 } = {},
 }: SongSource): SongUserStats => ({
   id: songStatsId(id),
-  liked: liked,
+  playCount,
+  liked,
 });
 
 const songStatsId = (id: string): string => `${statsId(id)}:song`;

@@ -27,8 +27,13 @@ const transformStats = (transform: (old: SongUserStats) => SongUserStats) =>
 
 const updateStats = (old: UserStats): UserStats => ({
   id: old.id,
-  playCount: old.playCount + 1,
   lastPlayed: now(),
+});
+
+const updateSongStats = (old: SongUserStats): SongUserStats => ({
+  id: old.id,
+  liked: old.liked,
+  playCount: old.playCount + 1,
 });
 
 export type PlaySongArgs = {
@@ -56,6 +61,7 @@ const playSong = (
 
   const song: Song = mustGet(songs, songId);
   song.stats = updateStats(song.stats);
+  song.songStats = updateSongStats(song.songStats);
 
   const album: Album | void = albumId ? mustGet(albums, albumId) : undefined;
   const artist: Artist | void = artistId
@@ -144,7 +150,11 @@ const deletePlaylist = (_: void, { playlistId }: { playlistId: string }) => {
 
 const mutation = {
   Mutation: {
-    toggleLike: transformStats(old => ({ id: old.id, liked: !old.liked })),
+    toggleLike: transformStats(old => ({
+      id: old.id,
+      playCount: old.playCount,
+      liked: !old.liked,
+    })),
     playSong,
     createPlaylist,
     updatePlaylist,

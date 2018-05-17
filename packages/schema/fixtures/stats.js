@@ -1,9 +1,9 @@
 // @flow
 export type UserStats = {
-  playCount?: number,
   lastPlayed?: number,
 };
 
 export type SongUserStats = UserStats & {
+  playCount?: number,
   liked?: boolean,
 };
