@@ -292,27 +292,6 @@ type Query {
   ): PlaylistConnection!
 }
 
-enum Position {
-  # Elements are inserted before the beginning of the list.
-  BEGINNING
-
-  # Elements are inserted after the end of the list.
-  END
-}
-
-enum Offset {
-  AFTER
-  BEFORE
-}
-
-input PlaylistAppendInput {
-  # The id of the playlist to add songs to.
-  playlistId: ID!
-
-  # The ids (Song.id) of songs to add to the playlist in the order specified.
-  songs: [ID!]!
-}
-
 type Mutation {
   # Increments play counts and updates the last played time in SongUserStats.
   # Returns the song's stats. The artistId, albumId and playlistId fields are
@@ -329,90 +308,6 @@ type Mutation {
 
   # Toggles the like state of the specified song.
   toggleLike(songId: ID!): Song!
-
-  # Creates a new playlist. Returns the newly created playlist.
-  createPlaylist(
-    # The name of the new playlist.
-    name: String!
-
-    # The playlist description. (Playlist.description).
-    description: String
-
-    # The ids of songs to add to the playlist in the order specified. If an
-    # invalid id is passed, the entire request fails.
-    songs: [ID!]
-  ): Playlist!
-
-  # Renames a playlist. Returns the modified playlist.
-  updatePlaylist(
-    # The id of the playlist to rename.
-    playlistId: ID!
-
-    name: String
-    description: String
-  ): Playlist!
-
-  # Adds songs to the end or the beginning of a playlist.
-  addToPlaylistRelative(
-    input: PlaylistAppendInput!
-    position: Position!
-  ): Playlist!
-
-  # Adds songs to a playlist relative to an item (PlaylistItem.id). This is
-  # useful because in some cases the index isn't known and is hard to compute
-  # because of its dependence on global state while ids are local state.
-  addToPlaylistByCursor(
-    input: PlaylistAppendInput!
-
-    # The id of the item relative to which to add songs (PlaylistItem.id).
-    relativeTo: ID!
-
-    # The direction relative to the item specified by relativeTo where songs
-    # will be added.
-    offset: Offset!
-  ): Playlist!
-
-  # Adds songs to a playlist relative to an index.
-  addToPlaylistByIndex(
-    input: PlaylistAppendInput!
-
-    # The zero indexed offset relative to which to add songs.
-    position: Int!
-
-    # The direction relative to the offset where songs will be added.
-    offset: Offset!
-  ): Playlist!
-
-  # Remove songs from the playlist. Returns the updated playlist.
-  removeFromPlaylist(
-    # The playlist to remove items from.
-    playlistId: ID!
-
-    # A list of ids from PlaylistItem.id for items to remove from the playlist.
-    items: [ID!]!
-  ): Playlist!
-
-  # Permanently deletes a playlist.
-  deletePlaylist(
-    # The id of the playlist to delete.
-    playlistId: ID!
-  ): Boolean!
-
-  # Moves a song in a playlist from one position to another.
-  moveSongInPlaylist(
-    # The id of the playlist to modify.
-    playlistId: ID!
-
-    # The id (PlaylistItem.id) of the element to move.
-    fromItem: ID!
-
-    # The id of the item fromItem will be moved relative to.
-    relativeToItem: ID!
-
-    # The direction relative to relativetoItem the item pointed to by fromItem
-    # will be moved to.
-    offset: Offset!
-  ): Playlist!
 }
 
 schema {
