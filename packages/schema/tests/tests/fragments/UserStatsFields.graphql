@@ -1,5 +1,4 @@
 fragment UserStatsFields on UserStats {
   id
-  playCount
   lastPlayed
 }

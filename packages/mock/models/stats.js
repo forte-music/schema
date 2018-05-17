@@ -4,12 +4,12 @@ import type { Song } from './songs';
 
 export type UserStats = {|
   id: string,
-  playCount: number,
   lastPlayed?: number,
 |};
 
 export type SongUserStats = {|
   id: string,
+  playCount: number,
   liked: boolean,
 |};
 
@@ -25,12 +25,11 @@ export const statsId = (parentId: string) => `${parentId}:stats`;
 
 export const withUserStats = ({
   id,
-  stats: { playCount = 0, lastPlayed } = {},
+  stats: { lastPlayed } = {},
 }: {
   id: string,
   +stats?: UserStatsSource,
 }): UserStats => ({
   id: statsId(id),
-  playCount: playCount,
   lastPlayed: lastPlayed,
 });

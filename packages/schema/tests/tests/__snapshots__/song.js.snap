@@ -30,11 +30,11 @@ Object {
     "songStats": Object {
       "id": "song:2:1:stats:song",
       "liked": false,
+      "playCount": 0,
     },
     "stats": Object {
       "id": "song:2:1:stats",
       "lastPlayed": null,
-      "playCount": 0,
     },
     "streamUrl": "/music/track.mp3",
     "trackNumber": 1,

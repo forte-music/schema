@@ -7,7 +7,6 @@ type SortBy =
   | 'RECENTLY_ADDED'
   | 'LEXICOGRAPHICALLY'
   | 'RECENTLY_PLAYED'
-  | 'MOST_PLAYED'
   | 'RELEVANCE';
 
 type SortParams = {
@@ -135,11 +134,6 @@ export const listItemsResolver = <T>(
     case 'RECENTLY_PLAYED':
       sorter = (a: Sortable, b: Sortable) =>
         reverseCompare(a.stats.lastPlayed || 0, b.stats.lastPlayed || 0);
-      break;
-
-    case 'MOST_PLAYED':
-      sorter = (a: Sortable, b: Sortable) =>
-        reverseCompare(a.stats.playCount, b.stats.playCount);
       break;
 
     case 'RELEVANCE':

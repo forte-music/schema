@@ -98,9 +98,6 @@ type UserStats {
   # A globally unique id.
   id: ID!
 
-  # The number of times this item has been played.
-  playCount: Int!
-
   # The UTC epoch time (seconds) at which this item was last played. If the item
   # has never been played, this is null.
   lastPlayed: Int
@@ -110,6 +107,9 @@ type UserStats {
 type SongUserStats {
   # A globally unique id referring to a song's stats.
   id: ID!
+
+  # The number of times this item has been played.
+  playCount: Int!
 
   # Whether or not this song is liked. Liked songs go into their own
   # auto-playlist. By default this value is false. Updated by toggleLike
@@ -245,9 +245,6 @@ enum SortBy {
 
   # Sort from most recently played to least recently played.
   RECENTLY_PLAYED
-
-  # Sort from most played to least played.
-  MOST_PLAYED
 
   # Sort by how well the filter matches the item. If this is used
   # SortParams.filter must be specified.
