@@ -3,11 +3,7 @@ import type { Connection, UserStats } from '../models';
 import type { ConnectionArgs } from './connection';
 import { handleConnection } from './connection';
 
-type SortBy =
-  | 'RECENTLY_ADDED'
-  | 'LEXICOGRAPHICALLY'
-  | 'RECENTLY_PLAYED'
-  | 'RELEVANCE';
+type SortBy = 'RECENTLY_ADDED' | 'LEXICOGRAPHICALLY' | 'RECENTLY_PLAYED';
 
 type SortParams = {
   sortBy?: SortBy,
@@ -134,19 +130,6 @@ export const listItemsResolver = <T>(
     case 'RECENTLY_PLAYED':
       sorter = (a: Sortable, b: Sortable) =>
         reverseCompare(a.stats.lastPlayed || 0, b.stats.lastPlayed || 0);
-      break;
-
-    case 'RELEVANCE':
-      if (!filter) {
-        throw new TypeError('Used relevance sort without filter.');
-      }
-
-      sorter = (a: Sortable, b: Sortable) =>
-        reverseCompare(
-          searchDistance(a.name, filter),
-          searchDistance(b.name, filter)
-        );
-
       break;
 
     default:

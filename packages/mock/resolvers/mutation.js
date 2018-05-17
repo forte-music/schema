@@ -91,63 +91,6 @@ const playSong = (
   };
 };
 
-type CreatePlaylistArgs = {
-  name: string,
-  description?: string,
-  songs: string[],
-};
-
-const createPlaylist = (
-  _: void,
-  { name, description, songs: songIds }: CreatePlaylistArgs
-): Playlist => {
-  const playlistSource: PlaylistSource = {
-    id: `playlist:${randomInt()}`,
-    name,
-    description,
-    songIds,
-  };
-
-  const playlist = connectPlaylist(playlistSource);
-  addToMap(playlists, playlist);
-
-  return playlist;
-};
-
-export type UpdatePlaylistArgs = {
-  playlistId: string,
-  name?: string,
-  description?: string,
-};
-
-const updatePlaylist = (
-  _: void,
-  { playlistId, name, description }: UpdatePlaylistArgs
-) => {
-  if (!name && !description) {
-    throw new TypeError(
-      'Invalid arguments. One of name or description must be provided'
-    );
-  }
-
-  const playlist = mustGet(playlists, playlistId);
-  if (name) {
-    playlist.name = name;
-  }
-
-  if (description) {
-    playlist.description = description;
-  }
-
-  return playlist;
-};
-
-const deletePlaylist = (_: void, { playlistId }: { playlistId: string }) => {
-  playlists.delete(playlistId);
-
-  return true;
-};
-
 const mutation = {
   Mutation: {
     toggleLike: transformStats(old => ({
@@ -156,9 +99,6 @@ const mutation = {
       liked: !old.liked,
     })),
     playSong,
-    createPlaylist,
-    updatePlaylist,
-    deletePlaylist,
   },
 };
 
