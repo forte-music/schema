@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "The graphql schema for communication with forte.",
   "main": "schema.json",
   "files": [
