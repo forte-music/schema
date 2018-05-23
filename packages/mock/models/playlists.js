@@ -1,7 +1,7 @@
 // @flow
 import { playlists } from '@forte-music/schema/fixtures/playlists';
 import type { PlaylistSource } from '@forte-music/schema/fixtures/playlists';
-import { makeMap, mustGetKeys } from '../utils';
+import { makeMap, mustGetKeys, uuidForNum } from '../utils';
 import { songs as songMap } from '.';
 import type { Song, UserStats } from '.';
 import { withUserStats } from './stats';
@@ -22,20 +22,23 @@ export type Playlist = {|
   duration: number,
 |};
 
-export const connectPlaylist = (playlist: PlaylistSource): Playlist =>
+export const connectPlaylist = (playlist: PlaylistSource): Playlist => {
+  const id = uuidForNum(playlist.id);
+  const songIds = playlist.songIds.map(id => uuidForNum(id));
+
   // $ExpectError
-  (Object.defineProperties(
+  return (Object.defineProperties(
     {
-      id: playlist.id,
+      id,
       name: playlist.name,
       description: playlist.description || '',
       timeAdded: playlist.timeAdded || 0,
-      stats: withUserStats(playlist),
+      stats: withUserStats({ id, stats: playlist.stats }),
     },
     {
       items: {
         get() {
-          const songs: Song[] = mustGetKeys(songMap, playlist.songIds);
+          const songs: Song[] = mustGetKeys(songMap, songIds);
           return songs.map((song, index) => ({
             id: `${playlist.id}:${index}`,
             song,
@@ -51,6 +54,7 @@ export const connectPlaylist = (playlist: PlaylistSource): Playlist =>
       },
     }
   ): any);
+};
 
 const map: Map<string, Playlist> = makeMap(playlists.map(connectPlaylist));
 

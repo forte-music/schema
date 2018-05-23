@@ -10,8 +10,9 @@ import UserStatsFields from './fragments/UserStatsFields.graphql';
 import SongUserStatsFields from './fragments/SongUserStatsFields.graphql';
 
 import client from '../client';
+import { uuidForNum } from '../utils';
 
-const variables = { songId: 'song:2:1' };
+const variables = { songId: uuidForNum(2) };
 it('should get a song by id', async () => {
   const query = gql`
     query($songId: ID!) {

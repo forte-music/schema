@@ -5,15 +5,15 @@ Object {
   "playlist": Object {
     "description": "",
     "duration": 481,
-    "id": "playlist:1",
+    "id": "00000000000000000000000000000001",
     "items": Object {
       "edges": Array [
         Object {
           "node": Object {
-            "id": "playlist:1:0",
+            "id": "1:0",
             "song": Object {
               "diskNumber": 1,
-              "id": "song:2:1",
+              "id": "00000000000000000000000000000002",
               "name": "I'm That (Remix)",
               "streamUrl": "/music/track.mp3",
               "trackNumber": 1,
@@ -22,10 +22,10 @@ Object {
         },
         Object {
           "node": Object {
-            "id": "playlist:1:1",
+            "id": "1:1",
             "song": Object {
               "diskNumber": 1,
-              "id": "song:3:1",
+              "id": "00000000000000000000000000000003",
               "name": "Bugatti",
               "streamUrl": "/music/track.mp3",
               "trackNumber": 1,

@@ -2,10 +2,10 @@
 import type { UserStats } from './stats';
 
 export type ArtistSource = {
-  id: string,
+  id: number,
   name: string,
   timeAdded?: number,
-  albumIds: string[],
+  albumIds: number[],
   stats?: UserStats,
 }
 

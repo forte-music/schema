@@ -58,3 +58,21 @@ export const now = () => Math.floor(Date.now() / 1000);
 
 export const randomInt = (): number =>
   Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+
+const arrForNum = (num: number): number[] => {
+  let result = [];
+
+  while (num !== 0) {
+    let place = num % 256;
+    result = [place, ...result];
+    num = num >> 8;
+  }
+
+  return result;
+};
+
+export const uuidForNum = (num: number): string =>
+  num
+    .toString(16)
+    .toLowerCase()
+    .padStart(32, '0');

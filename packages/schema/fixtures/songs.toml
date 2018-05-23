@@ -1,8 +1,8 @@
 [[songs]]
-id = 'song:1:1'
+id = 1
 name = 'Stole the Show'
-albumId = 'album:1'
-artistIds = ['artist:1']
+albumId = 1
+artistIds = [1]
 duration = 223
 [songs.stats]
 playCount = 3
@@ -10,80 +10,80 @@ lastPlayed = 1515279968
 liked = true
 
 [[songs]]
-id = 'song:2:1'
+id = 2
 name = "I'm That (Remix)"
-albumId = 'album:2'
-artistIds = ['artist:2', 'artist:21', 'artist:22']
+albumId = 2
+artistIds = [2, 21, 22]
 duration = 211
 
 [[songs]]
-id = 'song:3:1'
+id = 3
 name = 'Bugatti'
-albumId = 'album:3'
-artistIds = ['artist:3', 'artist:23', 'artist:24']
+albumId = 3
+artistIds = [3, 23, 24]
 duration = 270
 
 [[songs]]
-id = 'song:4:1'
+id = 4
 name = 'The Beautiful & Damned'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:5']
+albumId = 4
+artistIds = [4, 5]
 trackNumber = 1
 duration = 189
 
 [[songs]]
-id = 'song:4:2'
+id = 5
 name = 'Pray for Me'
-albumId = 'album:4'
-artistIds = ['artist:4']
+albumId = 4
+artistIds = [4]
 trackNumber = 2
 duration = 207
 
 [[songs]]
-id = 'song:4:3'
+id = 6
 name = 'Him & I'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:6']
+albumId = 4
+artistIds = [4, 6]
 trackNumber = 3
 duration = 268
 
 [[songs]]
-id = 'song:4:4'
+id = 7
 name = 'But a Dream'
-albumId = 'album:4'
-artistIds = ['artist:4']
+albumId = 4
+artistIds = [4]
 trackNumber = 4
 duration = 206
 
 [[songs]]
-id = 'song:4:5'
+id = 8
 name = 'Sober'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:7']
+albumId = 4
+artistIds = [4, 7]
 trackNumber = 5
 duration = 203
 
 [[songs]]
-id = 'song:4:6'
+id = 9
 name = 'Legend'
-albumId = 'album:4'
-artistIds = ['artist:4']
+albumId = 4
+artistIds = [4]
 trackNumber = 6
 duration = 205
 
 [[songs]]
-id = 'song:4:7'
+id = 10
 name = 'No Limit'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:8', 'artist:9']
+albumId = 4
+artistIds = [4, 8, 9]
 trackNumber = 7
 duration = 245
 
 [[songs]]
-id = 'song:4:8'
+id = 11
 name = 'The Plan'
-albumId = 'album:4'
-artistIds = ['artist:4']
+albumId = 4
+artistIds = [4]
 trackNumber = 8
 duration = 250
 
@@ -93,97 +93,97 @@ lastPlayed = 1515700580
 liked = true
 
 [[songs]]
-id = 'song:4:9'
+id = 12
 name = "That's a Lot"
-albumId = 'album:4'
-artistIds = ['artist:4']
+albumId = 4
+artistIds = [4]
 trackNumber = 9
 duration = 214
 
 [[songs]]
-id = 'song:4:10'
+id = 13
 name = 'Pick Me Up'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:10']
+albumId = 4
+artistIds = [4, 10]
 trackNumber = 10
 duration = 227
 
 [[songs]]
-id = 'song:4:11'
+id = 14
 name = 'Gotdamn'
-albumId = 'album:4'
-artistIds = ['artist:4']
+albumId = 4
+artistIds = [4]
 trackNumber = 11
 duration = 172
 
 [[songs]]
-id = 'song:4:12'
+id = 15
 name = 'Leviathan'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:11']
+albumId = 4
+artistIds = [4, 11]
 trackNumber = 12
 duration = 227
 
 [[songs]]
-id = 'song:4:13'
+id = 16
 name = 'Crash & Burn'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:12']
+albumId = 4
+artistIds = [4, 12]
 trackNumber = 13
 duration = 180
 
 [[songs]]
-id = 'song:4:14'
+id = 17
 name = 'Summer in December'
-albumId = 'album:4'
-artistIds = ['artist:4']
+albumId = 4
+artistIds = [4]
 trackNumber = 14
 duration = 186
 
 [[songs]]
-id = 'song:4:15'
+id = 18
 name = 'Charles Brown'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:13', 'artist:14']
+albumId = 4
+artistIds = [4, 13, 14]
 trackNumber = 15
 duration = 288
 
 [[songs]]
-id = 'song:4:16'
+id = 19
 name = 'No Less'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:15', 'artist:16']
+albumId = 4
+artistIds = [4, 15, 16]
 trackNumber = 16
 duration = 250
 
 [[songs]]
-id = 'song:4:17'
+id = 20
 name = 'Mama Always Told Me'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:17']
+albumId = 4
+artistIds = [4, 17]
 trackNumber = 17
 duration = 191
 
 [[songs]]
-id = 'song:4:18'
+id = 21
 name = 'Fly Away'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:18']
+albumId = 4
+artistIds = [4, 18]
 trackNumber = 18
 duration = 211
 
 [[songs]]
-id = 'song:4:19'
+id = 22
 name = 'Love Is Gone'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:19']
+albumId = 4
+artistIds = [4, 19]
 trackNumber = 19
 duration = 234
 
 [[songs]]
-id = 'song:4:20'
+id = 23
 name = 'Eazy'
-albumId = 'album:4'
-artistIds = ['artist:4', 'artist:20']
+albumId = 4
+artistIds = [4, 20]
 trackNumber = 20
 duration = 309
