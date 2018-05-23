@@ -5,8 +5,9 @@ import client from '../client';
 
 import UserStatsFields from './fragments/UserStatsFields.graphql';
 import SongUserStatsField from './fragments/SongUserStatsFields.graphql';
+import { uuidForNum } from '../utils';
 
-const variables = { songId: 'song:1:1' };
+const variables = { songId: uuidForNum(1) };
 
 const mutation = print(gql`
   mutation($songId: ID!, $artistId: ID, $albumId: ID, $playlistId: ID) {
@@ -88,7 +89,7 @@ it('should update song play count', async () => {
 });
 
 it('should update artist play time', async () => {
-  const localVariables = { ...variables, artistId: 'artist:1' };
+  const localVariables = { ...variables, artistId: uuidForNum(1) };
 
   const query = gql`
     query($artistId: ID!) {
@@ -118,7 +119,7 @@ it('should update artist play time', async () => {
 it('should update album play time', async () => {
   const localVariables = {
     ...variables,
-    albumId: 'album:1',
+    albumId: uuidForNum(3),
   };
 
   const query = gql`
@@ -149,7 +150,7 @@ it('should update album play time', async () => {
 it('should update playlist play time', async () => {
   const localVariables = {
     ...variables,
-    playlistId: 'playlist:2',
+    playlistId: uuidForNum(2),
   };
 
   const query = gql`
@@ -181,9 +182,9 @@ it('should fail when called with artist, album and playlist descriptors', async 
   expect(
     client.request(mutation, {
       ...variables,
-      artistId: 'artist:1',
-      albumId: 'album:1',
-      playlistId: 'playlist:2',
+      artistId: uuidForNum(1),
+      albumId: uuidForNum(1),
+      playlistId: uuidForNum(2),
     })
   ).rejects.toThrow());
 
@@ -191,8 +192,8 @@ it('should fail when called with artist and album descriptors', async () =>
   expect(
     client.request(mutation, {
       ...variables,
-      artistId: 'artist:1',
-      albumId: 'album:1',
+      artistId: uuidForNum(1),
+      albumId: uuidForNum(1),
     })
   ).rejects.toThrow());
 
@@ -200,8 +201,8 @@ it('should fail when called with artist and playlist descriptors', async () =>
   expect(
     client.request(mutation, {
       ...variables,
-      artistId: 'artist:1',
-      playlistId: 'playlist:2',
+      artistId: uuidForNum(1),
+      playlistId: uuidForNum(2),
     })
   ).rejects.toThrow());
 
@@ -209,7 +210,7 @@ it('should fail when called with playlist and album descriptors', async () =>
   expect(
     client.request(mutation, {
       ...variables,
-      albumId: 'album:1',
-      playlistId: 'playlist:2',
+      albumId: uuidForNum(1),
+      playlistId: uuidForNum(2),
     })
   ).rejects.toThrow());

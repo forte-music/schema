@@ -2,9 +2,10 @@ import gql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 
 import client from '../client';
+import { uuidForNum } from '../utils';
 
 it('should toggle the liked status of a song', async () => {
-  const variables = { songId: 'song:1:1' };
+  const variables = { songId: uuidForNum(1) };
 
   const { song: { songStats: queryStats } } = await client.request(
     print(gql`

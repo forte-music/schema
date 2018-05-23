@@ -3,7 +3,12 @@ import type { SongUserStats, Album, Artist, UserStats } from '.';
 import type { SongSource } from '@forte-music/schema/fixtures/songs';
 
 import { songs } from '@forte-music/schema/fixtures/songs';
-import { arrayPropertyDescriptor, makeMap, propertyDescriptor } from '../utils';
+import {
+  arrayPropertyDescriptor,
+  makeMap,
+  propertyDescriptor,
+  uuidForNum,
+} from '../utils';
 import { albums, artists } from '.';
 import { statsId, withUserStats } from './stats';
 
@@ -22,11 +27,16 @@ export type Song = {|
   songStats: SongUserStats,
 |};
 
-const connectSong = (source: SongSource, defaultStreamUrl: string): Song =>
+const connectSong = (source: SongSource, defaultStreamUrl: string): Song => {
+  const id = uuidForNum(source.id);
+  const stats = { id, stats: source.stats };
+  const artistIds = (source.artistIds || []).map(id => uuidForNum(id));
+  const albumId = uuidForNum(source.albumId);
+
   // $ExpectError
-  (Object.defineProperties(
+  return (Object.defineProperties(
     {
-      id: source.id,
+      id,
       streamUrl: source.streamUrl || defaultStreamUrl,
       name: source.name,
       duration: source.duration,
@@ -35,19 +45,23 @@ const connectSong = (source: SongSource, defaultStreamUrl: string): Song =>
       diskNumber: source.diskNumber || 1,
       timeAdded: source.timeAdded || 0,
 
-      stats: withUserStats(source),
-      songStats: songStats(source),
+      stats: withUserStats(stats),
+      songStats: songStats(stats),
     },
     {
-      artists: arrayPropertyDescriptor(() => artists, source.artistIds || []),
-      album: propertyDescriptor(() => albums, source.albumId),
+      artists: arrayPropertyDescriptor(() => artists, artistIds),
+      album: propertyDescriptor(() => albums, albumId),
     }
   ): any);
+};
 
 const songStats = ({
   id,
   stats: { liked = false, playCount = 0 } = {},
-}: SongSource): SongUserStats => ({
+}: {
+  id: string,
+  stats?: { liked?: boolean, playCount?: number, lastPlayed?: number },
+}): SongUserStats => ({
   id: songStatsId(id),
   playCount,
   liked,

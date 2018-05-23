@@ -6,34 +6,34 @@ Object {
     "album": Object {
       "artworkUrl": "http://is4.mzstatic.com/image/thumb/Music5/v4/08/da/96/08da9619-3f9b-7c95-60d1-6c18cfdd4dbd/source/600x600bb.jpg",
       "duration": 211,
-      "id": "album:2",
+      "id": "00000000000000000000000000000002",
       "name": "I'm That (Remix)",
       "releaseYear": 2015,
     },
     "artists": Array [
       Object {
-        "id": "artist:2",
+        "id": "00000000000000000000000000000002",
         "name": "R. City",
       },
       Object {
-        "id": "artist:21",
+        "id": "00000000000000000000000000000015",
         "name": "Beenie Man",
       },
       Object {
-        "id": "artist:22",
+        "id": "00000000000000000000000000000016",
         "name": "Azealia Banks",
       },
     ],
     "diskNumber": 1,
-    "id": "song:2:1",
+    "id": "00000000000000000000000000000002",
     "name": "I'm That (Remix)",
     "songStats": Object {
-      "id": "song:2:1:stats:song",
+      "id": "00000000000000000000000000000002:stats:song",
       "liked": false,
       "playCount": 0,
     },
     "stats": Object {
-      "id": "song:2:1:stats",
+      "id": "00000000000000000000000000000002:stats",
       "lastPlayed": null,
     },
     "streamUrl": "/music/track.mp3",

@@ -10,9 +10,10 @@ import SongFields from './fragments/SongFields.graphql';
 import UserStatsFields from './fragments/UserStatsFields.graphql';
 
 import client from '../client';
+import { uuidForNum } from '../utils';
 
 it('should get a playlist by id', async () => {
-  const variables = { playlistId: 'playlist:1' };
+  const variables = { playlistId: uuidForNum(1) };
 
   const query = gql`
     query($playlistId: ID!) {
@@ -104,7 +105,7 @@ testConnection('playlist', async ({ first, after }) => {
   `;
 
   const { playlist: { items } } = await client.request(print(query), {
-    playlistId: 'playlist:3',
+    playlistId: uuidForNum(3),
     first,
     after,
   });
@@ -197,7 +198,7 @@ testSort('playlist items', async ({ sortBy, reverse }) => {
     {
       sortBy,
       reverse,
-      playlistId: 'playlist:3',
+      playlistId: uuidForNum(3),
     }
   );
 

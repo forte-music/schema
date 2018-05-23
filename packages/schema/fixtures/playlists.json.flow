@@ -2,12 +2,12 @@
 import type { UserStats } from './stats';
 
 export type PlaylistSource = {
-  id: string,
+  id: number,
   name: string,
   description?: string,
   timeAdded?: number,
 
-  songIds: string[],
+  songIds: number[],
   stats?: UserStats,
 }
 

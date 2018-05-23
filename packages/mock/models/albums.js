@@ -1,7 +1,12 @@
 // @flow
 import { albums } from '@forte-music/schema/fixtures/albums';
 import type { AlbumSource } from '@forte-music/schema/fixtures/albums';
-import { arrayPropertyDescriptor, makeMap, propertyDescriptor } from '../utils';
+import {
+  arrayPropertyDescriptor,
+  makeMap,
+  propertyDescriptor,
+  uuidForNum,
+} from '../utils';
 import { songs, artists } from '.';
 import type { Song, Artist, UserStats } from '.';
 import { withUserStats } from './stats';
@@ -19,18 +24,22 @@ export type Album = {|
   duration: number,
 |};
 
-const connectAlbum = (album: AlbumSource): Album =>
+const connectAlbum = (album: AlbumSource): Album => {
+  const id = uuidForNum(album.id);
+  const artistId = uuidForNum(album.artistId);
+  const songIds = album.songIds.map(id => uuidForNum(id));
+
   // Flow doesn't completely understand defineProperties.
   // https://github.com/facebook/flow/issues/285
   // $ExpectError
-  (Object.defineProperties(
+  return (Object.defineProperties(
     {
-      id: album.id,
+      id,
       name: album.name,
       artworkUrl: album.artworkUrl,
       releaseYear: album.releaseYear,
       timeAdded: album.timeAdded || 0,
-      stats: withUserStats(album),
+      stats: withUserStats({ id, stats: album.stats }),
     },
     {
       duration: {
@@ -41,10 +50,11 @@ const connectAlbum = (album: AlbumSource): Album =>
         },
       },
 
-      artist: propertyDescriptor(() => artists, album.artistId),
-      songs: arrayPropertyDescriptor(() => songs, album.songIds),
+      artist: propertyDescriptor(() => artists, artistId),
+      songs: arrayPropertyDescriptor(() => songs, songIds),
     }
   ): any);
+};
 
 const processedAlbums: Map<string, Album> = makeMap(albums.map(connectAlbum));
 export default processedAlbums;

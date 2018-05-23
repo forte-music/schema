@@ -2,7 +2,7 @@
 import type { SongUserStats } from './stats';
 
 export type SongSource = {
-  id: string,
+  id: number,
   streamUrl: string,
   name: string,
   duration: number,
@@ -10,8 +10,8 @@ export type SongSource = {
   diskNumber?: number,
   timeAdded?: number,
 
-  artistIds?: string[],
-  albumId: string,
+  artistIds?: number[],
+  albumId: number,
   stats?: SongUserStats,
 }
 

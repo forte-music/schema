@@ -1,172 +1,172 @@
 [[artists]]
-id = 'artist:1'
+id = 1
 name = 'Kygo'
-albumIds = ['album:1']
+albumIds = [1]
 
 [[artists]]
-id = 'artist:2'
+id = 2
 name = 'R. City'
-albumIds = ['album:2']
+albumIds = [2]
 
 [[artists]]
-id = 'artist:3'
+id = 3
 name = 'Ace Hood'
-albumIds = ['album:3']
+albumIds = [3]
 
 [[artists]]
-id = 'artist:4'
+id = 4
 name = 'G-Eazy'
 albumIds = [
-  'album:4', 'album:5', 'album:6', 'album:7', 'album:8', 'album:9', 'album:10',
-  'album:16', 'album:17'
+  4, 5, 6, 7, 8, 9, 10,
+  16, 17
 ]
 
 [[artists]]
-id = 'artist:5'
+id = 5
 name = 'Zoe Nash'
 albumIds = []
 
 [[artists]]
-id = 'artist:6'
+id = 6
 name = 'Halsey'
 albumIds = []
 
 [[artists]]
-id = 'artist:7'
+id = 7
 name = 'Charlie Puth'
 albumIds = []
 
 [[artists]]
-id = 'artist:8'
+id = 8
 name = 'ASAP Rocky'
 albumIds = []
 
 [[artists]]
-id = 'artist:9'
+id = 9
 name = 'Cardi B'
 albumIds = []
 
 [[artists]]
-id = 'artist:10'
+id = 10
 name = 'Anna of the North'
 albumIds = []
 
 [[artists]]
-id = 'artist:11'
+id = 11
 name = 'Sam Martin'
 albumIds = []
 
 [[artists]]
-id = 'artist:12'
+id = 12
 name = 'Kehlani'
 albumIds = []
 
 [[artists]]
-id = 'artist:13'
+id = 13
 name = 'E-40'
 albumIds = []
 
 [[artists]]
-id = 'artist:14'
+id = 14
 name = 'Jay Ant'
 albumIds = []
 
 [[artists]]
-id = 'artist:15'
+id = 15
 name = 'SG Lewis'
 albumIds = []
 
 [[artists]]
-id = 'artist:16'
+id = 16
 name = 'Louis Mattrs'
 albumIds = []
 
 [[artists]]
-id = 'artist:17'
+id = 17
 name = 'Madison Love'
 albumIds = []
 
 [[artists]]
-id = 'artist:18'
+id = 18
 name = 'Ugochi'
 albumIds = []
 
 [[artists]]
-id = 'artist:19'
+id = 19
 name = 'Drew Love'
 albumIds = []
 
 [[artists]]
-id = 'artist:20'
+id = 20
 name = 'Son Lux'
 albumIds = []
 
 [[artists]]
-id = 'artist:21'
+id = 21
 name = 'Beenie Man'
 albumIds = []
 
 [[artists]]
-id = 'artist:22'
+id = 22
 name = 'Azealia Banks'
 albumIds = []
 
 [[artists]]
-id = 'artist:23'
+id = 23
 name = 'Rick Ross'
 albumIds = []
 
 [[artists]]
-id = 'artist:24'
+id = 24
 name = 'Future'
 albumIds = []
 
 [[artists]]
-id = 'artist:25'
+id = 25
 name = 'Drake'
-albumIds = ['album:11', 'alubm:12', 'alubm:13', 'alubm:14', 'album:15']
+albumIds = [11, 12, 13, 14, 15]
 
 [[artists]]
-id = 'artist:26'
+id = 26
 name = 'Taylor Swift'
-albumIds = ['album:18']
+albumIds = [18]
 
 [[artists]]
-id = 'artist:27'
+id = 27
 name = 'Cody Simpson'
-albumIds = ['album:19', 'album:20']
+albumIds = [19, 20]
 
 [[artists]]
-id = 'artist:28'
+id = 28
 name = 'Justin Bieber'
-albumIds = ['album:21']
+albumIds = [21]
 
 [[artists]]
-id = 'artist:29'
+id = 29
 name = 'Ed Sheeran'
-albumIds = ['album:22']
+albumIds = [22]
 
 [[artists]]
-id = 'artist:30'
+id = 30
 name = 'The Chainsmokers'
-albumIds = ['album:23']
+albumIds = [23]
 
 [[artists]]
-id = 'artist:31'
+id = 31
 name = 'Marshmello'
-albumIds = ['album:24']
+albumIds = [24]
 
 [[artists]]
-id = 'artist:32'
+id = 32
 name = 'Big Sean'
-albumIds = ['album:25', 'album:26']
+albumIds = [25, 26]
 
 [[artists]]
-id = 'artist:33'
+id = 33
 name = 'Logic'
-albumIds = ['album:27', 'album:28']
+albumIds = [27, 28]
 
 [[artists]]
-id = 'artist:34'
+id = 34
 name = 'A Great Big World'
-albumIds = ['album:29']
+albumIds = [29]

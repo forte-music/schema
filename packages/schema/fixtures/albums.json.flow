@@ -2,11 +2,11 @@
 import type { UserStats } from './stats';
 
 export type AlbumSource = {
-  id: string,
+  id: number,
   name: string,
-  artworkUrl: string,
-  artistId: string,
-  songIds: string[],
+  artworkUrl?: string,
+  artistId: number,
+  songIds: number[],
   releaseYear: number,
   timeAdded?: number,
   stats?: UserStats,
