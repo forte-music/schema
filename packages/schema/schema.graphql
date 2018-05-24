@@ -23,7 +23,7 @@ type Album {
   duration: Int!
 
   # The year the album was released.
-  releaseYear: Int!
+  releaseYear: Int
 
   # Stats for album's playback.
   stats: UserStats!
