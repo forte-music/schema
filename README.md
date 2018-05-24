@@ -6,6 +6,13 @@ The contract between forte's clients and backend. Interaction happens over
 [GraphQL][graphql] and HTTP. Includes [fixtures] and [tools for testing
 resolvers][tests].
 
+## Remote Resources
+
+Some resources cannot be sent in the GraphQL response like audio and image data.
+This data is hosted by the server and an URL pointing the resource is provided
+by a GraphQL field, for example `Album.artworkUrl` and `Song.streamUrl`. These
+URLs are relative to the configured server url.
+
 ## Authentication
 
 Currently there is no user access control or authentication. It is assumed that
