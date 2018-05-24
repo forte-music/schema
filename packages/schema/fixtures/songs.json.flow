@@ -7,7 +7,6 @@ export type SongSource = {
   name: string,
   duration: number,
   trackNumber?: number,
-  diskNumber?: number,
   timeAdded?: number,
 
   artistIds?: number[],

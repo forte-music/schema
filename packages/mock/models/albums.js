@@ -14,7 +14,7 @@ import { withUserStats } from './stats';
 export type Album = {|
   id: string,
   name: string,
-  artworkUrl: string,
+  artworkUrl?: string,
   releaseYear: number,
   timeAdded: number,
 

@@ -23,7 +23,7 @@ type Album {
   duration: Int!
 
   # The year the album was released.
-  releaseYear: Int!
+  releaseYear: Int
 
   # Stats for album's playback.
   stats: UserStats!
@@ -63,10 +63,6 @@ type Song {
   # The track number of this song. This may be one or zero indexed and is
   # provided by the file's metadata.
   trackNumber: Int!
-
-  # The disk this track is on. The disk number is assumed to be 1 if not
-  # provided.
-  diskNumber: Int!
 
   # The human readable name of this song.
   name: String!
