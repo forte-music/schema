@@ -67,6 +67,10 @@ type Song {
   # provided by the file's metadata.
   trackNumber: Int!
 
+  # The disk this track is on. The disk number is assumed to be 1 if not
+  # provided.
+  diskNumber: Int!
+
   # The human readable name of this song.
   name: String!
 

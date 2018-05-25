@@ -18,6 +18,7 @@ export type Song = {|
   name: string,
   duration: number,
   trackNumber: number,
+  diskNumber: number,
   timeAdded: number,
 
   artists: Artist[],
@@ -41,6 +42,7 @@ const connectSong = (source: SongSource, defaultStreamUrl: string): Song => {
       duration: source.duration,
 
       trackNumber: source.trackNumber || 1,
+      diskNumber: source.diskNumber || 1,
       timeAdded: source.timeAdded || 0,
 
       stats: withUserStats(stats),
