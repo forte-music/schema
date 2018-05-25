@@ -1,3 +1,6 @@
+# An integer number of seconds since the UTC epoch.
+scalar Time
+
 # An album is a collection of songs which belong to an artist and has a name.
 type Album {
   # A globally unique id referring to this album.
@@ -28,8 +31,8 @@ type Album {
   # Stats for album's playback.
   stats: UserStats!
 
-  # The UTC epoch time (seconds) when this was created.
-  timeAdded: Int!
+  # Time this was added.
+  timeAdded: Time!
 }
 
 type Artist {
@@ -46,8 +49,8 @@ type Artist {
   # Stats for artist playback.
   stats: UserStats!
 
-  # The UTC epoch time (seconds) when this was created.
-  timeAdded: Int!
+  # Time this was added.
+  timeAdded: Time!
 }
 
 # A song is a piece of music written by artists. It is always part of an album.
@@ -63,6 +66,10 @@ type Song {
   # The track number of this song. This may be one or zero indexed and is
   # provided by the file's metadata.
   trackNumber: Int!
+
+  # The disk this track is on. The disk number is assumed to be 1 if not
+  # provided.
+  diskNumber: Int!
 
   # The human readable name of this song.
   name: String!
@@ -84,8 +91,8 @@ type Song {
   # The duration of the file (retrievable at streamUrl) in seconds.
   duration: Int!
 
-  # The UTC epoch time (seconds) when this was created.
-  timeAdded: Int!
+  # Time this was added.
+  timeAdded: Time!
 }
 
 # Playback stats for an item in the library for a specific user. Updated through
@@ -94,9 +101,9 @@ type UserStats {
   # A globally unique id.
   id: ID!
 
-  # The UTC epoch time (seconds) at which this item was last played. If the item
-  # has never been played, this is null.
-  lastPlayed: Int
+  # The time at which this item was last played. If the item has never been
+  # played, this is null.
+  lastPlayed: Time
 }
 
 # Stats for a song tied to a specific user.
@@ -159,8 +166,8 @@ type Playlist {
 
   stats: UserStats!
 
-  # The UTC epoch time (seconds) when this was created.
-  timeAdded: Int!
+  # Time this was added.
+  timeAdded: Time!
 }
 
 # The connection and edge types below are used to implement pagination. The

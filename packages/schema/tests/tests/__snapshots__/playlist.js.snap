@@ -12,6 +12,7 @@ Object {
           "node": Object {
             "id": "1:0",
             "song": Object {
+              "diskNumber": 1,
               "id": "00000000000000000000000000000002",
               "name": "I'm That (Remix)",
               "streamUrl": "/music/track.mp3",
@@ -23,6 +24,7 @@ Object {
           "node": Object {
             "id": "1:1",
             "song": Object {
+              "diskNumber": 1,
               "id": "00000000000000000000000000000003",
               "name": "Bugatti",
               "streamUrl": "/music/track.mp3",
