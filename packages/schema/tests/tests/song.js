@@ -49,30 +49,6 @@ it('should get a song by id', async () => {
   expect(data).toMatchSnapshot();
 });
 
-it('should get all items when limit is -1', async () => {
-  const { songs } = await client.request(
-    `
-      query {
-        songs(first: -1) {
-          count
-          pageInfo {
-            hasNextPage
-          }
-          edges {
-            cursor
-            node {
-              id
-            }
-          }
-        }
-      }
-    `
-  );
-
-  expect(songs.count).toBeTruthy();
-  expect(songs.count).toEqual(songs.edges.length);
-});
-
 testConnection('songs', async ({ first, after }) => {
   const query = gql`
     query($first: Int, $after: String) {
