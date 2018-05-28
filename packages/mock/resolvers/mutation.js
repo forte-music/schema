@@ -2,17 +2,14 @@
 import type {
   Album,
   Artist,
-  Playlist,
   Song,
   SongUserStats,
   StatsCollection,
   UserStats,
 } from '../models';
-import type { PlaylistSource } from '@forte-music/schema/fixtures/playlists';
 
-import { albums, artists, playlists, songs } from '../models';
-import { addToMap, mustGet, now, randomInt } from '../utils';
-import { connectPlaylist } from '../models/playlists';
+import { albums, artists, songs } from '../models';
+import { mustGet, now } from '../utils';
 
 const withSong = <T>(inner: Song => T) => (
   _: void,
@@ -40,14 +37,13 @@ export type PlaySongArgs = {
   songId: string,
   artistId?: string,
   albumId?: string,
-  playlistId?: string,
 };
 
 const playSong = (
   _: void,
-  { songId, artistId, albumId, playlistId }: PlaySongArgs
+  { songId, artistId, albumId }: PlaySongArgs
 ): StatsCollection => {
-  const validDescriptors = [artistId, albumId, playlistId].filter(
+  const validDescriptors = [artistId, albumId].filter(
     descriptor => !!descriptor
   );
 
@@ -67,9 +63,6 @@ const playSong = (
   const artist: Artist | void = artistId
     ? mustGet(artists, artistId)
     : undefined;
-  const playlist: Playlist | void = playlistId
-    ? mustGet(playlists, playlistId)
-    : undefined;
 
   if (album) {
     album.stats = updateStats(album.stats);
@@ -79,15 +72,10 @@ const playSong = (
     artist.stats = updateStats(artist.stats);
   }
 
-  if (playlist) {
-    playlist.stats = updateStats(playlist.stats);
-  }
-
   return {
     song,
     albumStats: album && album.stats,
     artistStats: artist && artist.stats,
-    playlistStats: playlist && playlist.stats,
   };
 };
 

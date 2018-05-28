@@ -128,46 +128,6 @@ type StatsCollection {
 
   albumStats: UserStats
   artistStats: UserStats
-  playlistStats: UserStats
-}
-
-# An item in a playlist.
-type PlaylistItem {
-  # The id of the playlist item. This is position invariant and allows for
-  # addressing items in a playlist.
-  id: ID!
-
-  # The song this item points to.
-  song: Song!
-}
-
-# A named collection of songs. The same song can appear multiple times in a
-# playlist.
-type Playlist {
-  # A globally unique id referring to this playlist.
-  id: ID!
-
-  # Human readable name of the playlist. This is chosen by the user when the
-  # playlist is created (createPlaylist mutation).
-  name: String!
-
-  # User specified description for the playlist.
-  description: String!
-
-  # The sum of durations of every song in the playlist in seconds.
-  duration: Int!
-
-  # The items in the playlist.
-  items(
-    first: Int = 25
-    after: String
-    sort: SortParams
-  ): PlaylistItemConnection!
-
-  stats: UserStats!
-
-  # Time this was added.
-  timeAdded: Time!
 }
 
 # The connection and edge types below are used to implement pagination. The
@@ -221,28 +181,6 @@ type SongConnection {
   count: Int!
 }
 
-type PlaylistEdge {
-  cursor: String!
-  node: Playlist!
-}
-
-type PlaylistConnection {
-  edges: [PlaylistEdge!]!
-  pageInfo: PageInfo!
-  count: Int!
-}
-
-type PlaylistItemEdge {
-  cursor: String!
-  node: PlaylistItem!
-}
-
-type PlaylistItemConnection {
-  edges: [PlaylistItemEdge!]!
-  pageInfo: PageInfo!
-  count: Int!
-}
-
 enum SortBy {
   # Sort from most recently added to least recently added.
   RECENTLY_ADDED
@@ -283,16 +221,6 @@ type Query {
 
   # Get paginated, filtered, sorted songs.
   songs(first: Int = 25, after: String, sort: SortParams): SongConnection!
-
-  # Get a playlist by its globally unique id.
-  playlist(id: ID!): Playlist!
-
-  # Get a sorted list of playlists.
-  playlists(
-    first: Int = 25
-    after: String
-    sort: SortParams
-  ): PlaylistConnection!
 }
 
 type Mutation {
@@ -306,7 +234,6 @@ type Mutation {
 
     artistId: ID
     albumId: ID
-    playlistId: ID
   ): StatsCollection!
 
   # Toggles the like state of the specified song.
