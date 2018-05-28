@@ -1,3 +1,0 @@
-fragment PlaylistItemFields on PlaylistItem {
-  id
-}
