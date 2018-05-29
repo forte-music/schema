@@ -1,5 +1,4 @@
 fragment SongUserStatsFields on SongUserStats {
-  id
   playCount
   liked
 }

@@ -1,4 +1,3 @@
 fragment UserStatsFields on UserStats {
-  id
   lastPlayed
 }

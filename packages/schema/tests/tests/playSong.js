@@ -14,6 +14,7 @@ const mutation = print(gql`
     playSong(songId: $songId, artistId: $artistId, albumId: $albumId) {
       song {
         songStats {
+          id
           ...SongUserStatsFields
         }
 
@@ -54,10 +55,12 @@ it('should update song play count', async () => {
     query($songId: ID!) {
       song(id: $songId) {
         stats {
+          id
           ...UserStatsFields
         }
 
         songStats {
+          id
           ...SongUserStatsFields
         }
       }
