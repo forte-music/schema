@@ -1,6 +1,5 @@
 fragment SongFields on Song {
   id
-  streamUrl
   trackNumber
   diskNumber
   name
