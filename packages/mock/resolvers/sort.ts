@@ -1,28 +1,30 @@
-// @flow
-import type { Connection, UserStats } from '../models';
-import type { ConnectionArgs } from './connection';
-import { handleConnection } from './connection';
+import { Connection, UserStats } from '../models';
+import { ConnectionArgs, handleConnection } from './connection';
 
 type SortBy = 'RECENTLY_ADDED' | 'LEXICOGRAPHICALLY' | 'RECENTLY_PLAYED';
 
-type SortParams = {
-  sortBy?: SortBy,
-  reverse?: boolean,
-  filter?: string,
-};
+interface SortParams {
+  sortBy?: SortBy;
+  reverse?: boolean;
+  filter?: string;
+}
 
-type Sortable = {
-  name: string,
-  stats: UserStats,
-  timeAdded: number,
-};
+interface Sortable {
+  name: string;
+  stats: UserStats;
+  timeAdded: number;
+}
 
-type LinkedSortInfo<T> = {
-  sortable: Sortable,
-  original: T,
-};
+interface LinkedSortInfo<T> {
+  sortable: Sortable;
+  original: T;
+}
 
-const compare = (a: any, b: any): number => {
+interface Comparator<T> {
+  (a: T, b: T): number;
+}
+
+const compare = <T>(a: T, b: T): number => {
   if (a > b) {
     return 1;
   }
@@ -37,6 +39,12 @@ const compare = (a: any, b: any): number => {
 
   throw new TypeError(`Invariant a: ${a}, b: ${b}`);
 };
+
+const reverseCompare = <T>(a: T, b: T): number => reverse(a, b, compare);
+
+const reverse = <T>(a: T, b: T, inner: Comparator<T>): number => inner(b, a);
+
+const identity = <T>(a: T, b: T, inner: Comparator<T>): number => inner(a, b);
 
 // Returns how closely the record matches the query string.
 const searchDistance = (record: string, query: string): number => {
@@ -76,14 +84,6 @@ const searchDistance = (record: string, query: string): number => {
   return strength;
 };
 
-const reverseCompare = (a: any, b: any): number => reverse(a, b, compare);
-
-const reverse = <T, R>(a: T, b: T, inner: (a: T, b: T) => R): R => inner(b, a);
-
-const identity = <T, R>(a: T, b: T, inner: (a: T, b: T) => R): R => inner(a, b);
-
-type Comparator<T> = (T, T) => number;
-
 const sortWithReverse = <T>(
   reversed: boolean,
   inner: Comparator<T>
@@ -95,7 +95,7 @@ const sortWithReverse = <T>(
 };
 
 export type SortConnectionArgs = ConnectionArgs & {
-  sort?: SortParams,
+  sort?: SortParams;
 };
 
 export const listItemsResolver = <T>(
@@ -114,7 +114,7 @@ export const listItemsResolver = <T>(
 
   const { sortBy = 'LEXICOGRAPHICALLY', reverse = false, filter = '' } = sort;
 
-  let sorter: Comparator<Sortable> = (a: Sortable, b: Sortable): number => 0;
+  let sorter: Comparator<Sortable> = () => 0;
   let filterFunc = (item: Sortable) => searchDistance(item.name, filter) !== -1;
 
   switch (sortBy) {
@@ -141,7 +141,7 @@ export const listItemsResolver = <T>(
     sortable: process(item),
   }));
 
-  const filteredValues = mappedValues.filter(({ original: T, sortable }) =>
+  const filteredValues = mappedValues.filter(({ sortable }) =>
     filterFunc(sortable)
   );
 
@@ -159,7 +159,7 @@ export const listItemsResolver = <T>(
   return localHandleConnection(sortedValues.map(({ original }) => original));
 };
 
-export const itemsResolver = <T: Sortable>(map: Map<string, T>) => (
+export const itemsResolver = <T extends Sortable>(map: Map<string, T>) => (
   _: void,
   args: SortConnectionArgs
 ): Connection<T> => {

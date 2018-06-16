@@ -1,6 +1,5 @@
-// @flow
-import express from 'express';
-import bodyParser from 'body-parser';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
 import { buildClientSchema, printSchema } from 'graphql';

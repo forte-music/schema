@@ -1,4 +1,3 @@
-// @flow
 import queryResolvers from './query';
 import mutationResolvers from './mutation';
 

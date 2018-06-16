@@ -1,10 +1,9 @@
-// @flow
-import type { Connection } from '../models';
+import { Connection } from '../models';
 
-export type ConnectionArgs = {
-  after?: string,
-  first?: number,
-};
+export interface ConnectionArgs {
+  after?: string;
+  first?: number;
+}
 
 export const handleConnection = <InputType, NodeType>(
   keys: InputType[],

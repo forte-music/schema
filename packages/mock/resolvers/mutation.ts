@@ -1,17 +1,18 @@
-// @flow
-import type {
+import {
   Album,
   Artist,
   Song,
   SongUserStats,
   StatsCollection,
   UserStats,
+  albums,
+  artists,
+  songs,
 } from '../models';
 
-import { albums, artists, songs } from '../models';
 import { mustGet, now } from '../utils';
 
-const withSong = <T>(inner: Song => T) => (
+const withSong = <T>(inner: (song: Song) => T) => (
   _: void,
   { songId }: { songId: string }
 ): T => inner(mustGet(songs, songId));
@@ -34,9 +35,9 @@ const updateSongStats = (old: SongUserStats): SongUserStats => ({
 });
 
 export type PlaySongArgs = {
-  songId: string,
-  artistId?: string,
-  albumId?: string,
+  songId: string;
+  artistId?: string;
+  albumId?: string;
 };
 
 const playSong = (
@@ -74,8 +75,8 @@ const playSong = (
 
   return {
     song,
-    albumStats: album && album.stats,
-    artistStats: artist && artist.stats,
+    albumStats: (album && album.stats) || undefined,
+    artistStats: (artist && artist.stats) || undefined,
   };
 };
 

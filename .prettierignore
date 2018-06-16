@@ -3,6 +3,7 @@ packages/schema/package.json
 packages/schema/schema.json
 
 packages/mock/schema.json
+packages/mock/**/*.d.ts
 package.json
 
 lerna.json

@@ -5,8 +5,8 @@
     "prettier": "^1.10.2"
   },
   "scripts": {
-    "fix-style": "prettier --write '**/*.{js,json,graphql,md}'",
-    "check-style": "prettier --list-different '**/*.{js,json,graphql,md}'"
+    "fix-style": "prettier --write '**/*.{ts,js,json,graphql,md}'",
+    "check-style": "prettier --list-different '**/*.{ts,js,json,graphql,md}'"
   },
   "prettier": {
     "singleQuote": true,

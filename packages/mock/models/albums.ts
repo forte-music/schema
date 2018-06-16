@@ -1,6 +1,4 @@
-// @flow
-import { albums } from '@forte-music/schema/fixtures/albums';
-import type { AlbumSource } from '@forte-music/schema/fixtures/albums';
+import { albums, AlbumSource } from '@forte-music/schema/fixtures/albums';
 import {
   arrayPropertyDescriptor,
   makeMap,
@@ -8,31 +6,28 @@ import {
   uuidForNum,
 } from '../utils';
 import { songs, artists } from '.';
-import type { Song, Artist, UserStats } from '.';
+import { Song, Artist, UserStats } from '.';
 import { withUserStats } from './stats';
 
-export type Album = {|
-  id: string,
-  name: string,
-  artworkUrl?: string,
-  releaseYear: number,
-  timeAdded: number,
+export interface Album {
+  id: string;
+  name: string;
+  artworkUrl?: string;
+  releaseYear: number;
+  timeAdded: number;
 
-  artist: Artist,
-  songs: Song[],
-  stats: UserStats,
-  duration: number,
-|};
+  artist: Artist;
+  songs: Song[];
+  stats: UserStats;
+  duration: number;
+}
 
 const connectAlbum = (album: AlbumSource): Album => {
   const id = uuidForNum(album.id);
   const artistId = uuidForNum(album.artistId);
   const songIds = album.songIds.map(id => uuidForNum(id));
 
-  // Flow doesn't completely understand defineProperties.
-  // https://github.com/facebook/flow/issues/285
-  // $ExpectError
-  return (Object.defineProperties(
+  return Object.defineProperties(
     {
       id,
       name: album.name,
@@ -43,9 +38,9 @@ const connectAlbum = (album: AlbumSource): Album => {
     },
     {
       duration: {
-        get() {
-          return (this: Album).songs
-            .map(({ duration = 0 } = {}) => duration)
+        get(this: Album) {
+          return this.songs
+            .map(song => song.duration || 0)
             .reduce((a, b) => a + b, 0);
         },
       },
@@ -53,7 +48,7 @@ const connectAlbum = (album: AlbumSource): Album => {
       artist: propertyDescriptor(() => artists, artistId),
       songs: arrayPropertyDescriptor(() => songs, songIds),
     }
-  ): any);
+  );
 };
 
 const processedAlbums: Map<string, Album> = makeMap(albums.map(connectAlbum));

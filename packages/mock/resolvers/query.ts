@@ -1,5 +1,4 @@
-// @flow
-import { albums, artists, songs } from '../models';
+import { albums, artists, songs } from '../models/index';
 import { mustGet } from '../utils';
 import { itemsResolver } from './sort';
 
