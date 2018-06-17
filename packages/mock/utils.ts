@@ -1,9 +1,8 @@
-// @flow
 type Identifiable = {
-  id: string,
+  id: string;
 };
 
-export const mustGet = <K: string, V>(map: Map<K, V>, key: K): V => {
+export const mustGet = <K, V>(map: Map<K, V>, key: K): V => {
   const value = map.get(key);
 
   if (value === undefined) {
@@ -44,32 +43,20 @@ export const propertyDescriptorWithSet = <T>(
   },
 });
 
-export const makeMap = <T: Identifiable>(list: T[]): Map<string, T> =>
+export const makeMap = <T extends Identifiable>(list: T[]): Map<string, T> =>
   list.reduce((map, identifiable: T) => {
     addToMap(map, identifiable);
     return map;
   }, new Map());
 
-export const addToMap = <T: Identifiable>(map: Map<string, T>, item: T) => {
+export const addToMap = <T extends Identifiable>(
+  map: Map<string, T>,
+  item: T
+) => {
   map.set(item.id, item);
 };
 
 export const now = () => Math.floor(Date.now() / 1000);
-
-export const randomInt = (): number =>
-  Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
-
-const arrForNum = (num: number): number[] => {
-  let result = [];
-
-  while (num !== 0) {
-    let place = num % 256;
-    result = [place, ...result];
-    num = num >> 8;
-  }
-
-  return result;
-};
 
 export const uuidForNum = (num: number): string =>
   num

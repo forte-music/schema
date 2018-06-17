@@ -1,20 +1,20 @@
-// @flow
-import type {
+import {
   Album,
   Artist,
   Song,
   SongUserStats,
   StatsCollection,
   UserStats,
+  albums,
+  artists,
+  songs,
 } from '../models';
 
-import { albums, artists, songs } from '../models';
 import { mustGet, now } from '../utils';
+import { IFieldResolver, IResolverObject } from 'graphql-tools/dist/Interfaces';
 
-const withSong = <T>(inner: Song => T) => (
-  _: void,
-  { songId }: { songId: string }
-): T => inner(mustGet(songs, songId));
+const withSong = <T>(inner: (song: Song) => T) => (_: void, args: any): T =>
+  inner(mustGet(songs, (args as { songId: string }).songId));
 
 const transformStats = (transform: (old: SongUserStats) => SongUserStats) =>
   withSong((song: Song): Song => {
@@ -34,9 +34,9 @@ const updateSongStats = (old: SongUserStats): SongUserStats => ({
 });
 
 export type PlaySongArgs = {
-  songId: string,
-  artistId?: string,
-  albumId?: string,
+  songId: string;
+  artistId?: string;
+  albumId?: string;
 };
 
 const playSong = (
@@ -74,8 +74,8 @@ const playSong = (
 
   return {
     song,
-    albumStats: album && album.stats,
-    artistStats: artist && artist.stats,
+    albumStats: (album && album.stats) || undefined,
+    artistStats: (artist && artist.stats) || undefined,
   };
 };
 
@@ -85,9 +85,9 @@ const mutation = {
       id: old.id,
       playCount: old.playCount,
       liked: !old.liked,
-    })),
+    })) as IFieldResolver<void, any>,
     playSong,
-  },
+  } as IResolverObject,
 };
 
 export default mutation;
