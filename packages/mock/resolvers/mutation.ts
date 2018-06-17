@@ -11,11 +11,10 @@ import {
 } from '../models';
 
 import { mustGet, now } from '../utils';
+import { IFieldResolver, IResolverObject } from 'graphql-tools/dist/Interfaces';
 
-const withSong = <T>(inner: (song: Song) => T) => (
-  _: void,
-  { songId }: { songId: string }
-): T => inner(mustGet(songs, songId));
+const withSong = <T>(inner: (song: Song) => T) => (_: void, args: any): T =>
+  inner(mustGet(songs, (args as { songId: string }).songId));
 
 const transformStats = (transform: (old: SongUserStats) => SongUserStats) =>
   withSong((song: Song): Song => {
@@ -86,9 +85,9 @@ const mutation = {
       id: old.id,
       playCount: old.playCount,
       liked: !old.liked,
-    })),
+    })) as IFieldResolver<void, any>,
     playSong,
-  },
+  } as IResolverObject,
 };
 
 export default mutation;

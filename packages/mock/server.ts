@@ -1,15 +1,8 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import { makeExecutableSchema } from 'graphql-tools';
-import { buildClientSchema, printSchema } from 'graphql';
+import schema from './schema';
 
-import { data as rawSchema } from '@forte-music/schema';
-import resolvers from './resolvers';
-
-const typeDefs = printSchema(buildClientSchema(rawSchema));
-
-const schema = makeExecutableSchema({ typeDefs, resolvers });
 const app = express();
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
