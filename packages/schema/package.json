@@ -32,11 +32,11 @@
     "toml": "^2.3.3"
   },
   "dependencies": {
-    "@types/graphql": "^0.13.1",
+    "@types/graphql": "^0.13.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-preset-env": "^1.6.1",
-    "graphql": "^0.13.2",
+    "graphql": "^0.13.0",
     "graphql-request": "^1.6.0",
     "graphql-tag": "^2.9.2",
     "jest": "^22.1.4",
