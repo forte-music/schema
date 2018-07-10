@@ -5,7 +5,6 @@
   },
   "version": "0.0.36",
   "description": "The graphql schema for communication with forte.",
-  "main": "schema.json",
   "files": [
     "schema.graphql",
     "schema.json",
@@ -21,13 +20,13 @@
     "lint": "graphql lint",
     "build": "yarn generate-schema && yarn compile-fixtures",
     "compile-fixtures": "node build.js",
-    "generate-schema": "apollo-codegen introspect-schema schema.graphql --output schema.json"
+    "generate-schema": "apollo schema:download schema.json --endpoint schema.graphql"
   },
   "bin": {
     "forte-test-api": "./tests/cli.js"
   },
   "devDependencies": {
-    "apollo-codegen": "^0.20.0",
+    "apollo": "^1.4.0",
     "graphql-cli": "^2.16.3",
     "toml": "^2.3.3"
   },
