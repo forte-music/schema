@@ -203,6 +203,8 @@ input SortParams {
   filter: String = ""
 }
 
+union RecentItem = Album | Artist
+
 type Query {
   # Get an album by its globally unique id.
   album(id: ID!): Album!
@@ -221,6 +223,12 @@ type Query {
 
   # Get paginated, filtered, sorted songs.
   songs(first: Int = 25, after: String, sort: SortParams): SongConnection!
+
+  # Gets the most recently added albums and artists.
+  recentlyAdded(first: Int = 25): [RecentItem]
+
+  # Gets the most recently played albums and artists.
+  recentlyPlayed(first: Int = 25): [RecentItem]
 }
 
 type Mutation {

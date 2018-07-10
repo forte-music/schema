@@ -40,6 +40,10 @@ artworkUrl = 'https://upload.wikimedia.org/wikipedia/en/3/31/G-Eazy_-_The_Beauti
 releaseYear = 2017
 timeAdded = 1514655958
 
+[albums.stats]
+playCount = 10
+lastPlayed = 1531193083
+
 [[albums]]
 id = 5
 name = 'These Things Happen'
