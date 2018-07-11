@@ -24,7 +24,7 @@ interface Comparator<T> {
   (a: T, b: T): number;
 }
 
-const compare = <T>(a: T, b: T): number => {
+export const compare = <T>(a: T, b: T): number => {
   if (a > b) {
     return 1;
   }
@@ -40,7 +40,7 @@ const compare = <T>(a: T, b: T): number => {
   throw new TypeError(`Invariant a: ${a}, b: ${b}`);
 };
 
-const reverseCompare = <T>(a: T, b: T): number => reverse(a, b, compare);
+export const reverseCompare = <T>(a: T, b: T): number => reverse(a, b, compare);
 
 const reverse = <T>(a: T, b: T, inner: Comparator<T>): number => inner(b, a);
 
