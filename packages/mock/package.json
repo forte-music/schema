@@ -4,7 +4,7 @@
     "access": "public"
   },
   "description": "A mock resolver for testing forte.",
-  "version": "0.0.39",
+  "version": "0.0.38",
   "license": "MIT",
   "main": "resolvers/index.js",
   "dependencies": {
