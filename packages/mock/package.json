@@ -4,11 +4,11 @@
     "access": "public"
   },
   "description": "A mock resolver for testing forte.",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "license": "MIT",
   "main": "resolvers/index.js",
   "dependencies": {
-    "@forte-music/schema": "^0.0.40",
+    "@forte-music/schema": "^0.0.41",
     "graphql-tools": "^3.0.2"
   },
   "peerDependencies": {
