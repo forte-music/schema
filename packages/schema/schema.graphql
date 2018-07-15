@@ -225,10 +225,10 @@ type Query {
   songs(first: Int = 25, after: String, sort: SortParams): SongConnection!
 
   # Gets the most recently added albums and artists.
-  recentlyAdded(first: Int = 25): [RecentItem]
+  recentlyAdded(first: Int = 25): [RecentItem!]!
 
   # Gets the most recently played albums and artists.
-  recentlyPlayed(first: Int = 25): [RecentItem]
+  recentlyPlayed(first: Int = 25): [RecentItem!]!
 }
 
 type Mutation {
