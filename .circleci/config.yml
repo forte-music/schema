@@ -101,6 +101,10 @@ jobs:
       - save_cache: *save-cache
 
       - run:
+          name: Build
+          command: yarn lerna run build
+
+      - run:
           name: Build and Deploy Playground
           working_directory: ./packages/playground
           command: yarn deploy
