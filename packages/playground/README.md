@@ -1,3 +1,3 @@
 # playground
 
-A playground for the forte mock backend.
+A playground for the forte mock api.

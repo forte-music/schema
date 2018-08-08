@@ -1,5 +1,15 @@
 body {
+  height: 100%;
   margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  width: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+}
+
+.graphiql-container .editorWrap {
+  /* Fixes extra vertical scrollbar. */
+  overflow-y: hidden;
 }
