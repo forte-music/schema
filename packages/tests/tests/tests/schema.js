@@ -5,7 +5,7 @@ import {
   buildClientSchema,
 } from 'graphql/utilities';
 
-import schemaAST from '../../schema.graphql';
+import schemaAST from '@forte-music/schema/schema.graphql';
 import client from '../client';
 
 const realSchema = buildASTSchema(schemaAST);

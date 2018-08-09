@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A mock resolver for testing forte.",
+  "description": "A mock GraphQL resolver for testing forte.",
   "version": "0.0.41",
   "license": "MIT",
   "main": "resolvers/index.js",
@@ -25,6 +25,7 @@
   "scripts": {
     "prepack": "yarn build",
     "build": "tsc",
+    "lint": "tsc --noEmit",
     "mock-server": "node server.js"
   }
 }
