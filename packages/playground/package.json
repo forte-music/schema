@@ -7,12 +7,12 @@
     "@forte-music/mock": "^0.0.41",
     "apollo-link": "^1.2.2",
     "apollo-link-schema": "^1.1.0",
-    "gh-pages": "^1.2.0",
     "graphiql": "^0.11.11",
     "graphql": "^0.13.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "surge": "^0.20.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,6 +20,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "surge build/ forte-playground.surge.sh"
   }
 }
