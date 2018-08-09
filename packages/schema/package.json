@@ -4,13 +4,12 @@
     "access": "public"
   },
   "version": "0.0.41",
-  "description": "The graphql schema for communication with forte.",
+  "description": "The GraphQL schema for communication with forte.",
   "files": [
     "schema.graphql",
     "schema.json",
-    "index.d.ts",
-    "fixtures/",
-    "tests/"
+    "schema.json.d.ts",
+    "fixtures/"
   ],
   "repository": "git@github.com:forte-music/schema.git",
   "author": "Martin Charles <martincharles07@gmail.com>",
@@ -22,24 +21,13 @@
     "compile-fixtures": "node build.js",
     "generate-schema": "apollo schema:download schema.json --endpoint schema.graphql"
   },
-  "bin": {
-    "forte-test-api": "./tests/cli.js"
-  },
   "devDependencies": {
-    "apollo": "^1.4.0",
+    "apollo": "^1.6.0",
     "graphql-cli": "^2.16.3",
     "toml": "^2.3.3"
   },
   "dependencies": {
-    "@types/graphql": "^0.13.0",
-    "babel-core": "^6.26.0",
-    "babel-jest": "^22.1.0",
-    "babel-preset-env": "^1.6.1",
-    "graphql": "^0.13.0",
-    "graphql-request": "^1.6.0",
-    "graphql-tag": "^2.9.2",
-    "jest": "^22.1.4",
-    "jest-transform-graphql": "^2.1.0"
+    "@types/graphql": "^0.13.2"
   },
   "graphql-schema-linter": {
     "rules": [

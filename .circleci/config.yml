@@ -1,7 +1,7 @@
 aliases:
   - &restore-cache
     keys:
-      - dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/mock/yarn.lock" }}-{{ checksum "packages/schema/yarn.lock" }}-{{ checksum "packages/playground/yarn.lock" }}
+      - dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/playground/yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
       # fallback to using the latest cache if no exact match is found
       - dependencies-
 
@@ -11,7 +11,8 @@ aliases:
       - packages/mock/node_modules
       - packages/schema/node_modules
       - packages/playground/node_modules
-    key: dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/mock/yarn.lock" }}-{{ checksum "packages/schema/yarn.lock" }}-{{ checksum "packages/playground/yarn.lock" }}
+      - packages/tests/node_modules
+    key: dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/playground/yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
 
 version: 2
 jobs:
@@ -39,7 +40,7 @@ jobs:
 
       - run:
           name: Build
-          command: yarn lerna run build
+          command: yarn lerna run build --ignore playground
 
       - run:
           name: Lint
@@ -47,7 +48,7 @@ jobs:
 
       - run:
           name: Test
-          command: yarn lerna run test
+          command: yarn lerna run test --ignore playground
 
   integration:
     docker:
@@ -69,7 +70,7 @@ jobs:
 
       - run:
           name: Build
-          command: yarn lerna run build
+          command: yarn lerna run build --ignore playground
 
       - run:
           name: Mock Server
@@ -79,7 +80,7 @@ jobs:
 
       - run:
           name: Integration Tests
-          working_directory: ./packages/schema
+          working_directory: ./packages/tests
           command: node tests/cli.js http://localhost:4000/graphql
 
   deploy:
@@ -102,7 +103,7 @@ jobs:
 
       - run:
           name: Build
-          command: yarn lerna run build
+          command: yarn lerna run build --ignore playground
 
       - run:
           name: Build and Deploy Playground

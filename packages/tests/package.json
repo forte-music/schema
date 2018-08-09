@@ -1,0 +1,28 @@
+{
+  "name": "@forte-music/tests",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.41",
+  "description": "A suite of tests for the forte backend.",
+  "files": [
+    "tests/"
+  ],
+  "repository": "git@github.com:forte-music/schema.git",
+  "author": "Martin Charles <martincharles07@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "forte-test-api": "./tests/cli.js"
+  },
+  "dependencies": {
+    "@types/graphql": "^0.13.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.1.0",
+    "babel-preset-env": "^1.6.1",
+    "graphql": "^0.13.0",
+    "graphql-request": "^1.6.0",
+    "graphql-tag": "^2.9.2",
+    "jest": "^22.1.4",
+    "jest-transform-graphql": "^2.1.0"
+  }
+}
