@@ -102,6 +102,10 @@ jobs:
       - save_cache: *save-cache
 
       - run:
+          name: Remove GraphQL Dev-Dependency
+          command: rm -rf packages/mock/node_modules/graphql
+
+      - run:
           name: Build
           command: yarn lerna run build --ignore playground
 
