@@ -9,9 +9,10 @@ resolvers][tests].
 ## Remote Resources
 
 Some resources cannot be sent in the GraphQL response like audio and image data.
-This data is hosted by the server and an URL pointing the resource is provided
-by a GraphQL field, for example `Album.artworkUrl` and `Song.streamUrl`. These
-URLs are relative to the configured server url.
+This data is hosted by the server. Sometimes, a URL pointing the resource is
+provided by a GraphQL field, for example `Album.artworkUrl`. These URLs
+are relative to the configured server url. Other resources are accessible at
+pre-defined URLs.
 
 ## Authentication
 
@@ -58,8 +59,16 @@ Forte supports crawling audio contained in mp3, m4a and flac containers.
 
 ## Songs
 
-Songs (bytes representing the audio) are exposed through the `Song.streamUrl`
-field. The song can be retrived by making a HTTP GET request to the endpoint.
+Songs (bytes representing the audio) are exposed through the following
+endpoints:
+
+| Path                       |                                                           |
+| :------------------------- | :-------------------------------------------------------- |
+| `/files/music/{id}/raw`    | Original, un-transcoded song which was imported by forte. |
+| `/files/music/{id}/mp3/v0` | Transcoded to MP3 VBR V0 quality                          |
+| `/files/music/{id}/aac/v5` | Transcoded to AAC VBR V5 quality                          |
+
+The song can be retrived by making a HTTP GET request to the desired endpoint.
 
 ### Authentication
 

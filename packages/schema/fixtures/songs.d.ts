@@ -2,7 +2,6 @@ import { SongUserStats } from './stats';
 
 export interface SongSource {
   id: number;
-  streamUrl: string;
   name: string;
   duration: number;
   trackNumber?: number;
