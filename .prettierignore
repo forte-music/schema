@@ -4,6 +4,10 @@ packages/schema/schema.json
 
 packages/mock/schema.json
 packages/mock/**/*.d.ts
+packages/mock/**/*.js
+
+packages/playground/build
+
 package.json
 
 lerna.json
