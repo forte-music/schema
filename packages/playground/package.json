@@ -1,9 +1,9 @@
 {
   "name": "playground",
-  "version": "0.1.0",
+  "version": "0.0.42",
   "private": true,
   "dependencies": {
-    "@forte-music/mock": "^0.0.41",
+    "@forte-music/mock": "^0.0.42",
     "apollo-link": "^1.2.2",
     "apollo-link-schema": "^1.1.0",
     "graphiql": "^0.11.11",
