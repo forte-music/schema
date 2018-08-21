@@ -59,10 +59,6 @@ type Song {
   # A globally unique id referring to this song.
   id: ID!
 
-  # The url at which the song can be streamed from. See
-  # github.com/forte-music/schema for details about this field.
-  streamUrl: String!
-
   # The track number of this song. This may be one or zero indexed and is
   # provided by the file's metadata.
   trackNumber: Int!
@@ -88,7 +84,7 @@ type Song {
   # User stats specifically for a song.
   songStats: SongUserStats!
 
-  # The duration of the file (retrievable at streamUrl) in seconds.
+  # The duration of the file in seconds.
   duration: Int!
 
   # Time this was added.

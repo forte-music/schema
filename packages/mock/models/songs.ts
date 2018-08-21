@@ -13,7 +13,6 @@ import { statsId, withUserStats } from './stats';
 
 export interface Song {
   id: string;
-  streamUrl: string;
   name: string;
   duration: number;
   trackNumber: number;
@@ -26,7 +25,7 @@ export interface Song {
   songStats: SongUserStats;
 }
 
-const connectSong = (source: SongSource, defaultStreamUrl: string): Song => {
+const connectSong = (source: SongSource): Song => {
   const id = uuidForNum(source.id);
   const stats = { id, stats: source.stats };
   const artistIds = (source.artistIds || []).map(id => uuidForNum(id));
@@ -35,7 +34,6 @@ const connectSong = (source: SongSource, defaultStreamUrl: string): Song => {
   return Object.defineProperties(
     {
       id,
-      streamUrl: source.streamUrl || defaultStreamUrl,
       name: source.name,
       duration: source.duration,
 
@@ -68,7 +66,7 @@ const songStats = ({
 const songStatsId = (id: string): string => `${statsId(id)}:song`;
 
 const processedSongs: Map<string, Song> = makeMap(
-  songs.map(source => connectSong(source, '/music/track.mp3'))
+  songs.map(source => connectSong(source))
 );
 
 export default processedSongs;
