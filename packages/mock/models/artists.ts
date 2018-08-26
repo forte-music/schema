@@ -11,6 +11,7 @@ export interface Artist {
   timeAdded: number;
 
   albums: Album[];
+  collageArtwork: string[];
   stats: UserStats;
 }
 
@@ -25,7 +26,19 @@ const connectArtist = (artist: ArtistSource): Artist => {
       timeAdded: artist.timeAdded || 0,
       stats: withUserStats({ id, stats: artist.stats }),
     },
-    { albums: arrayPropertyDescriptor(() => albums, albumIds) }
+    {
+      albums: arrayPropertyDescriptor(() => albums, albumIds),
+      collageArtwork: {
+        get(this: Artist) {
+          const withArtwork = this.albums
+            .filter(album => album.artworkUrl)
+            .map(album => album.artworkUrl);
+          const topArtwork = withArtwork.slice(0, 4);
+
+          return topArtwork;
+        },
+      },
+    }
   );
 };
 
