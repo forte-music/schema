@@ -1,4 +1,6 @@
 fragment ArtistFields on Artist {
   id
   name
+
+  collageArtwork
 }

@@ -46,6 +46,9 @@ type Artist {
   # the album artist of. The albums are sorted by release date.
   albums: [Album!]!
 
+  # List of 0-4 album artwork URLs which make up the artist collage.
+  collageArtwork: [String!]!
+
   # Stats for artist playback.
   stats: UserStats!
 

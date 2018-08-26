@@ -3,6 +3,12 @@
 exports[`should get an album by id 1`] = `
 Object {
   "artist": Object {
+    "collageArtwork": Array [
+      "https://upload.wikimedia.org/wikipedia/en/3/31/G-Eazy_-_The_Beautiful_%26_Damned.png",
+      "https://upload.wikimedia.org/wikipedia/en/7/7a/G-Eazy_These_Things_Happen.jpg",
+      "https://upload.wikimedia.org/wikipedia/en/d/d7/G-Eazy_When_Its_Dark_Out.jpg",
+      "https://is5-ssl.mzstatic.com/image/thumb/Music71/v4/e6/c1/f8/e6c1f863-2269-2920-b5f0-74482fbbddd9/886446252223.jpg/1200x1200bb.jpg",
+    ],
     "id": "00000000000000000000000000000004",
     "name": "G-Eazy",
   },
