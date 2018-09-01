@@ -11,3 +11,5 @@ packages/playground/build
 package.json
 
 lerna.json
+
+LICENSE.md
