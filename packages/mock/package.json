@@ -6,7 +6,7 @@
   "description": "A mock GraphQL resolver for testing forte.",
   "version": "0.0.42",
   "license": "MIT",
-  "main": "resolvers/index.js",
+  "main": "src/index.js",
   "dependencies": {
     "@forte-music/schema": "^0.0.42",
     "graphql-tools": "^3.0.2"
@@ -26,6 +26,6 @@
     "prepack": "yarn build",
     "build": "tsc",
     "lint": "tsc --noEmit",
-    "mock-server": "node server.js"
+    "mock-server": "node bin/server.js"
   }
 }

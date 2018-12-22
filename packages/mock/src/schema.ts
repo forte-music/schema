@@ -7,4 +7,7 @@ const typeDefs = printSchema(buildClientSchema({ __schema: rawSchema }));
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
+/**
+ * An GraphQL schema which will resolve with mock data.
+ */
 export default schema;

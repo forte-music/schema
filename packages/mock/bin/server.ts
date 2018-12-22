@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import schema from './schema';
+import { schema } from '../src';
 
 const app = express();
 
