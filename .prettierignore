@@ -2,11 +2,11 @@ packages/schema/fixtures/*.json
 packages/schema/package.json
 packages/schema/schema.json
 
-packages/mock/schema.json
-packages/mock/**/*.d.ts
-packages/mock/**/*.js
+packages/mock/src/**/*.js
+packages/mock/src/**/*.d.ts
 
-packages/playground/build
+packages/mock/bin/**/*.js
+packages/mock/bin/**/*.d.ts
 
 package.json
 

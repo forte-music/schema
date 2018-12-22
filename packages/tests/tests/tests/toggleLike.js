@@ -7,7 +7,9 @@ import { uuidForNum } from '../utils';
 it('should toggle the liked status of a song', async () => {
   const variables = { songId: uuidForNum(1) };
 
-  const { song: { songStats: queryStats } } = await client.request(
+  const {
+    song: { songStats: queryStats },
+  } = await client.request(
     print(gql`
       query($songId: ID!) {
         song(id: $songId) {
@@ -23,7 +25,9 @@ it('should toggle the liked status of a song', async () => {
     variables
   );
 
-  const { toggleLike: { songStats: mutationStats } } = await client.request(
+  const {
+    toggleLike: { songStats: mutationStats },
+  } = await client.request(
     print(gql`
       mutation($songId: ID!) {
         toggleLike(songId: $songId) {

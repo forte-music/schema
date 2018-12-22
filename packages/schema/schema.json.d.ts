@@ -1,4 +1,4 @@
-import { IntrospectionSchema } from 'graphql';
+import { IntrospectionQuery } from 'graphql';
 
-declare var schema: IntrospectionSchema;
+declare var schema: IntrospectionQuery;
 export = schema;

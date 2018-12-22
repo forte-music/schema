@@ -17,10 +17,12 @@ const withSong = <T>(inner: (song: Song) => T) => (_: void, args: any): T =>
   inner(mustGet(songs, (args as { songId: string }).songId));
 
 const transformStats = (transform: (old: SongUserStats) => SongUserStats) =>
-  withSong((song: Song): Song => {
-    song.songStats = transform(song.songStats);
-    return song;
-  });
+  withSong(
+    (song: Song): Song => {
+      song.songStats = transform(song.songStats);
+      return song;
+    }
+  );
 
 const updateStats = (old: UserStats): UserStats => ({
   id: old.id,

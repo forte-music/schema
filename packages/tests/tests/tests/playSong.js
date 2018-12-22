@@ -75,7 +75,9 @@ it('should update song play count', async () => {
   } = await client.request(print(query), variables);
 
   const {
-    playSong: { song: { stats: mutationStats, songStats: songMutationStats } },
+    playSong: {
+      song: { stats: mutationStats, songStats: songMutationStats },
+    },
   } = await client.request(mutation, variables);
 
   expectPlayTimeUpdated(queryStats, mutationStats);
@@ -97,15 +99,13 @@ it('should update artist play time', async () => {
     ${UserStatsFields}
   `;
 
-  const { artist: { stats: queryStats } } = await client.request(
-    print(query),
-    localVariables
-  );
+  const {
+    artist: { stats: queryStats },
+  } = await client.request(print(query), localVariables);
 
-  const { playSong: { artistStats: mutationStats } } = await client.request(
-    mutation,
-    localVariables
-  );
+  const {
+    playSong: { artistStats: mutationStats },
+  } = await client.request(mutation, localVariables);
 
   expectPlayTimeUpdated(queryStats, mutationStats);
 });
@@ -128,15 +128,13 @@ it('should update album play time', async () => {
     ${UserStatsFields}
   `;
 
-  const { album: { stats: queryStats } } = await client.request(
-    print(query),
-    localVariables
-  );
+  const {
+    album: { stats: queryStats },
+  } = await client.request(print(query), localVariables);
 
-  const { playSong: { albumStats: mutationStats } } = await client.request(
-    mutation,
-    localVariables
-  );
+  const {
+    playSong: { albumStats: mutationStats },
+  } = await client.request(mutation, localVariables);
 
   expectPlayTimeUpdated(queryStats, mutationStats);
 });

@@ -1,7 +1,7 @@
 aliases:
   - &restore-cache
     keys:
-      - dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/playground/yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
+      - dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
       # fallback to using the latest cache if no exact match is found
       - dependencies-
 
@@ -10,15 +10,14 @@ aliases:
       - node_modules
       - packages/mock/node_modules
       - packages/schema/node_modules
-      - packages/playground/node_modules
       - packages/tests/node_modules
-    key: dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/playground/yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
+    key: dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
 
 version: 2
 jobs:
   test:
     docker:
-      - image: node:9.3.0
+      - image: node:11
 
     steps:
       - checkout
@@ -40,7 +39,7 @@ jobs:
 
       - run:
           name: Build
-          command: yarn lerna run build --ignore playground
+          command: yarn lerna run build
 
       - run:
           name: Lint
@@ -48,11 +47,11 @@ jobs:
 
       - run:
           name: Test
-          command: yarn lerna run test --ignore playground
+          command: yarn lerna run test
 
   integration:
     docker:
-      - image: node:9.3.0
+      - image: node:11
 
     steps:
       - checkout
@@ -70,7 +69,7 @@ jobs:
 
       - run:
           name: Build
-          command: yarn lerna run build --ignore playground
+          command: yarn lerna run build
 
       - run:
           name: Mock Server
@@ -83,47 +82,9 @@ jobs:
           working_directory: ./packages/tests
           command: node tests/cli.js http://localhost:4000/graphql
 
-  deploy:
-    docker:
-      - image: node:9.3.0
-
-    steps:
-      - checkout
-      - restore_cache: *restore-cache
-
-      - run:
-          name: Install Deps
-          command: yarn install
-
-      - run:
-          name: Link Lerna
-          command: yarn lerna bootstrap
-
-      - save_cache: *save-cache
-
-      - run:
-          name: Remove GraphQL Dev-Dependency
-          command: rm -rf packages/mock/node_modules/graphql
-
-      - run:
-          name: Build
-          command: yarn lerna run build --ignore playground
-
-      - run:
-          name: Build and Deploy Playground
-          working_directory: ./packages/playground
-          command: yarn deploy
-
 workflows:
   version: 2
   test:
     jobs:
       - test
       - integration
-      - deploy:
-          requires:
-            - test
-            - integration
-          filters:
-            branches:
-              only: master
