@@ -16,7 +16,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
-    "downlevelIteration": true,
-    "allowSyntheticDefaultImports": true
+    "downlevelIteration": true
   }
 }

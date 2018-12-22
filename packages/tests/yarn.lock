@@ -18,14 +18,7 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@forte-music/schema@^0.0.42":
-  version "0.0.42"
-  resolved "https://registry.yarnpkg.com/@forte-music/schema/-/schema-0.0.42.tgz#90b941fb9cdb7761ce724df31661516f2506b88f"
-  integrity sha512-3YNwyd+iOKl/P4k92Ny5g52sxXRVde74zbRsosECSQrXH6GbBEDVCjC1C5UJoYpOxO7vKdUaON2kZGSVvdY9nA==
-  dependencies:
-    "@types/graphql" "^0.13.2"
-
-"@types/graphql@^0.13.0", "@types/graphql@^0.13.2":
+"@types/graphql@^0.13.0":
   version "0.13.4"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.13.4.tgz#55ae9c29f0fd6b85ee536f5c72b4769d5c5e06b1"
   integrity sha512-B4yel4ro2nTb3v0pYO8vO6SjgvFJSrwUY+IO6TUSLdOSB+gQFslylrhRCHxvXMIhxB71mv5PEE9dAX+24S8sew==
