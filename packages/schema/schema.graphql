@@ -201,7 +201,15 @@ input SortParams {
 
 union RecentItem = Album | Artist
 
+type About {
+  # A string describing the version of the server.
+  version: String!
+}
+
 type Query {
+  # Information about the server.
+  about: About!
+
   # Get an album by its globally unique id.
   album(id: ID!): Album!
 
