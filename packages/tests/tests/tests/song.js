@@ -97,7 +97,9 @@ testSort('songs', async ({ sortBy, reverse }) => {
     ${UserStatsFields}
   `;
 
-  const { songs: { edges } } = await client.request(print(query), {
+  const {
+    songs: { edges },
+  } = await client.request(print(query), {
     sortBy,
     reverse,
   });

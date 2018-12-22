@@ -1,4 +1,4 @@
-import * as rawSchema from '@forte-music/schema/schema.json';
+import rawSchema from '@forte-music/schema/schema.json';
 import resolvers from './resolvers';
 import { makeExecutableSchema } from 'graphql-tools';
 import { buildClientSchema, printSchema } from 'graphql';
