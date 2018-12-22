@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.42",
+  "version": "0.0.43",
   "description": "A suite of tests for the forte backend.",
   "files": [
     "tests/"
@@ -18,7 +18,7 @@
     "@types/graphql": "^0.13.0"
   },
   "dependencies": {
-    "@forte-music/schema": "^0.0.42",
+    "@forte-music/schema": "^0.0.43",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-preset-env": "^1.6.1",
