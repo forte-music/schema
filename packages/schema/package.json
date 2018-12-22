@@ -19,15 +19,13 @@
     "lint": "graphql lint",
     "build": "yarn generate-schema && yarn compile-fixtures",
     "compile-fixtures": "node build.js",
-    "generate-schema": "apollo schema:download schema.json --endpoint schema.graphql"
+    "generate-schema": "apollo service:download"
   },
   "devDependencies": {
-    "apollo": "^1.6.0",
-    "graphql-cli": "^2.16.3",
+    "@types/graphql": "^14.0.3",
+    "apollo": "^2.1.8",
+    "graphql-cli": "^3.0.3",
     "toml": "^2.3.3"
-  },
-  "dependencies": {
-    "@types/graphql": "^0.13.2"
   },
   "graphql-schema-linter": {
     "rules": [
@@ -35,5 +33,13 @@
       "enum-values-all-caps",
       "types-are-capitalized"
     ]
+  },
+  "apollo": {
+    "client": {
+      "service": {
+        "name": "local",
+        "localSchemaFile": "./schema.graphql"
+      }
+    }
   }
 }

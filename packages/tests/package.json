@@ -14,15 +14,17 @@
   "bin": {
     "forte-test-api": "./tests/cli.js"
   },
+  "devDependencies": {
+    "@types/graphql": "^0.13.0"
+  },
   "dependencies": {
     "@forte-music/schema": "^0.0.42",
-    "@types/graphql": "^0.13.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-preset-env": "^1.6.1",
-    "graphql": "^0.13.0",
-    "graphql-request": "^1.6.0",
-    "graphql-tag": "^2.9.2",
+    "graphql": "^14.0.2",
+    "graphql-request": "^1.8.2",
+    "graphql-tag": "^2.10.0",
     "jest": "^22.1.4",
     "jest-transform-graphql": "^2.1.0"
   }
