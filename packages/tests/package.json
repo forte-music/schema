@@ -22,7 +22,7 @@
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-preset-env": "^1.6.1",
-    "graphql": "^14.0.0",
+    "graphql": "~14.2.1",
     "graphql-request": "^1.8.2",
     "graphql-tag": "^2.10.0",
     "jest": "^22.1.4",
