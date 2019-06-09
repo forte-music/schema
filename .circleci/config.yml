@@ -1,7 +1,7 @@
 aliases:
   - &restore-cache
     keys:
-      - dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
+      - dependencies-{{ checksum "yarn.lock" }}
       # fallback to using the latest cache if no exact match is found
       - dependencies-
 
@@ -11,7 +11,7 @@ aliases:
       - packages/mock/node_modules
       - packages/schema/node_modules
       - packages/tests/node_modules
-    key: dependencies-{{ checksum "yarn.lock" }}-{{ checksum "packages/tests/yarn.lock" }}
+    key: dependencies-{{ checksum "yarn.lock" }}
 
 version: 2
 jobs:
