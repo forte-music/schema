@@ -16,7 +16,6 @@
   "license": "MIT",
   "scripts": {
     "prepack": "yarn build",
-    "lint": "graphql lint",
     "build": "yarn generate-schema && yarn compile-fixtures",
     "compile-fixtures": "node build.js",
     "generate-schema": "apollo service:download"
@@ -24,15 +23,7 @@
   "devDependencies": {
     "@types/graphql": "^14.0.3",
     "apollo": "^2.1.8",
-    "graphql-cli": "^3.0.3",
     "toml": "^2.3.3"
-  },
-  "graphql-schema-linter": {
-    "rules": [
-      "defined-types-are-used",
-      "enum-values-all-caps",
-      "types-are-capitalized"
-    ]
   },
   "apollo": {
     "client": {

@@ -8,7 +8,7 @@ import {
 import schemaAST from '@forte-music/schema/schema.graphql';
 import client from '../client';
 
-const realSchema = buildASTSchema(schemaAST);
+const apiSchema = buildASTSchema(schemaAST);
 
 const getSchema = async client => {
   const data = await client.request(introspectionQuery);
@@ -17,24 +17,17 @@ const getSchema = async client => {
   return schema;
 };
 
-it('should implement the schema and nothing more', async () => {
+// Tests whether the schema exposed by the remote is compatible with the API
+// schema.
+it('should be compatible with the expected schema', async () => {
   const remoteSchema = await getSchema(client);
 
   const ignoreChangesPredicate = change =>
     ['DIRECTIVE_LOCATION_REMOVED', 'DIRECTIVE_REMOVED'].indexOf(change.type) ===
     -1;
 
-  const remoteBreakingChanges = findBreakingChanges(
-    remoteSchema,
-    realSchema
-  ).filter(ignoreChangesPredicate);
-
-  // Shows breaking changes when going from the remote schema to the real
-  // schema. These changes can be resolved by doing them.
-  expect(remoteBreakingChanges).toEqual([]);
-
   const schemaBreakingChanges = findBreakingChanges(
-    realSchema,
+    apiSchema,
     remoteSchema
   ).filter(ignoreChangesPredicate);
 
