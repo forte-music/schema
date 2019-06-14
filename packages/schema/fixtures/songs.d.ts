@@ -1,5 +1,3 @@
-import { SongUserStats } from './stats';
-
 export interface SongSource {
   id: number;
   name: string;
@@ -10,7 +8,10 @@ export interface SongSource {
 
   artistIds?: number[];
   albumId: number;
-  stats?: SongUserStats;
+
+  playCount?: number;
+  lastPlayed?: number;
+  liked?: boolean;
 }
 
 declare var songs: SongSource[];

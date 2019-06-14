@@ -6,8 +6,6 @@ songIds = [1]
 artworkUrl = 'https://i.scdn.co/image/d345ab2a8278434f1c8cc936ace70da02ac845fb'
 releaseYear = 2015
 timeAdded = 1517679959
-
-[albums.stats]
 playCount = 5
 lastPlayed = 1517680159
 
@@ -39,8 +37,6 @@ songIds = [
 artworkUrl = 'https://upload.wikimedia.org/wikipedia/en/3/31/G-Eazy_-_The_Beautiful_%26_Damned.png'
 releaseYear = 2017
 timeAdded = 1514655958
-
-[albums.stats]
 playCount = 10
 lastPlayed = 1531193083
 
