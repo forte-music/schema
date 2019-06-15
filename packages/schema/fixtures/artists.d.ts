@@ -3,6 +3,7 @@ export interface ArtistSource {
   name: string;
   timeAdded?: number;
   albumIds: number[];
+  lastPlayed?: number;
 }
 
 declare var artists: ArtistSource[];

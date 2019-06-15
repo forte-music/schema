@@ -1,4 +1,4 @@
-import { Connection } from '../models';
+import { Connection } from '../../models/index';
 
 export interface ConnectionArgs {
   after?: string;
