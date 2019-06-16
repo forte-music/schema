@@ -1,19 +1,11 @@
 import { Album, albums, Artist, artists, Song, songs } from '../../models';
 import { mustGet, now } from '../../utils';
 
-interface Trackable {
-  playCount: number;
-  lastPlayed?: number;
-}
-
-const updateTrackable = <T extends Trackable>(trackable: T) => {
-  trackable.playCount = trackable.playCount + 1;
-  trackable.lastPlayed = now();
-};
-
 export const trackPlaySong = (_: void, args: { songId: string }): Song => {
   const song = mustGet(songs, args.songId);
-  updateTrackable(song);
+  song.lastPlayed = now();
+  song.playCount += 1;
+
   return song;
 };
 
@@ -33,8 +25,10 @@ export const trackPlaySongFromAlbum = (
 ): AlbumSongStats => {
   const song = mustGet(songs, args.songId);
   const album = mustGet(albums, args.albumId);
-  updateTrackable(song);
-  updateTrackable(album);
+
+  song.lastPlayed = now();
+  song.playCount += 1;
+  album.lastPlayed = now();
 
   return { song, album };
 };
@@ -46,8 +40,9 @@ export const trackPlaySongFromArtist = (
   const song = mustGet(songs, args.songId);
   const artist = mustGet(artists, args.artistId);
 
-  updateTrackable(song);
-  updateTrackable(artist);
+  song.lastPlayed = now();
+  song.playCount += 1;
+  artist.lastPlayed = now();
 
   return { song, artist };
 };

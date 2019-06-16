@@ -1,6 +1,7 @@
 import { Album, albums, Artist, artists } from '.';
 import { songs, SongSource } from '@forte-music/schema/fixtures/songs';
-import { makeMap, mustGet, mustGetKeys, now, uuidForNum } from '../utils';
+import { makeMap, mustGet, mustGetKeys, uuidForNum } from '../utils';
+import { AlbumImpl } from './albums';
 
 export interface Song {
   id: string;
@@ -91,8 +92,6 @@ export class SongImpl implements Song {
   toggleLike() {
     this.liked = !this.liked;
   }
-
-  trackPlayed() {}
 }
 
 const processedSongs: Map<string, SongImpl> = makeMap(
