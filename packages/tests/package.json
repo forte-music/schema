@@ -15,7 +15,7 @@
     "forte-test-api": "./tests/cli.js"
   },
   "devDependencies": {
-    "@types/graphql": "^0.13.0"
+    "@types/graphql": "^14.2.1"
   },
   "dependencies": {
     "@forte-music/schema": "^0.0.43",
