@@ -1,4 +1,5 @@
 fragment ArtistFields on Artist {
   id
   name
+  lastPlayed
 }

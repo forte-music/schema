@@ -3,4 +3,5 @@ fragment AlbumFields on Album {
   name
   duration
   releaseYear
+  lastPlayed
 }

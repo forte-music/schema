@@ -14,6 +14,9 @@
   "bin": {
     "forte-test-api": "./tests/cli.js"
   },
+  "scripts": {
+    "test": "node tests/cli.js http://localhost:4000/graphql"
+  },
   "devDependencies": {
     "@types/graphql": "^0.13.0"
   },

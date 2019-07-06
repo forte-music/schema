@@ -6,33 +6,33 @@ Object {
     "album": Object {
       "duration": 211,
       "id": "00000000000000000000000000000002",
+      "lastPlayed": null,
       "name": "I'm That (Remix)",
       "releaseYear": 2015,
     },
     "artists": Array [
       Object {
         "id": "00000000000000000000000000000002",
+        "lastPlayed": null,
         "name": "R. City",
       },
       Object {
         "id": "00000000000000000000000000000015",
+        "lastPlayed": null,
         "name": "Beenie Man",
       },
       Object {
         "id": "00000000000000000000000000000016",
+        "lastPlayed": null,
         "name": "Azealia Banks",
       },
     ],
     "diskNumber": 1,
     "id": "00000000000000000000000000000002",
+    "lastPlayed": null,
+    "liked": false,
     "name": "I'm That (Remix)",
-    "songStats": Object {
-      "liked": false,
-      "playCount": 0,
-    },
-    "stats": Object {
-      "lastPlayed": null,
-    },
+    "playCount": 0,
     "trackNumber": 1,
   },
 }

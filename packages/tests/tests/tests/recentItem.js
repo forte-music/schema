@@ -30,15 +30,11 @@ it(`should get the top most recently played items from most recently played to l
     query {
       recentlyPlayed(first: 10) {
         ... on Album {
-          stats {
-            lastPlayed
-          }
+          lastPlayed
         }
 
         ... on Artist {
-          stats {
-            lastPlayed
-          }
+          lastPlayed
         }
       }
     }
@@ -47,8 +43,6 @@ it(`should get the top most recently played items from most recently played to l
   const { recentlyPlayed } = await client.request(print(query));
 
   expect(recentlyPlayed).toEqual(
-    recentlyPlayed
-      .slice()
-      .sort((a, b) => b.stats.lastPlayed - a.stats.lastPlayed)
+    recentlyPlayed.slice().sort((a, b) => b.lastPlayed - a.lastPlayed)
   );
 });

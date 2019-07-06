@@ -52,8 +52,6 @@ export const testSort = (testName, querySortable) => {
 
     t('LEXICOGRAPHICALLY', (a, b) => comparator(a.name, b.name));
 
-    t('RECENTLY_PLAYED', (a, b) =>
-      reverseSort(a.stats.lastPlayed, b.stats.lastPlayed)
-    );
+    t('RECENTLY_PLAYED', (a, b) => reverseSort(a.lastPlayed, b.lastPlayed));
   });
 };

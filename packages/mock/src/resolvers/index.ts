@@ -1,5 +1,5 @@
 import queryResolvers from './query/query';
-import mutationResolvers from './mutations';
+import mutationResolvers from './mutations/mutation';
 
 // Resolvers for mock backend.
 const resolvers = {
