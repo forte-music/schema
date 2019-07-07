@@ -3,7 +3,4 @@ fragment SongFields on Song {
   trackNumber
   diskNumber
   name
-  lastPlayed
-  playCount
-  liked
 }

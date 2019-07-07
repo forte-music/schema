@@ -5,8 +5,8 @@ import client from '../client';
 
 import { uuidForNum } from '../utils';
 
-// Checks whether the play count has increased by one and whether the
-// lastPlayed time has been updated.
+// Checks whether the play count has increased by one and whether the lastPlayed
+// time has been updated.
 const expectPlayCountUpdated = (oldPlayCount, newPlayCount) => {
   expect(newPlayCount).toBe(oldPlayCount + 1);
 };
@@ -91,12 +91,6 @@ it('should update artist play time', async () => {
   );
 
   expectPlayCountUpdated(fromQuery.song.playCount, fromMutation.song.playCount);
-  console.log(fromQuery.song.lastPlayed, fromQuery.song.lastPlayed);
-  expectPlayTimeUpdated(
-    fromQuery.song.lastPlayed,
-    fromMutation.song.lastPlayed
-  );
-  console.log(fromQuery.artist.lastPlayed, fromQuery.artist.lastPlayed);
   expectPlayTimeUpdated(
     fromQuery.artist.lastPlayed,
     fromMutation.artist.lastPlayed
@@ -106,7 +100,7 @@ it('should update artist play time', async () => {
 it('should update album play time', async () => {
   const localVariables = {
     songId: uuidForNum(1),
-    albumId: uuidForNum(3),
+    albumId: uuidForNum(1),
   };
 
   const query = gql`
@@ -145,10 +139,6 @@ it('should update album play time', async () => {
   );
 
   expectPlayCountUpdated(fromQuery.song.playCount, fromMutation.song.playCount);
-  expectPlayTimeUpdated(
-    fromQuery.song.lastPlayed,
-    fromMutation.song.lastPlayed
-  );
   expectPlayTimeUpdated(
     fromQuery.album.lastPlayed,
     fromMutation.album.lastPlayed

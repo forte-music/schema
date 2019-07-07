@@ -1,6 +1,6 @@
 import { artists, ArtistSource } from '@forte-music/schema/fixtures/artists';
 import { makeMap, mustGetKeys, uuidForNum } from '../utils';
-import { Album, albums } from '.';
+import { Album, albums, Song } from '.';
 
 export interface Artist {
   id: string;
@@ -49,9 +49,13 @@ export class ArtistImpl implements Artist {
   get albums(): Album[] {
     return mustGetKeys(albums, this.albumIds);
   }
+
+  get songs(): Song[] {
+    return this.albums.flatMap(album => album.songs);
+  }
 }
 
-const processedArtists: Map<string, Artist> = makeMap(
+const processedArtists: Map<string, ArtistImpl> = makeMap(
   artists.map(artist => ArtistImpl.fromArtistSource(artist))
 );
 

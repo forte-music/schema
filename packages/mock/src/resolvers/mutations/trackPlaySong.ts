@@ -26,6 +26,10 @@ export const trackPlaySongFromAlbum = (
   const song = mustGet(songs, args.songId);
   const album = mustGet(albums, args.albumId);
 
+  if (!album.songs.includes(song)) {
+    throw Error("song not found in album");
+  }
+
   song.lastPlayed = now();
   song.playCount += 1;
   album.lastPlayed = now();
@@ -39,6 +43,10 @@ export const trackPlaySongFromArtist = (
 ): ArtistSongStats => {
   const song = mustGet(songs, args.songId);
   const artist = mustGet(artists, args.artistId);
+
+  if (!artist.songs.includes(song)) {
+    throw Error("song not found in artist");
+  }
 
   song.lastPlayed = now();
   song.playCount += 1;
