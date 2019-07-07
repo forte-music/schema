@@ -21,10 +21,10 @@
     "@types/graphql": "^0.13.0"
   },
   "dependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
     "@forte-music/schema": "^0.0.43",
-    "babel-core": "^6.26.0",
-    "babel-jest": "^23.6.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-jest": "^24.8.0",
     "graphql": "^14.2.1",
     "graphql-request": "^1.8.2",
     "graphql-tag": "^2.10.0",
