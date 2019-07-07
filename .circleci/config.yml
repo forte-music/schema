@@ -80,7 +80,7 @@ jobs:
       - run:
           name: Integration Tests
           working_directory: ./packages/tests
-          command: node tests/cli.js http://localhost:4000/graphql
+          command: yarn integration-test
 
 workflows:
   version: 2
