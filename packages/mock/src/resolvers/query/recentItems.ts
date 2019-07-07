@@ -1,4 +1,4 @@
-import { Album, albums, Artist, artists } from '../models';
+import { Album, albums, Artist, artists } from '../../models';
 import { reverseCompare } from './sort';
 
 interface RecentItemQueryArgs {
@@ -55,9 +55,9 @@ export const recentlyPlayed = (
   { first }: RecentItemQueryArgs
 ): RecentItem[] =>
   getMostRecent(
-    getAnnotatedItems().filter(item => !!item.stats.lastPlayed),
+    getAnnotatedItems().filter(item => !!item.lastPlayed),
     first,
-    item => item.stats.lastPlayed as number
+    item => item.lastPlayed as number
   );
 
 export const RecentItem = {

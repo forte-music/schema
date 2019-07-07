@@ -1,4 +1,4 @@
-import { Connection, UserStats } from '../models';
+import { Connection } from '../../models';
 import { ConnectionArgs, handleConnection } from './connection';
 
 type SortBy = 'RECENTLY_ADDED' | 'LEXICOGRAPHICALLY' | 'RECENTLY_PLAYED';
@@ -11,7 +11,7 @@ interface SortParams {
 
 interface Sortable {
   name: string;
-  stats: UserStats;
+  lastPlayed?: number;
   timeAdded: number;
 }
 
@@ -129,7 +129,7 @@ export const listItemsResolver = <T>(
 
     case 'RECENTLY_PLAYED':
       sorter = (a: Sortable, b: Sortable) =>
-        reverseCompare(a.stats.lastPlayed || 0, b.stats.lastPlayed || 0);
+        reverseCompare(a.lastPlayed || 0, b.lastPlayed || 0);
       break;
 
     default:

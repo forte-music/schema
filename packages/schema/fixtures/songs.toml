@@ -4,7 +4,6 @@ name = 'Stole the Show'
 albumId = 1
 artistIds = [1]
 duration = 223
-[songs.stats]
 playCount = 3
 lastPlayed = 1515279968
 liked = true
@@ -86,8 +85,6 @@ albumId = 4
 artistIds = [4]
 trackNumber = 8
 duration = 250
-
-[songs.stats]
 playCount = 10
 lastPlayed = 1515700580
 liked = true

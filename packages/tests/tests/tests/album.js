@@ -6,7 +6,6 @@ import { testSort } from '../sort';
 import AlbumFields from './fragments/AlbumFields.graphql';
 import ArtistFields from './fragments/ArtistFields.graphql';
 import SongFields from './fragments/SongFields.graphql';
-import UserStatsFields from './fragments/UserStatsFields.graphql';
 
 import client from '../client';
 import { uuidForNum } from '../utils';
@@ -94,15 +93,11 @@ testSort('albums', async ({ sortBy, reverse }) => {
             id
             name
             timeAdded
-            stats {
-              ...UserStatsFields
-            }
+            lastPlayed
           }
         }
       }
     }
-
-    ${UserStatsFields}
   `;
 
   const {

@@ -4,8 +4,6 @@ import { print } from 'graphql/language/printer';
 import { testConnection } from '../connection';
 import { testSort } from '../sort';
 
-import UserStatsFields from './fragments/UserStatsFields.graphql';
-
 import client from '../client';
 
 testConnection('artists', async ({ first, after }) => {
@@ -45,15 +43,11 @@ testSort('artists', async ({ sortBy, reverse }) => {
             id
             name
             timeAdded
-            stats {
-              ...UserStatsFields
-            }
+            lastPlayed
           }
         }
       }
     }
-
-    ${UserStatsFields}
   `;
 
   const {

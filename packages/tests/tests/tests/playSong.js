@@ -3,147 +3,144 @@ import { print } from 'graphql/language/printer';
 
 import client from '../client';
 
-import UserStatsFields from './fragments/UserStatsFields.graphql';
-import SongUserStatsField from './fragments/SongUserStatsFields.graphql';
 import { uuidForNum } from '../utils';
 
-const variables = { songId: uuidForNum(1) };
-
-const mutation = print(gql`
-  mutation($songId: ID!, $artistId: ID, $albumId: ID) {
-    playSong(songId: $songId, artistId: $artistId, albumId: $albumId) {
-      song {
-        songStats {
-          id
-          ...SongUserStatsFields
-        }
-
-        stats {
-          ...UserStatsFields
-        }
-      }
-
-      albumStats {
-        ...UserStatsFields
-      }
-
-      artistStats {
-        ...UserStatsFields
-      }
-    }
-  }
-
-  ${UserStatsFields}
-  ${SongUserStatsField}
-`);
-
-// Checks whether the play count has increased by one and whether the
-// lastPlayed time has been updated.
-const expectPlayCountUpdated = (songQueryStats, songMutationStats) => {
-  expect(songMutationStats).toMatchObject({
-    id: songQueryStats.id,
-    playCount: songQueryStats.playCount + 1,
-  });
+// Checks whether the play count has increased by one and whether the lastPlayed
+// time has been updated.
+const expectPlayCountUpdated = (oldPlayCount, newPlayCount) => {
+  expect(newPlayCount).toBe(oldPlayCount + 1);
 };
 
-const expectPlayTimeUpdated = (queryStats, mutationStats) => {
-  expect(mutationStats.lastPlayed).toBeGreaterThan(queryStats.lastPlayed || 0);
+const expectPlayTimeUpdated = (oldPlayTime, newPlayTime) => {
+  expect(newPlayTime).toBeGreaterThan(oldPlayTime || 0);
 };
 
 it('should update song play count', async () => {
   const query = gql`
     query($songId: ID!) {
       song(id: $songId) {
-        stats {
-          id
-          ...UserStatsFields
-        }
-
-        songStats {
-          id
-          ...SongUserStatsFields
-        }
+        lastPlayed
+        playCount
       }
     }
-
-    ${UserStatsFields}
-    ${SongUserStatsField}
   `;
 
-  const {
-    song: { stats: queryStats, songStats: songQueryStats },
-  } = await client.request(print(query), variables);
+  const mutation = gql`
+    mutation($songId: ID!) {
+      trackPlaySong(songId: $songId) {
+        playCount
+        lastPlayed
+      }
+    }
+  `;
 
-  const {
-    playSong: {
-      song: { stats: mutationStats, songStats: songMutationStats },
-    },
-  } = await client.request(mutation, variables);
+  const { song: querySong } = await client.request(print(query), {
+    songId: uuidForNum(1),
+  });
 
-  expectPlayTimeUpdated(queryStats, mutationStats);
-  expectPlayCountUpdated(songQueryStats, songMutationStats);
+  const { trackPlaySong: mutationSong } = await client.request(
+    print(mutation),
+    {
+      songId: uuidForNum(1),
+    }
+  );
+
+  expectPlayTimeUpdated(querySong.lastPlayed, mutationSong.lastPlayed);
+  expectPlayCountUpdated(querySong.playCount, mutationSong.playCount);
 });
 
 it('should update artist play time', async () => {
-  const localVariables = { ...variables, artistId: uuidForNum(1) };
+  const localVariables = {
+    songId: uuidForNum(1),
+    artistId: uuidForNum(1),
+  };
 
   const query = gql`
-    query($artistId: ID!) {
+    query($songId: ID!, $artistId: ID!) {
+      song(id: $songId) {
+        playCount
+        lastPlayed
+      }
+
       artist(id: $artistId) {
-        stats {
-          ...UserStatsFields
+        lastPlayed
+      }
+    }
+  `;
+
+  const mutation = gql`
+    mutation($songId: ID!, $artistId: ID!) {
+      trackPlaySongFromArtist(songId: $songId, artistId: $artistId) {
+        song {
+          playCount
+          lastPlayed
+        }
+
+        artist {
+          lastPlayed
         }
       }
     }
-
-    ${UserStatsFields}
   `;
 
-  const {
-    artist: { stats: queryStats },
-  } = await client.request(print(query), localVariables);
+  const fromQuery = await client.request(print(query), localVariables);
 
-  const {
-    playSong: { artistStats: mutationStats },
-  } = await client.request(mutation, localVariables);
+  const { trackPlaySongFromArtist: fromMutation } = await client.request(
+    print(mutation),
+    localVariables
+  );
 
-  expectPlayTimeUpdated(queryStats, mutationStats);
+  expectPlayCountUpdated(fromQuery.song.playCount, fromMutation.song.playCount);
+  expectPlayTimeUpdated(
+    fromQuery.artist.lastPlayed,
+    fromMutation.artist.lastPlayed
+  );
 });
 
 it('should update album play time', async () => {
   const localVariables = {
-    ...variables,
-    albumId: uuidForNum(3),
+    songId: uuidForNum(1),
+    albumId: uuidForNum(1),
   };
 
   const query = gql`
-    query($albumId: ID!) {
+    query($songId: ID!, $albumId: ID!) {
+      song(id: $songId) {
+        playCount
+        lastPlayed
+      }
+
       album(id: $albumId) {
-        stats {
-          ...UserStatsFields
+        lastPlayed
+      }
+    }
+  `;
+
+  const mutation = gql`
+    mutation($songId: ID!, $albumId: ID!) {
+      trackPlaySongFromAlbum(songId: $songId, albumId: $albumId) {
+        song {
+          playCount
+          lastPlayed
+        }
+
+        album {
+          lastPlayed
         }
       }
     }
-
-    ${UserStatsFields}
   `;
 
-  const {
-    album: { stats: queryStats },
-  } = await client.request(print(query), localVariables);
+  const fromQuery = await client.request(print(query), localVariables);
 
-  const {
-    playSong: { albumStats: mutationStats },
-  } = await client.request(mutation, localVariables);
+  const { trackPlaySongFromAlbum: fromMutation } = await client.request(
+    print(mutation),
+    localVariables
+  );
 
-  expectPlayTimeUpdated(queryStats, mutationStats);
+  expectPlayCountUpdated(fromQuery.song.playCount, fromMutation.song.playCount);
+  expectPlayTimeUpdated(
+    fromQuery.album.lastPlayed,
+    fromMutation.album.lastPlayed
+  );
 });
-
-it('should fail when called with artist and album descriptors', async () =>
-  expect(
-    client.request(mutation, {
-      ...variables,
-      artistId: uuidForNum(1),
-      albumId: uuidForNum(1),
-    })
-  ).rejects.toThrow());

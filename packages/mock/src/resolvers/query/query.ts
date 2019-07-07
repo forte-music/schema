@@ -1,5 +1,5 @@
-import { albums, artists, songs } from '../models';
-import { mustGet } from '../utils';
+import { albums, artists, songs } from '../../models';
+import { mustGet } from '../../utils';
 import { itemsResolver } from './sort';
 import { IResolverObject } from 'graphql-tools/dist/Interfaces';
 import { RecentItem, recentlyAdded, recentlyPlayed } from './recentItems';

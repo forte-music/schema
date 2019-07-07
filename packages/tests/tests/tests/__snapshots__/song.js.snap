@@ -26,13 +26,6 @@ Object {
     "diskNumber": 1,
     "id": "00000000000000000000000000000002",
     "name": "I'm That (Remix)",
-    "songStats": Object {
-      "liked": false,
-      "playCount": 0,
-    },
-    "stats": Object {
-      "lastPlayed": null,
-    },
     "trackNumber": 1,
   },
 }

@@ -5,7 +5,6 @@ export { default as songs } from './songs';
 export { Album } from './albums';
 export { Artist } from './artists';
 export { Song } from './songs';
-export { SongUserStats, UserStats, StatsCollection } from './stats';
 
 export interface Edge<T> {
   cursor: string;

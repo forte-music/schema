@@ -1,5 +1,3 @@
-import { UserStats } from './stats';
-
 export interface AlbumSource {
   id: number;
   name: string;
@@ -8,7 +6,8 @@ export interface AlbumSource {
   songIds: number[];
   releaseYear: number;
   timeAdded?: number;
-  stats?: UserStats;
+  playCount?: number;
+  lastPlayed?: number;
 }
 
 declare var albums: AlbumSource[];

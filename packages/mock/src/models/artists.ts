@@ -1,9 +1,6 @@
-import { artists } from '@forte-music/schema/fixtures/artists';
-import { ArtistSource } from '@forte-music/schema/fixtures/artists';
-import { arrayPropertyDescriptor, makeMap, uuidForNum } from '../utils';
-import { albums } from '.';
-import { Album, UserStats } from '.';
-import { withUserStats } from './stats';
+import { artists, ArtistSource } from '@forte-music/schema/fixtures/artists';
+import { makeMap, mustGetKeys, uuidForNum } from '../utils';
+import { Album, albums, Song } from '.';
 
 export interface Artist {
   id: string;
@@ -11,26 +8,55 @@ export interface Artist {
   timeAdded: number;
 
   albums: Album[];
-  stats: UserStats;
+  lastPlayed?: number;
 }
 
-const connectArtist = (artist: ArtistSource): Artist => {
-  const id = uuidForNum(artist.id);
-  const albumIds = artist.albumIds.map(id => uuidForNum(id));
+export class ArtistImpl implements Artist {
+  readonly id: string;
+  private readonly albumIds: string[];
 
-  return Object.defineProperties(
-    {
-      id,
-      name: artist.name,
+  readonly name: string;
+  readonly timeAdded: number;
+
+  lastPlayed?: number;
+
+  constructor(args: {
+    id: string;
+    albumIds: string[];
+    name: string;
+    timeAdded: number;
+    lastPlayed?: number;
+  }) {
+    this.id = args.id;
+    this.albumIds = args.albumIds;
+    this.name = args.name;
+    this.timeAdded = args.timeAdded;
+    this.lastPlayed = args.lastPlayed;
+  }
+
+  static fromArtistSource(artist: ArtistSource): ArtistImpl {
+    return new ArtistImpl({
+      ...artist,
+
+      id: uuidForNum(artist.id),
+      albumIds: artist.albumIds.map(id => uuidForNum(id)),
+
       timeAdded: artist.timeAdded || 0,
-      stats: withUserStats({ id, stats: artist.stats }),
-    },
-    { albums: arrayPropertyDescriptor(() => albums, albumIds) }
-  );
-};
+      lastPlayed: artist.lastPlayed,
+    });
+  }
 
-const processedArtists: Map<string, Artist> = makeMap(
-  artists.map(connectArtist)
+  get albums(): Album[] {
+    return mustGetKeys(albums, this.albumIds);
+  }
+
+  get songs(): Song[] {
+    return this.albums.flatMap(album => album.songs);
+  }
+}
+
+const processedArtists: Map<string, ArtistImpl> = makeMap(
+  artists.map(artist => ArtistImpl.fromArtistSource(artist))
 );
 
 export default processedArtists;

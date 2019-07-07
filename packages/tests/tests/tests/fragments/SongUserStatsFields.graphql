@@ -1,4 +1,0 @@
-fragment SongUserStatsFields on SongUserStats {
-  playCount
-  liked
-}

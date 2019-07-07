@@ -1,13 +1,7 @@
 import { albums, AlbumSource } from '@forte-music/schema/fixtures/albums';
-import {
-  arrayPropertyDescriptor,
-  makeMap,
-  propertyDescriptor,
-  uuidForNum,
-} from '../utils';
+import { makeMap, mustGet, mustGetKeys, uuidForNum } from '../utils';
 import { songs, artists } from '.';
-import { Song, Artist, UserStats } from '.';
-import { withUserStats } from './stats';
+import { Song, Artist } from '.';
 
 export interface Album {
   id: string;
@@ -18,38 +12,72 @@ export interface Album {
 
   artist: Artist;
   songs: Song[];
-  stats: UserStats;
   duration: number;
+
+  lastPlayed?: number;
 }
 
-const connectAlbum = (album: AlbumSource): Album => {
-  const id = uuidForNum(album.id);
-  const artistId = uuidForNum(album.artistId);
-  const songIds = album.songIds.map(id => uuidForNum(id));
+export class AlbumImpl implements Album {
+  readonly id: string;
+  private readonly artistId: string;
+  private readonly songIds: string[];
 
-  return Object.defineProperties(
-    {
-      id,
-      name: album.name,
-      artworkUrl: album.artworkUrl,
-      releaseYear: album.releaseYear,
+  readonly name: string;
+  readonly artworkUrl?: string;
+  readonly releaseYear: number;
+  readonly timeAdded: number;
+
+  lastPlayed?: number;
+
+  constructor(args: {
+    id: string;
+    artistId: string;
+    songIds: string[];
+    name: string;
+    artworkUrl?: string;
+    releaseYear: number;
+    timeAdded: number;
+    lastPlayed?: number;
+  }) {
+    this.id = args.id;
+    this.name = args.name;
+    this.artistId = args.artistId;
+    this.songIds = args.songIds;
+    this.artworkUrl = args.artworkUrl;
+    this.releaseYear = args.releaseYear;
+    this.timeAdded = args.timeAdded;
+    this.lastPlayed = args.lastPlayed;
+  }
+
+  static fromAlbumSource(album: AlbumSource): AlbumImpl {
+    return new AlbumImpl({
+      ...album,
+
+      id: uuidForNum(album.id),
+      artistId: uuidForNum(album.artistId),
+      songIds: album.songIds.map(id => uuidForNum(id)),
       timeAdded: album.timeAdded || 0,
-      stats: withUserStats({ id, stats: album.stats }),
-    },
-    {
-      duration: {
-        get(this: Album) {
-          return this.songs
-            .map(song => song.duration || 0)
-            .reduce((a, b) => a + b, 0);
-        },
-      },
 
-      artist: propertyDescriptor(() => artists, artistId),
-      songs: arrayPropertyDescriptor(() => songs, songIds),
-    }
-  );
-};
+      lastPlayed: album.lastPlayed,
+    });
+  }
 
-const processedAlbums: Map<string, Album> = makeMap(albums.map(connectAlbum));
+  get artist(): Artist {
+    return mustGet(artists, this.artistId);
+  }
+
+  get songs(): Song[] {
+    return mustGetKeys(songs, this.songIds);
+  }
+
+  get duration(): number {
+    return this.songs
+      .map(song => song.duration || 0)
+      .reduce((a, b) => a + b, 0);
+  }
+}
+
+const processedAlbums: Map<string, AlbumImpl> = makeMap(
+  albums.map(album => AlbumImpl.fromAlbumSource(album))
+);
 export default processedAlbums;

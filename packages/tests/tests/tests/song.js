@@ -6,8 +6,6 @@ import { testSort } from '../sort';
 import SongFields from './fragments/SongFields.graphql';
 import AlbumFields from './fragments/AlbumFields.graphql';
 import ArtistFields from './fragments/ArtistFields.graphql';
-import UserStatsFields from './fragments/UserStatsFields.graphql';
-import SongUserStatsFields from './fragments/SongUserStatsFields.graphql';
 
 import client from '../client';
 import { uuidForNum } from '../utils';
@@ -26,22 +24,12 @@ it('should get a song by id', async () => {
         artists {
           ...ArtistFields
         }
-
-        stats {
-          ...UserStatsFields
-        }
-
-        songStats {
-          ...SongUserStatsFields
-        }
       }
     }
 
     ${SongFields}
     ${AlbumFields}
     ${ArtistFields}
-    ${UserStatsFields}
-    ${SongUserStatsFields}
   `;
 
   const data = await client.request(print(query), variables);
@@ -86,15 +74,11 @@ testSort('songs', async ({ sortBy, reverse }) => {
             id
             name
             timeAdded
-            stats {
-              ...UserStatsFields
-            }
+            lastPlayed
           }
         }
       }
     }
-
-    ${UserStatsFields}
   `;
 
   const {

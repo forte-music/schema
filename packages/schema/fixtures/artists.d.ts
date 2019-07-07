@@ -1,11 +1,9 @@
-import { UserStats } from './stats';
-
 export interface ArtistSource {
   id: number;
   name: string;
   timeAdded?: number;
   albumIds: number[];
-  stats?: UserStats;
+  lastPlayed?: number;
 }
 
 declare var artists: ArtistSource[];
