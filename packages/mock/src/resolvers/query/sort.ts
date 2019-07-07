@@ -1,4 +1,4 @@
-import { Connection } from '../../models/index';
+import { Connection } from '../../models';
 import { ConnectionArgs, handleConnection } from './connection';
 
 type SortBy = 'RECENTLY_ADDED' | 'LEXICOGRAPHICALLY' | 'RECENTLY_PLAYED';

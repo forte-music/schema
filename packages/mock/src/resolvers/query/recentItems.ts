@@ -1,4 +1,4 @@
-import { Album, albums, Artist, artists } from '../../models/index';
+import { Album, albums, Artist, artists } from '../../models';
 import { reverseCompare } from './sort';
 
 interface RecentItemQueryArgs {

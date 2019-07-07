@@ -1,4 +1,4 @@
-import { albums, artists, songs } from '../../models/index';
+import { albums, artists, songs } from '../../models';
 import { mustGet } from '../../utils';
 import { itemsResolver } from './sort';
 import { IResolverObject } from 'graphql-tools/dist/Interfaces';
