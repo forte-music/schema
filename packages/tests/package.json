@@ -18,7 +18,7 @@
     "integration-test": "node tests/cli.js http://localhost:4000/graphql"
   },
   "devDependencies": {
-    "@types/graphql": "^0.13.0"
+    "@types/graphql": "^14.2.2"
   },
   "dependencies": {
     "@babel/core": "^7.5.0",
